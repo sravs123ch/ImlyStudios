@@ -19,7 +19,9 @@ module.exports = {
         'custom-red': '#F24F4B',
         'custom-heading':"#667649",
         'custom-blue':"#0021A6",
-        'custom-brown':"#632E0F"
+        'custom-brown':"#632E0F",
+        'custom-darkblue':"#00246B",
+        'custom-lightblue':"#CADCFC",
       },
     },
   },

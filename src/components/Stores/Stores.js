@@ -39,7 +39,7 @@ export default function Stores() {
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
           <button
         type="button"
-        className="inline-flex items-center gap-x-1.5 rounded-md bg-custom-brown px-3 py-2  text-sm font-semibold text-white shadow-sm hover:bg-custom-brown focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        className="inline-flex items-center gap-x-1.5 rounded-md bg-custom-darkblue px-3 py-2  text-sm font-semibold text-white shadow-sm hover:bg-custom-lightblue hover:text-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         onClick={handleExportUsersData}
       >
         <FaTable aria-hidden="true" className="-ml-0.5 h-4 w-4" />

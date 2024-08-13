@@ -109,8 +109,8 @@ export default function Navigation() {
                               onClick={() => setSidebarOpen(false)} // Close sidebar on click
                               className={classNames(
                                 location.pathname === item.href
-                                  ? 'bg-indigo-700 text-white'
-                                  : 'text-gray-900 hover:bg-indigo-700 hover:text-white',
+                                  ? 'bg-custom-darkblue text-white'
+                                  : 'text-gray-900 hover:bg-custom-lightblue hover:text-white',
                                 'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6'
                               )}
                             >
@@ -168,8 +168,8 @@ export default function Navigation() {
                           onClick={() => setSidebarOpen(false)} // Close sidebar on click
                           className={classNames(
                             location.pathname === item.href
-                              ? 'bg-custom-brown  text-white'
-                              : ' text-white-900 hover:bg-custom-brown hover:text-white',
+                              ? 'bg-custom-darkblue  text-white'
+                              : ' text-white-900 hover:bg-custom-lightblue hover:text-gray-700',
                             'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6'
                           )}
                         >
@@ -178,7 +178,7 @@ export default function Navigation() {
                             className={classNames(
                               location.pathname === item.href
                                 ? ' text-white'
-                                : 'text-indigo-200 group-hover:text-white',
+                                : 'text-indigo-200 group-hover:text-gray-700',
                               'h-6 w-6 shrink-0'
                             )}
                           />
@@ -191,11 +191,11 @@ export default function Navigation() {
                 <li className="mt-auto">
                   <button
                     onClick={handleSettingsClick}
-                    className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-900 hover:bg-custom-red hover:text-white"
+                    className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-900 hover:bg-custom-lightblue hover:text-gray-700"
                   >
                     <Cog6ToothIcon
                       aria-hidden="true"
-                      className="h-6 w-6 shrink-0  text-gray-700 group-hover:text-white"
+                      className="h-6 w-6 shrink-0  text-gray-700 group-hover:text-gray-700"
                     />
                     Settings
                   </button>

@@ -926,7 +926,7 @@ function AddOrders() {
         <div className="mt-8">
           <button
             onClick={handleSubmit}
-            className="bg-custom-brown text-white font-semibold py-2 px-4 rounded-md shadow hover:bg-custom-brown-700"
+            className="bg-custom-darkblue text-white font-semibold py-2 px-4 rounded-md shadow hover:bg-custom-lightblue"
           >
             Create Order
           </button>

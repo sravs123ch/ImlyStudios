@@ -64,8 +64,8 @@ const FilterBar = ({ selectedFilter, onFilterChange }) => {
       <button
         className={`inline-flex items-center gap-x-1.5 px-4 py-2 text-sm font-semibold rounded-md ${
           selectedFilter === 'All'
-            ? 'bg-yellow-950 text-white'
-            : 'bg-white text-gray-700'
+            ? 'bg-custom-darkblue text-white hover:bg-custom-lightblue hover:text-gray-700'
+            : 'bg-white text-gray-700 hover:bg-custom-lightblue hover:text-gray-700'
         }`}
         onClick={() => onFilterChange('All')}
       >
@@ -75,8 +75,8 @@ const FilterBar = ({ selectedFilter, onFilterChange }) => {
       <button
         className={`inline-flex items-center gap-x-1.5 px-4 py-2 text-sm font-semibold rounded-md ${
           selectedFilter === 'Dispatched'
-            ? 'bg-yellow-950 text-white'
-            : 'bg-white text-gray-700'
+       ? 'bg-custom-darkblue text-white hover:bg-custom-lightblue hover:text-gray-700'
+            : 'bg-white text-gray-700 hover:bg-custom-lightblue hover:text-gray-700'
         }`}
         onClick={() => onFilterChange('Dispatched')}
       >
@@ -86,8 +86,8 @@ const FilterBar = ({ selectedFilter, onFilterChange }) => {
       <button
         className={`inline-flex items-center gap-x-1.5 px-4 py-2 text-sm font-semibold rounded-md ${
           selectedFilter === 'Pending'
-            ? 'bg-yellow-950 text-white'
-            : 'bg-white text-gray-700'
+         ? 'bg-custom-darkblue text-white hover:bg-custom-lightblue hover:text-gray-700'
+            : 'bg-white text-gray-700 hover:bg-custom-lightblue hover:text-gray-700'
         }`}
         onClick={() => onFilterChange('Pending')}
       >
@@ -97,8 +97,8 @@ const FilterBar = ({ selectedFilter, onFilterChange }) => {
       <button
         className={`inline-flex items-center gap-x-1.5 px-4 py-2 text-sm font-semibold rounded-md ${
           selectedFilter === 'Canceled'
-            ? 'bg-yellow-950 text-white'
-            : 'bg-white text-gray-700'
+        ? 'bg-custom-darkblue text-white hover:bg-custom-lightblue hover:text-gray-700'
+            : 'bg-white text-gray-700 hover:bg-custom-lightblue hover:text-gray-700'
         }`}
         onClick={() => onFilterChange('Canceled')}
       >
