@@ -127,7 +127,7 @@ const Login = () =>{
     const handleLogin = (e) =>{
         e.preventDefault();
         if(userName === "admin" && password ==="admin123"){
-          navigate("/AddOrders");
+          navigate("/dashboard");
           setError('');
         }else{
           setError('Enter Valid Credentials');

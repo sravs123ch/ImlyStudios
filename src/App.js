@@ -104,6 +104,7 @@ import AddOrders from './components/Orders/AddOrders';
 import Stores from './components/Stores/Stores'
 import Reports from './components/Reports/Reports';
 import Payments from './components/Payments/Payments';
+import ReportsStatic from './components/Reports/ReportsStatic';
 
 function App() {
   const location = useLocation();
@@ -124,6 +125,8 @@ function App() {
           <Route path="/AddOrders" element={<AddOrders />} />
           <Route path="/Stores" element={<Stores/>} />
           <Route path="/Reports" element={<Reports/>} />
+          <Route path="/Reportsstatic" element={<ReportsStatic/>} />
+
           <Route path="/Payments" element={<Payments/>} />
 
 

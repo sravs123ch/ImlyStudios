@@ -22,16 +22,18 @@ import {
   ShoppingBagIcon,
   
   ClipboardDocumentListIcon,
-  CreditCardIcon 
+  CreditCardIcon, 
+  UserIcon
 } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import logo from '../../assests/Images/imly-logo-new.jpg';
 import { useNavigate, useLocation } from 'react-router-dom'; // Import useNavigate and useLocation
 
 const navigation = [
-  { name: 'Create Orders', href: '/AddOrders', icon: HomeIcon },
+  { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
 
-  // { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
+  { name: 'Create Orders', href: '/AddOrders', icon: UserIcon },
+
   { name: 'Orders', href: '/orders', icon: ClipboardDocumentListIcon },
   // { name: 'Add Products', href: '/products', icon: FolderIcon },
   { name: 'Users', href: '/user', icon: UsersIcon },

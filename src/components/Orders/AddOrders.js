@@ -1957,6 +1957,1599 @@
 // export default AddOrders;
 
 
+// import React, { useState } from 'react';
+// import Box from '@mui/material/Box';
+// import Stepper from '@mui/material/Stepper';
+// import Step from '@mui/material/Step';
+// import StepLabel from '@mui/material/StepLabel';
+// import Button from '@mui/material/Button';
+// import Typography from '@mui/material/Typography';
+
+// const steps = ['Customer Details', 'Order Details', 'Product Type'];
+
+// function AddOrders() {
+//   const [activeStep, setActiveStep] = useState(0);
+//   const [skipped, setSkipped] = useState(new Set());
+//   const [orderDetails, setOrderDetails] = useState({
+//     name: '',
+//     orderStatus: 'Pending',
+//     email: '',
+//     deliveryDate: '',
+//     phone: '',
+//     address: '',
+//     createdBy: '',
+//     design: '',
+//     type: 'Kitchen, Wardrobe, Living',
+//   });
+//   const [errors, setErrors] = useState({});
+//   const [showAlert, setShowAlert] = useState(false);
+//   const [submittedDetails, setSubmittedDetails] = useState(null);
+
+//   const isStepOptional = (step) => step === 1;
+//   const isStepSkipped = (step) => skipped.has(step);
+
+//   const handleNext = () => {
+//     let newSkipped = skipped;
+//     if (isStepSkipped(activeStep)) {
+//       newSkipped = new Set(newSkipped.values());
+//       newSkipped.delete(activeStep);
+//     }
+//     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+//     setSkipped(newSkipped);
+//   };
+
+//   const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
+
+//   const handleSkip = () => {
+//     if (!isStepOptional(activeStep)) throw new Error("You can't skip a step that isn't optional.");
+//     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+//     setSkipped((prevSkipped) => {
+//       const newSkipped = new Set(prevSkipped.values());
+//       newSkipped.add(activeStep);
+//       return newSkipped;
+//     });
+//   };
+
+//   const handleReset = () => setActiveStep(0);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setOrderDetails({ ...orderDetails, [name]: value });
+//   };
+
+//   const handleSubmit = () => {
+//     const newErrors = {};
+//     if (!orderDetails.name) newErrors.name = 'Name is required';
+//     if (!orderDetails.orderStatus) newErrors.orderStatus = 'Order Status is required';
+//     if (!orderDetails.email) newErrors.email = 'Email is required';
+//     if (!orderDetails.deliveryDate) newErrors.deliveryDate = 'Expected Delivery Date is required';
+//     if (!orderDetails.phone) newErrors.phone = 'Phone is required';
+//     if (!orderDetails.address) newErrors.address = 'Address is required';
+//     if (!orderDetails.createdBy) newErrors.createdBy = 'Created By is required';
+//     if (!orderDetails.design) newErrors.design = 'Design is required';
+//     if (!orderDetails.type) newErrors.type = 'Type is required';
+
+//     if (Object.keys(newErrors).length > 0) {
+//       setErrors(newErrors);
+//       return;
+//     }
+
+//     setSubmittedDetails(orderDetails); // Store the submitted details
+//     setShowAlert(true);
+
+//     setOrderDetails({
+//       name: '',
+//       orderStatus: 'Pending',
+//       email: '',
+//       deliveryDate: '',
+//       phone: '',
+//       address: '',
+//       createdBy: '',
+//       design: '',
+//       type: 'Kitchen, Wardrobe, Living',
+//     });
+//     setActiveStep(0);  // Reset stepper to first step
+//     setTimeout(() => setShowAlert(false), 3000); // Hide alert after 3 seconds
+//   };
+
+//   return (
+//     // <div className="p-6 max-w-4xl ml-80 md:ml-32 mt-8 bg-white shadow-lg rounded-lg">
+//     <div className="p-6 mr-10 sm:px-6 lg:px-8 pt-4  ml-10 lg:ml-80 w-1/8 mt-8 bg-white shadow-lg rounded-lg">
+
+//       <Box sx={{ width: '100%' }}>
+//         <Stepper activeStep={activeStep} className="mb-6">
+//           {steps.map((label, index) => {
+//             const stepProps = {};
+//             const labelProps = {};
+//             if (isStepOptional(index)) {
+      
+//             }
+//             if (isStepSkipped(index)) {
+//               stepProps.completed = false;
+//             }
+//             return (
+//               <Step key={label} {...stepProps}>
+//                 <StepLabel {...labelProps}>{label}</StepLabel>
+//               </Step>
+//             );
+//           })}
+//         </Stepper>
+//         {activeStep === steps.length ? (
+//           <React.Fragment>
+//             <Typography className="text-center text-xl mb-4">
+//               All steps completed - you're finished
+//             </Typography>
+//             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }} className="justify-center">
+//               <Button onClick={handleReset} className="bg-blue-500 text-white hover:bg-blue-700 px-4 py-2 rounded">
+//                 Reset
+//               </Button>
+//             </Box>
+//           </React.Fragment>
+//         ) : (
+//           <React.Fragment>
+//             <Typography className="text-center text-lg mb-4">
+//               Step {activeStep + 1}
+//             </Typography>
+//             <Box sx={{ display: 'flex', flexDirection: 'column', pt: 2 }} className="space-y-4">
+//               {activeStep === 0 && (
+//                 <div>
+//                   <label className="block text-sm font-medium text-gray-700">Name</label>
+//                   <input
+//                     type="text"
+//                     name="name"
+//                     value={orderDetails.name}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Email</label>
+//                   <input
+//                     type="text"
+//                     name="email"
+//                     value={orderDetails.email}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Phone</label>
+//                   <input
+//                     type="number"
+//                     name="phone"
+//                     value={orderDetails.phone}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+//                 </div>
+//               )}
+//               {activeStep === 1 && (
+//                 <div>
+//                   <label className="block text-sm font-medium text-gray-700">Order Status</label>
+//                   <select
+//                     name="orderStatus"
+//                     value={orderDetails.orderStatus}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.orderStatus ? 'border-red-500' : 'border-gray-300'}`}
+//                   >
+//                     <option value="">Select a Status</option>
+//                     <option value="Pending">Pending</option>
+//                     <option value="Processed">Processed</option>
+//                   </select>
+//                   {errors.orderStatus && <p className="text-red-500 text-sm mt-1">{errors.orderStatus}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Delivery Date</label>
+//                   <input
+//                     type="date"
+//                     name="deliveryDate"
+//                     value={orderDetails.deliveryDate}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.deliveryDate ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.deliveryDate && <p className="text-red-500 text-sm mt-1">{errors.deliveryDate}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Address</label>
+//                   <input
+//                     type="text"
+//                     name="address"
+//                     value={orderDetails.address}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.address ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address}</p>}
+//                 </div>
+//               )}
+//               {activeStep === 2 && (
+//                 <div>
+//                   <label className="block text-sm font-medium text-gray-700">Type</label>
+//                   <select
+//                     name="type"
+//                     value={orderDetails.type}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.type ? 'border-red-500' : 'border-gray-300'}`}
+//                   >
+//                     <option value="">Select a Type</option>
+//                     <option value="Kitchen, Wardrobe, Living">Kitchen, Wardrobe, Living</option>
+//                     <option value="Bedroom, Dining, Office">Bedroom, Dining, Office</option>
+//                   </select>
+//                   {errors.type && <p className="text-red-500 text-sm mt-1">{errors.type}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Design</label>
+//                   <input
+//                     type="text"
+//                     name="design"
+//                     value={orderDetails.design}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.design ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.design && <p className="text-red-500 text-sm mt-1">{errors.design}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Created By</label>
+//                   <input
+//                     type="text"
+//                     name="createdBy"
+//                     value={orderDetails.createdBy}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.createdBy ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.createdBy && <p className="text-red-500 text-sm mt-1">{errors.createdBy}</p>}
+//                 </div>
+//               )}
+//             </Box>
+//             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }} className="justify-between mt-6">
+//               <Button
+//                 color="inherit"
+//                 disabled={activeStep === 0}
+//                 onClick={handleBack}
+//                 className="text-blue-500 hover:text-blue-700 px-4 py-2 rounded"
+//               >
+//                 Back
+//               </Button>
+//               <Box sx={{ flex: '1 1 auto' }} />
+//               {isStepOptional(activeStep) && (
+//                 <Button
+//                   color="inherit"
+//                   onClick={handleSkip}
+//                   className="text-blue-500 hover:text-blue-700 px-4 py-2 rounded"
+//                 >
+//                   Skip
+//                 </Button>
+//               )}
+//               {activeStep === steps.length - 1 ? (
+//                 <Button onClick={handleSubmit} className="bg-green-500 text-white hover:bg-green-700 px-4 py-2 rounded">
+//                   Finish
+//                 </Button>
+//               ) : (
+//                 <Button onClick={handleNext} className="bg-blue-500 text-white hover:bg-blue-700 px-4 py-2 rounded">
+//                   Next
+//                 </Button>
+//               )}
+//             </Box>
+//           </React.Fragment>
+//         )}
+//         {showAlert && (
+//           <div className="mt-4 text-green-700 bg-green-100 p-3 rounded">
+//             Order submitted successfully!
+//           </div>
+//         )}
+//         {submittedDetails && (
+//           <div className="mt-6 p-4 bg-gray-100 rounded-lg shadow-md">
+//             <Typography variant="h6" className="text-center mb-4">
+//               Submitted Order Details
+//             </Typography>
+//             <Typography><strong>Name:</strong> {submittedDetails.name}</Typography>
+//             <Typography><strong>Email:</strong> {submittedDetails.email}</Typography>
+//             <Typography><strong>Phone:</strong> {submittedDetails.phone}</Typography>
+//             <Typography><strong>Order Status:</strong> {submittedDetails.orderStatus}</Typography>
+//             <Typography><strong>Delivery Date:</strong> {submittedDetails.deliveryDate}</Typography>
+//             <Typography><strong>Address:</strong> {submittedDetails.address}</Typography>
+//             <Typography><strong>Created By:</strong> {submittedDetails.createdBy}</Typography>
+//             <Typography><strong>Design:</strong> {submittedDetails.design}</Typography>
+//             <Typography><strong>Type:</strong> {submittedDetails.type}</Typography>
+//           </div>
+//         )}
+//       </Box>
+//     </div>
+//   );
+// }
+
+// export default AddOrders;
+
+
+// import React, { useState } from 'react';
+// import Box from '@mui/material/Box';
+// import Stepper from '@mui/material/Stepper';
+// import Step from '@mui/material/Step';
+// import StepLabel from '@mui/material/StepLabel';
+// import Button from '@mui/material/Button';
+// import Typography from '@mui/material/Typography';
+
+// const steps = ['Customer Details', 'Order Details', 'Product Type'];
+
+// function AddOrders() {
+//   const [activeStep, setActiveStep] = useState(0);
+//   const [skipped, setSkipped] = useState(new Set());
+//   const [orderDetails, setOrderDetails] = useState({
+//     name: '',
+//     orderStatus: 'Pending',
+//     email: '',
+//     deliveryDate: '',
+//     phone: '',
+//     address: '',
+//     createdBy: '',
+//     design: '',
+//     type: 'Kitchen, Wardrobe, Living',
+//   });
+//   const [errors, setErrors] = useState({});
+//   const [showAlert, setShowAlert] = useState(false);
+//   const [submittedDetails, setSubmittedDetails] = useState(null);
+//   const [image, setImage] = useState(null);
+//   const [imagePreview, setImagePreview] = useState(null);
+
+//   const isStepOptional = (step) => step === 1;
+//   const isStepSkipped = (step) => skipped.has(step);
+
+//   const handleNext = () => {
+//     let newSkipped = skipped;
+//     if (isStepSkipped(activeStep)) {
+//       newSkipped = new Set(newSkipped.values());
+//       newSkipped.delete(activeStep);
+//     }
+//     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+//     setSkipped(newSkipped);
+//   };
+
+//   const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
+
+//   const handleSkip = () => {
+//     if (!isStepOptional(activeStep)) throw new Error("You can't skip a step that isn't optional.");
+//     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+//     setSkipped((prevSkipped) => {
+//       const newSkipped = new Set(prevSkipped.values());
+//       newSkipped.add(activeStep);
+//       return newSkipped;
+//     });
+//   };
+
+//   const handleReset = () => setActiveStep(0);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setOrderDetails({ ...orderDetails, [name]: value });
+//   };
+
+//   const handleImageChange = (e) => {
+//     const file = e.target.files[0];
+//     if (file) {
+//       setImage(file);
+//       setImagePreview(URL.createObjectURL(file));
+//     }
+//   };
+
+//   const handleSubmit = () => {
+//     const newErrors = {};
+//     if (!orderDetails.name) newErrors.name = 'Name is required';
+//     if (!orderDetails.orderStatus) newErrors.orderStatus = 'Order Status is required';
+//     if (!orderDetails.email) newErrors.email = 'Email is required';
+//     if (!orderDetails.deliveryDate) newErrors.deliveryDate = 'Expected Delivery Date is required';
+//     if (!orderDetails.phone) newErrors.phone = 'Phone is required';
+//     if (!orderDetails.address) newErrors.address = 'Address is required';
+//     if (!orderDetails.createdBy) newErrors.createdBy = 'Created By is required';
+//     if (!orderDetails.design) newErrors.design = 'Design is required';
+//     if (!orderDetails.type) newErrors.type = 'Type is required';
+
+//     if (Object.keys(newErrors).length > 0) {
+//       setErrors(newErrors);
+//       return;
+//     }
+
+//     setSubmittedDetails(orderDetails); // Store the submitted details
+//     setShowAlert(true);
+
+//     setOrderDetails({
+//       name: '',
+//       orderStatus: 'Pending',
+//       email: '',
+//       deliveryDate: '',
+//       phone: '',
+//       address: '',
+//       createdBy: '',
+//       design: '',
+//       type: 'Kitchen, Wardrobe, Living',
+//     });
+//     setImage(null);
+//     setImagePreview(null);
+//     setActiveStep(0);  // Reset stepper to first step
+//     setTimeout(() => setShowAlert(false), 3000); // Hide alert after 3 seconds
+//   };
+
+//   return (
+//     <div className="p-6 mr-10 sm:px-6 lg:px-8 pt-4 ml-10 lg:ml-80 w-1/8 mt-8 bg-white shadow-lg rounded-lg">
+
+//       <Box sx={{ width: '100%' }}>
+//         <Stepper activeStep={activeStep} className="mb-6">
+//           {steps.map((label, index) => {
+//             const stepProps = {};
+//             const labelProps = {};
+//             if (isStepOptional(index)) {
+//               // Optional step logic
+//             }
+//             if (isStepSkipped(index)) {
+//               stepProps.completed = false;
+//             }
+//             return (
+//               <Step key={label} {...stepProps}>
+//                 <StepLabel {...labelProps}>{label}</StepLabel>
+//               </Step>
+//             );
+//           })}
+//         </Stepper>
+//         {activeStep === steps.length ? (
+//           <React.Fragment>
+//             <Typography className="text-center text-xl mb-4">
+//               All steps completed - you're finished
+//             </Typography>
+//             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }} className="justify-center">
+//               <Button onClick={handleReset} className="bg-blue-500 text-white hover:bg-blue-700 px-4 py-2 rounded">
+//                 Reset
+//               </Button>
+//             </Box>
+//           </React.Fragment>
+//         ) : (
+//           <React.Fragment>
+//             <Typography className="text-center text-lg mb-4">
+//               Step {activeStep + 1}
+//             </Typography>
+//             <Box sx={{ display: 'flex', flexDirection: 'column', pt: 2 }} className="space-y-4">
+//               {activeStep === 0 && (
+//                 <div>
+//                   <label className="block text-sm font-medium text-gray-700">Name</label>
+//                   <input
+//                     type="text"
+//                     name="name"
+//                     value={orderDetails.name}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Email</label>
+//                   <input
+//                     type="text"
+//                     name="email"
+//                     value={orderDetails.email}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Phone</label>
+//                   <input
+//                     type="number"
+//                     name="phone"
+//                     value={orderDetails.phone}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+//                 </div>
+//               )}
+//               {activeStep === 1 && (
+//                 <div>
+//                   <label className="block text-sm font-medium text-gray-700">Order Status</label>
+//                   <select
+//                     name="orderStatus"
+//                     value={orderDetails.orderStatus}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.orderStatus ? 'border-red-500' : 'border-gray-300'}`}
+//                   >
+//                     <option value="">Select a Status</option>
+//                     <option value="Pending">Pending</option>
+//                     <option value="Processed">Processed</option>
+//                   </select>
+//                   {errors.orderStatus && <p className="text-red-500 text-sm mt-1">{errors.orderStatus}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Delivery Date</label>
+//                   <input
+//                     type="date"
+//                     name="deliveryDate"
+//                     value={orderDetails.deliveryDate}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.deliveryDate ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.deliveryDate && <p className="text-red-500 text-sm mt-1">{errors.deliveryDate}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Address</label>
+//                   <input
+//                     type="text"
+//                     name="address"
+//                     value={orderDetails.address}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.address ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address}</p>}
+//                 </div>
+//               )}
+//               {activeStep === 2 && (
+//                 <div>
+//                   <label className="block text-sm font-medium text-gray-700">Type</label>
+//                   <select
+//                     name="type"
+//                     value={orderDetails.type}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.type ? 'border-red-500' : 'border-gray-300'}`}
+//                   >
+//                     <option value="">Select a Type</option>
+//                     <option value="Kitchen, Wardrobe, Living">Kitchen, Wardrobe, Living</option>
+//                     <option value="Bedroom, Dining, Office">Bedroom, Dining, Office</option>
+//                   </select>
+//                   {errors.type && <p className="text-red-500 text-sm mt-1">{errors.type}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Design</label>
+//                   <input
+//                     type="text"
+//                     name="design"
+//                     value={orderDetails.design}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.design ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.design && <p className="text-red-500 text-sm mt-1">{errors.design}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Created By</label>
+//                   <input
+//                     type="text"
+//                     name="createdBy"
+//                     value={orderDetails.createdBy}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.createdBy ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.createdBy && <p className="text-red-500 text-sm mt-1">{errors.createdBy}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Upload Photo</label>
+//                   <input
+//                     type="file"
+//                     onChange={handleImageChange}
+//                     className="mt-1 w-full"
+//                   />
+//                   {imagePreview && (
+//                     <div className="mt-4">
+//                       <img src={imagePreview} alt="Preview" className="max-w-full h-auto" />
+//                     </div>
+//                   )}
+//                 </div>
+//               )}
+//             </Box>
+//             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }} className="justify-between mt-6">
+//               <Button
+//                 color="inherit"
+//                 disabled={activeStep === 0}
+//                 onClick={handleBack}
+//                 className="text-blue-500 hover:text-blue-700 px-4 py-2 rounded"
+//               >
+//                 Back
+//               </Button>
+//               <Box sx={{ flex: '1 1 auto' }} />
+//               {isStepOptional(activeStep) && (
+//                 <Button
+//                   color="inherit"
+//                   onClick={handleSkip}
+//                   className="text-blue-500 hover:text-blue-700 px-4 py-2 rounded"
+//                 >
+//                   Skip
+//                 </Button>
+//               )}
+//               {activeStep === steps.length - 1 ? (
+//                 <Button onClick={handleSubmit} className="bg-green-500 text-white hover:bg-green-700 px-4 py-2 rounded">
+//                   Finish
+//                 </Button>
+//               ) : (
+//                 <Button onClick={handleNext} className="bg-blue-500 text-white hover:bg-blue-700 px-4 py-2 rounded">
+//                   Next
+//                 </Button>
+//               )}
+//             </Box>
+//           </React.Fragment>
+//         )}
+//         {showAlert && (
+//           <div className="mt-4 text-green-700 bg-green-100 p-3 rounded">
+//             Order submitted successfully!
+//           </div>
+//         )}
+//         {submittedDetails && (
+//           <div className="mt-6 p-4 bg-gray-100 rounded-lg shadow-md">
+//             <Typography variant="h6" className="text-center mb-4">
+//               Submitted Order Details
+//             </Typography>
+//             <Typography><strong>Name:</strong> {submittedDetails.name}</Typography>
+//             <Typography><strong>Email:</strong> {submittedDetails.email}</Typography>
+//             <Typography><strong>Phone:</strong> {submittedDetails.phone}</Typography>
+//             <Typography><strong>Order Status:</strong> {submittedDetails.orderStatus}</Typography>
+//             <Typography><strong>Delivery Date:</strong> {submittedDetails.deliveryDate}</Typography>
+//             <Typography><strong>Address:</strong> {submittedDetails.address}</Typography>
+//             <Typography><strong>Created By:</strong> {submittedDetails.createdBy}</Typography>
+//             <Typography><strong>Design:</strong> {submittedDetails.design}</Typography>
+//             <Typography><strong>Type:</strong> {submittedDetails.type}</Typography>
+//             {imagePreview && (
+//               <div className="mt-4">
+//                 <img src={imagePreview} alt="Submitted Image" className="max-w-full h-auto" />
+//               </div>
+//             )}
+//           </div>
+//         )}
+//       </Box>
+//     </div>
+//   );
+// }
+
+// export default AddOrders;
+
+
+// import React, { useState } from 'react';
+// import Box from '@mui/material/Box';
+// import Stepper from '@mui/material/Stepper';
+// import Step from '@mui/material/Step';
+// import StepLabel from '@mui/material/StepLabel';
+// import Button from '@mui/material/Button';
+// import Typography from '@mui/material/Typography';
+
+// const steps = ['Customer Details', 'Order Details', 'Product Type'];
+
+// function AddOrders() {
+//   const [activeStep, setActiveStep] = useState(0);
+//   const [skipped, setSkipped] = useState(new Set());
+//   const [orderDetails, setOrderDetails] = useState({
+//     name: '',
+//     orderStatus: 'Pending',
+//     email: '',
+//     deliveryDate: '',
+//     phone: '',
+//     address: '',
+//     createdBy: '',
+//     design: '',
+//     type: 'Kitchen, Wardrobe, Living',
+//   });
+//   const [errors, setErrors] = useState({});
+//   const [showAlert, setShowAlert] = useState(false);
+//   const [submittedDetails, setSubmittedDetails] = useState(null);
+//   const [image, setImage] = useState(null);
+//   const [imagePreview, setImagePreview] = useState(null);
+
+//   const isStepOptional = (step) => step === 1;
+//   const isStepSkipped = (step) => skipped.has(step);
+
+//   const handleNext = () => {
+//     let newSkipped = skipped;
+//     if (isStepSkipped(activeStep)) {
+//       newSkipped = new Set(newSkipped.values());
+//       newSkipped.delete(activeStep);
+//     }
+//     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+//     setSkipped(newSkipped);
+//   };
+
+//   const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
+
+//   const handleSkip = () => {
+//     if (!isStepOptional(activeStep)) throw new Error("You can't skip a step that isn't optional.");
+//     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+//     setSkipped((prevSkipped) => {
+//       const newSkipped = new Set(prevSkipped.values());
+//       newSkipped.add(activeStep);
+//       return newSkipped;
+//     });
+//   };
+
+//   const handleReset = () => setActiveStep(0);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setOrderDetails({ ...orderDetails, [name]: value });
+//   };
+
+//   const handleImageChange = (e) => {
+//     const file = e.target.files[0];
+//     if (file) {
+//       setImage(file);
+//       setImagePreview(URL.createObjectURL(file));
+//     }
+//   };
+
+//   const handleImageRemove = () => {
+//     setImage(null);
+//     setImagePreview(null);
+//   };
+
+//   const handleSubmit = () => {
+//     const newErrors = {};
+//     if (!orderDetails.name) newErrors.name = 'Name is required';
+//     if (!orderDetails.orderStatus) newErrors.orderStatus = 'Order Status is required';
+//     if (!orderDetails.email) newErrors.email = 'Email is required';
+//     if (!orderDetails.deliveryDate) newErrors.deliveryDate = 'Expected Delivery Date is required';
+//     if (!orderDetails.phone) newErrors.phone = 'Phone is required';
+//     if (!orderDetails.address) newErrors.address = 'Address is required';
+//     if (!orderDetails.createdBy) newErrors.createdBy = 'Created By is required';
+//     if (!orderDetails.design) newErrors.design = 'Design is required';
+//     if (!orderDetails.type) newErrors.type = 'Type is required';
+
+//     if (Object.keys(newErrors).length > 0) {
+//       setErrors(newErrors);
+//       return;
+//     }
+
+//     setSubmittedDetails(orderDetails); // Store the submitted details
+//     setShowAlert(true);
+
+//     setOrderDetails({
+//       name: '',
+//       orderStatus: 'Pending',
+//       email: '',
+//       deliveryDate: '',
+//       phone: '',
+//       address: '',
+//       createdBy: '',
+//       design: '',
+//       type: 'Kitchen, Wardrobe, Living',
+//     });
+//     setImage(null);
+//     setImagePreview(null);
+//     setActiveStep(0);  // Reset stepper to first step
+//     setTimeout(() => setShowAlert(false), 3000); // Hide alert after 3 seconds
+//   };
+
+//   return (
+//     <div className="p-6 mr-10 sm:px-6 lg:px-8 pt-4 ml-10 lg:ml-80 w-1/8 mt-8 bg-white shadow-lg rounded-lg">
+
+//       <Box sx={{ width: '100%' }}>
+//         <Stepper activeStep={activeStep} className="mb-6">
+//           {steps.map((label, index) => {
+//             const stepProps = {};
+//             const labelProps = {};
+//             if (isStepOptional(index)) {
+//               // Optional step logic
+//             }
+//             if (isStepSkipped(index)) {
+//               stepProps.completed = false;
+//             }
+//             return (
+//               <Step key={label} {...stepProps}>
+//                 <StepLabel {...labelProps}>{label}</StepLabel>
+//               </Step>
+//             );
+//           })}
+//         </Stepper>
+//         {activeStep === steps.length ? (
+//           <React.Fragment>
+//             <Typography className="text-center text-xl mb-4">
+//               All steps completed - you're finished
+//             </Typography>
+//             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }} className="justify-center">
+//               <Button onClick={handleReset} className="bg-blue-500 text-white hover:bg-blue-700 px-4 py-2 rounded">
+//                 Reset
+//               </Button>
+//             </Box>
+//           </React.Fragment>
+//         ) : (
+//           <React.Fragment>
+//             <Typography className="text-center text-lg mb-4">
+//               Step {activeStep + 1}
+//             </Typography>
+//             <Box sx={{ display: 'flex', flexDirection: 'column', pt: 2 }} className="space-y-4">
+//               {activeStep === 0 && (
+//                 <div>
+//                   <label className="block text-sm font-medium text-gray-700">Name</label>
+//                   <input
+//                     type="text"
+//                     name="name"
+//                     value={orderDetails.name}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Email</label>
+//                   <input
+//                     type="text"
+//                     name="email"
+//                     value={orderDetails.email}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Phone</label>
+//                   <input
+//                     type="number"
+//                     name="phone"
+//                     value={orderDetails.phone}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+//                 </div>
+//               )}
+//               {activeStep === 1 && (
+//                 <div>
+//                   <label className="block text-sm font-medium text-gray-700">Order Status</label>
+//                   <select
+//                     name="orderStatus"
+//                     value={orderDetails.orderStatus}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.orderStatus ? 'border-red-500' : 'border-gray-300'}`}
+//                   >
+//                     <option value="">Select a Status</option>
+//                     <option value="Pending">Pending</option>
+//                     <option value="Processed">Processed</option>
+//                   </select>
+//                   {errors.orderStatus && <p className="text-red-500 text-sm mt-1">{errors.orderStatus}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Delivery Date</label>
+//                   <input
+//                     type="date"
+//                     name="deliveryDate"
+//                     value={orderDetails.deliveryDate}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.deliveryDate ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.deliveryDate && <p className="text-red-500 text-sm mt-1">{errors.deliveryDate}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Address</label>
+//                   <input
+//                     type="text"
+//                     name="address"
+//                     value={orderDetails.address}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.address ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address}</p>}
+//                 </div>
+//               )}
+//               {activeStep === 2 && (
+//                 <div>
+//                   <label className="block text-sm font-medium text-gray-700">Type</label>
+//                   <select
+//                     name="type"
+//                     value={orderDetails.type}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.type ? 'border-red-500' : 'border-gray-300'}`}
+//                   >
+//                     <option value="">Select a Type</option>
+//                     <option value="Kitchen, Wardrobe, Living">Kitchen, Wardrobe, Living</option>
+//                     <option value="Bedroom, Dining, Office">Bedroom, Dining, Office</option>
+//                   </select>
+//                   {errors.type && <p className="text-red-500 text-sm mt-1">{errors.type}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Design</label>
+//                   <input
+//                     type="text"
+//                     name="design"
+//                     value={orderDetails.design}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.design ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.design && <p className="text-red-500 text-sm mt-1">{errors.design}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Created By</label>
+//                   <input
+//                     type="text"
+//                     name="createdBy"
+//                     value={orderDetails.createdBy}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.createdBy ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.createdBy && <p className="text-red-500 text-sm mt-1">{errors.createdBy}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Upload Photo</label>
+//                   <input
+//                     type="file"
+//                     onChange={handleImageChange}
+//                     className="mt-1 w-full"
+//                   />
+//                   {imagePreview && (
+//                     <div className="mt-4 relative">
+//                       <button
+//                         type="button"
+//                         onClick={handleImageRemove}
+//                         className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 text-sm"
+//                       >
+//                         ×
+//                       </button>
+//                       <img src={imagePreview} alt="Preview" className="max-w-xs h-auto" />
+//                     </div>
+//                   )}
+//                 </div>
+//               )}
+//             </Box>
+//             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }} className="justify-between mt-6">
+//               <Button
+//                 color="inherit"
+//                 disabled={activeStep === 0}
+//                 onClick={handleBack}
+//                 className="text-blue-500 hover:text-blue-700 px-4 py-2 rounded"
+//               >
+//                 Back
+//               </Button>
+//               <Box sx={{ flex: '1 1 auto' }} />
+//               {isStepOptional(activeStep) && (
+//                 <Button
+//                   color="inherit"
+//                   onClick={handleSkip}
+//                   className="text-blue-500 hover:text-blue-700 px-4 py-2 rounded"
+//                 >
+//                   Skip
+//                 </Button>
+//               )}
+//               {activeStep === steps.length - 1 ? (
+//                 <Button onClick={handleSubmit} className="bg-green-500 text-white hover:bg-green-700 px-4 py-2 rounded">
+//                   Finish
+//                 </Button>
+//               ) : (
+//                 <Button onClick={handleNext} className="bg-blue-500 text-white hover:bg-blue-700 px-4 py-2 rounded">
+//                   Next
+//                 </Button>
+//               )}
+//             </Box>
+//           </React.Fragment>
+//         )}
+//         {showAlert && (
+//           <div className="mt-4 text-green-700 bg-green-100 p-3 rounded">
+//             Order submitted successfully!
+//           </div>
+//         )}
+//         {submittedDetails && (
+//           <div className="mt-6 p-4 bg-gray-100 rounded-lg shadow-md">
+//             <Typography variant="h6" className="text-center mb-4">
+//               Submitted Order Details
+//             </Typography>
+//             <Typography><strong>Name:</strong> {submittedDetails.name}</Typography>
+//             <Typography><strong>Email:</strong> {submittedDetails.email}</Typography>
+//             <Typography><strong>Phone:</strong> {submittedDetails.phone}</Typography>
+//             <Typography><strong>Order Status:</strong> {submittedDetails.orderStatus}</Typography>
+//             <Typography><strong>Delivery Date:</strong> {submittedDetails.deliveryDate}</Typography>
+//             <Typography><strong>Address:</strong> {submittedDetails.address}</Typography>
+//             <Typography><strong>Created By:</strong> {submittedDetails.createdBy}</Typography>
+//             <Typography><strong>Design:</strong> {submittedDetails.design}</Typography>
+//             <Typography><strong>Type:</strong> {submittedDetails.type}</Typography>
+//                         <Typography><strong>Type:</strong> {submittedDetails.type}</Typography>
+
+//             {imagePreview && (
+//               <div className="mt-4 relative">
+//                 <button
+//                   type="button"
+//                   onClick={handleImageRemove}
+//                   className="absolute top-0 right-100 bg-red-500 text-white rounded-full p-1 text-sm"
+//                 >
+//                   ×
+//                 </button>
+//                 <img src={imagePreview} alt="Submitted Image" className="max-w-xs h-auto" />
+//               </div>
+//             )}
+//           </div>
+//         )}
+//       </Box>
+//     </div>
+//   );
+// }
+
+// export default AddOrders;
+
+
+
+// import React, { useState } from 'react';
+// import Box from '@mui/material/Box';
+// import Stepper from '@mui/material/Stepper';
+// import Step from '@mui/material/Step';
+// import StepLabel from '@mui/material/StepLabel';
+// import Button from '@mui/material/Button';
+// import Typography from '@mui/material/Typography';
+
+// const steps = ['Customer Details', 'Order Details', 'Product Type'];
+
+// function AddOrders() {
+//   const [activeStep, setActiveStep] = useState(0);
+//   const [skipped, setSkipped] = useState(new Set());
+//   const [orderDetails, setOrderDetails] = useState({
+//     name: '',
+//     orderStatus: 'Pending',
+//     email: '',
+//     deliveryDate: '',
+//     phone: '',
+//     address: '',
+//     createdBy: '',
+//     design: '',
+//     type: 'Kitchen, Wardrobe, Living',
+//   });
+//   const [errors, setErrors] = useState({});
+//   const [showAlert, setShowAlert] = useState(false);
+//   const [submittedDetails, setSubmittedDetails] = useState(null);
+//   const [image, setImage] = useState(null);
+//   const [imagePreview, setImagePreview] = useState(null);
+
+//   const isStepOptional = (step) => step === 1;
+//   const isStepSkipped = (step) => skipped.has(step);
+
+//   const handleNext = () => {
+//     let newSkipped = skipped;
+//     if (isStepSkipped(activeStep)) {
+//       newSkipped = new Set(newSkipped.values());
+//       newSkipped.delete(activeStep);
+//     }
+//     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+//     setSkipped(newSkipped);
+//   };
+
+//   const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
+
+//   const handleSkip = () => {
+//     if (!isStepOptional(activeStep)) throw new Error("You can't skip a step that isn't optional.");
+//     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+//     setSkipped((prevSkipped) => {
+//       const newSkipped = new Set(prevSkipped.values());
+//       newSkipped.add(activeStep);
+//       return newSkipped;
+//     });
+//   };
+
+//   const handleReset = () => setActiveStep(0);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setOrderDetails({ ...orderDetails, [name]: value });
+//   };
+
+//   const handleImageChange = (e) => {
+//     const file = e.target.files[0];
+//     if (file) {
+//       setImage(file);
+//       setImagePreview(URL.createObjectURL(file));
+//     }
+//   };
+
+//   const handleImageRemove = () => {
+//     setImage(null);
+//     setImagePreview(null);
+//   };
+
+//   const handleSubmit = () => {
+//     const newErrors = {};
+//     if (!orderDetails.name) newErrors.name = 'Name is required';
+//     if (!orderDetails.orderStatus) newErrors.orderStatus = 'Order Status is required';
+//     if (!orderDetails.email) newErrors.email = 'Email is required';
+//     if (!orderDetails.deliveryDate) newErrors.deliveryDate = 'Expected Delivery Date is required';
+//     if (!orderDetails.phone) newErrors.phone = 'Phone is required';
+//     if (!orderDetails.address) newErrors.address = 'Address is required';
+//     if (!orderDetails.createdBy) newErrors.createdBy = 'Created By is required';
+//     if (!orderDetails.design) newErrors.design = 'Design is required';
+//     if (!orderDetails.type) newErrors.type = 'Type is required';
+
+//     if (Object.keys(newErrors).length > 0) {
+//       setErrors(newErrors);
+//       return;
+//     }
+
+//     setSubmittedDetails(orderDetails); // Store the submitted details
+//     setShowAlert(true);
+
+//     setOrderDetails({
+//       name: '',
+//       orderStatus: 'Pending',
+//       email: '',
+//       deliveryDate: '',
+//       phone: '',
+//       address: '',
+//       createdBy: '',
+//       design: '',
+//       type: 'Kitchen, Wardrobe, Living',
+//     });
+//     setImage(null);
+//     setImagePreview(null);
+//     setActiveStep(0);  // Reset stepper to first step
+//     setTimeout(() => setShowAlert(false), 3000); // Hide alert after 3 seconds
+//   };
+
+//   return (
+//     <div className="p-6 mr-10 sm:px-6 lg:px-8 pt-4 ml-10 lg:ml-80 w-1/8 mt-8 bg-white shadow-lg rounded-lg">
+
+//       <Box sx={{ width: '100%' }}>
+//         <Stepper activeStep={activeStep} className="mb-6">
+//           {steps.map((label, index) => {
+//             const stepProps = {};
+//             const labelProps = {};
+//             if (isStepOptional(index)) {
+//               // Optional step logic
+//             }
+//             if (isStepSkipped(index)) {
+//               stepProps.completed = false;
+//             }
+//             return (
+//               <Step key={label} {...stepProps}>
+//                 <StepLabel {...labelProps}>{label}</StepLabel>
+//               </Step>
+//             );
+//           })}
+//         </Stepper>
+//         {activeStep === steps.length ? (
+//           <React.Fragment>
+//             <Typography className="text-center text-xl mb-4">
+//               All steps completed - you're finished
+//             </Typography>
+//             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }} className="justify-center">
+//               <Button onClick={handleReset} className="bg-blue-500 text-white hover:bg-blue-700 px-4 py-2 rounded">
+//                 Reset
+//               </Button>
+//             </Box>
+//           </React.Fragment>
+//         ) : (
+//           <React.Fragment>
+//             <Typography className="text-center text-lg mb-4">
+//               Step {activeStep + 1}
+//             </Typography>
+//             <Box sx={{ display: 'flex', flexDirection: 'column', pt: 2 }} className="space-y-4">
+//               {activeStep === 0 && (
+//                 <div>
+//                   <label className="block text-sm font-medium text-gray-700">Name</label>
+//                   <input
+//                     type="text"
+//                     name="name"
+//                     value={orderDetails.name}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Email</label>
+//                   <input
+//                     type="text"
+//                     name="email"
+//                     value={orderDetails.email}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Phone</label>
+//                   <input
+//                     type="number"
+//                     name="phone"
+//                     value={orderDetails.phone}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+//                 </div>
+//               )}
+//               {activeStep === 1 && (
+//                 <div>
+//                   <label className="block text-sm font-medium text-gray-700">Order Status</label>
+//                   <select
+//                     name="orderStatus"
+//                     value={orderDetails.orderStatus}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.orderStatus ? 'border-red-500' : 'border-gray-300'}`}
+//                   >
+//                     <option value="">Select a Status</option>
+//                     <option value="Pending">Pending</option>
+//                     <option value="Processed">Processed</option>
+//                   </select>
+//                   {errors.orderStatus && <p className="text-red-500 text-sm mt-1">{errors.orderStatus}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Delivery Date</label>
+//                   <input
+//                     type="date"
+//                     name="deliveryDate"
+//                     value={orderDetails.deliveryDate}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.deliveryDate ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.deliveryDate && <p className="text-red-500 text-sm mt-1">{errors.deliveryDate}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Address</label>
+//                   <input
+//                     type="text"
+//                     name="address"
+//                     value={orderDetails.address}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.address ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address}</p>}
+//                 </div>
+//               )}
+//               {activeStep === 2 && (
+//                 <div>
+//                   <label className="block text-sm font-medium text-gray-700">Created By</label>
+//                   <input
+//                     type="text"
+//                     name="createdBy"
+//                     value={orderDetails.createdBy}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.createdBy ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.createdBy && <p className="text-red-500 text-sm mt-1">{errors.createdBy}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Design</label>
+//                   <input
+//                     type="text"
+//                     name="design"
+//                     value={orderDetails.design}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.design ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.design && <p className="text-red-500 text-sm mt-1">{errors.design}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Type</label>
+//                   <select
+//                     name="type"
+//                     value={orderDetails.type}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.type ? 'border-red-500' : 'border-gray-300'}`}
+//                   >
+//                     <option value="">Select Type</option>
+//                     <option value="Kitchen">Kitchen</option>
+//                     <option value="Wardrobe">Wardrobe</option>
+//                     <option value="Living">Living</option>
+//                   </select>
+//                   {errors.type && <p className="text-red-500 text-sm mt-1">{errors.type}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Upload Image</label>
+//                   <input
+//                     type="file"
+//                     accept="image/*"
+//                     onChange={handleImageChange}
+//                     className="mt-1"
+//                   />
+//                   {imagePreview && (
+//                     <div className="mt-2 relative">
+//                       <img src={imagePreview} alt="Image Preview" className="w-32 h-32 object-cover border rounded-md" />
+//                       <button
+//                         type="button"
+//                         onClick={handleImageRemove}
+//                         className="absolute top-0 right-0 bg-red-600 text-white rounded-full p-1 text-xs"
+//                         style={{ transform: 'translate(50%, -50%)' }}
+//                       >
+//                         X
+//                       </button>
+//                     </div>
+//                   )}
+//                 </div>
+//               )}
+//             </Box>
+//             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+//               <Button
+//                 color="inherit"
+//                 onClick={handleBack}
+//                 disabled={activeStep === 0}
+//                 className="bg-gray-500 text-white hover:bg-gray-700 mr-2"
+//               >
+//                 Back
+//               </Button>
+//               <Box sx={{ flex: '1 1 auto' }} />
+//               {isStepOptional(activeStep) && (
+//                 <Button color="inherit" onClick={handleSkip} className="bg-blue-500 text-white hover:bg-blue-700 mr-2">
+//                   Skip
+//                 </Button>
+//               )}
+//               <Button
+//                 onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}
+//                 className="bg-blue-500 text-white hover:bg-blue-700"
+//               >
+//                 {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
+//               </Button>
+//             </Box>
+//           </React.Fragment>
+//         )}
+//       </Box>
+//       {showAlert && (
+//         <div className="mt-4 p-4 bg-green-100 border border-green-300 text-green-700 rounded">
+//           Order details have been submitted!
+//         </div>
+//       )}
+//       {submittedDetails && (
+//         <div className="mt-4 p-4 bg-gray-100 border border-gray-300 text-gray-700 rounded">
+//           <h3 className="text-lg font-semibold">Submitted Details</h3>
+//           <p><strong>Name:</strong> {submittedDetails.name}</p>
+//           <p><strong>Order Status:</strong> {submittedDetails.orderStatus}</p>
+//           <p><strong>Email:</strong> {submittedDetails.email}</p>
+//           <p><strong>Expected Delivery Date:</strong> {submittedDetails.deliveryDate}</p>
+//           <p><strong>Phone:</strong> {submittedDetails.phone}</p>
+//           <p><strong>Address:</strong> {submittedDetails.address}</p>
+//           <p><strong>Created By:</strong> {submittedDetails.createdBy}</p>
+//           <p><strong>Design:</strong> {submittedDetails.design}</p>
+//           <p><strong>Type:</strong> {submittedDetails.type}</p>
+//           {imagePreview && (
+//             <div className="mt-2 relative">
+//               <img src={imagePreview} alt="Submitted Image" className="w-32 h-32 object-cover border rounded-md" />
+//             </div>
+//           )}
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
+
+// export default AddOrders;
+
+
+// import React, { useState } from 'react';
+// import Box from '@mui/material/Box';
+// import Stepper from '@mui/material/Stepper';
+// import Step from '@mui/material/Step';
+// import StepLabel from '@mui/material/StepLabel';
+// import Button from '@mui/material/Button';
+// import Typography from '@mui/material/Typography';
+
+// const steps = ['Customer Details', 'Order Details', 'Product Type'];
+
+// function AddOrders() {
+//   const [activeStep, setActiveStep] = useState(0);
+//   const [skipped, setSkipped] = useState(new Set());
+//   const [orderDetails, setOrderDetails] = useState({
+//     name: '',
+//     orderStatus: 'Pending',
+//     email: '',
+//     deliveryDate: '',
+//     phone: '',
+//     address: '',
+//     createdBy: '',
+//     design: '',
+//     type: 'Kitchen, Wardrobe, Living',
+//   });
+//   const [errors, setErrors] = useState({});
+//   const [showAlert, setShowAlert] = useState(false);
+//   const [submittedDetails, setSubmittedDetails] = useState(null);
+//   const [images, setImages] = useState([]);
+//   const [imagePreviews, setImagePreviews] = useState([]);
+
+//   const isStepOptional = (step) => step === 1;
+//   const isStepSkipped = (step) => skipped.has(step);
+
+//   const handleNext = () => {
+//     let newSkipped = skipped;
+//     if (isStepSkipped(activeStep)) {
+//       newSkipped = new Set(newSkipped.values());
+//       newSkipped.delete(activeStep);
+//     }
+//     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+//     setSkipped(newSkipped);
+//   };
+
+//   const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
+
+//   const handleSkip = () => {
+//     if (!isStepOptional(activeStep)) throw new Error("You can't skip a step that isn't optional.");
+//     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+//     setSkipped((prevSkipped) => {
+//       const newSkipped = new Set(prevSkipped.values());
+//       newSkipped.add(activeStep);
+//       return newSkipped;
+//     });
+//   };
+
+//   const handleReset = () => setActiveStep(0);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setOrderDetails({ ...orderDetails, [name]: value });
+//   };
+
+//   const handleImageChange = (e) => {
+//     const files = Array.from(e.target.files);
+//     if (images.length + files.length > 6) {
+//       alert('You can only upload up to 6 images.');
+//       return;
+//     }
+//     const newImages = files.map((file) => ({
+//       file,
+//       preview: URL.createObjectURL(file),
+//     }));
+//     setImages([...images, ...newImages]);
+//     setImagePreviews([...imagePreviews, ...newImages.map((img) => img.preview)]);
+//   };
+
+//   const handleImageRemove = (index) => {
+//     const newImages = images.filter((_, i) => i !== index);
+//     const newPreviews = imagePreviews.filter((_, i) => i !== index);
+//     setImages(newImages);
+//     setImagePreviews(newPreviews);
+//   };
+
+//   const handleSubmit = () => {
+//     const newErrors = {};
+//     if (!orderDetails.name) newErrors.name = 'Name is required';
+//     if (!orderDetails.orderStatus) newErrors.orderStatus = 'Order Status is required';
+//     if (!orderDetails.email) newErrors.email = 'Email is required';
+//     if (!orderDetails.deliveryDate) newErrors.deliveryDate = 'Expected Delivery Date is required';
+//     if (!orderDetails.phone) newErrors.phone = 'Phone is required';
+//     if (!orderDetails.address) newErrors.address = 'Address is required';
+//     if (!orderDetails.createdBy) newErrors.createdBy = 'Created By is required';
+//     if (!orderDetails.design) newErrors.design = 'Design is required';
+//     if (!orderDetails.type) newErrors.type = 'Type is required';
+
+//     if (Object.keys(newErrors).length > 0) {
+//       setErrors(newErrors);
+//       return;
+//     }
+
+//     setSubmittedDetails(orderDetails); // Store the submitted details
+//     setShowAlert(true);
+
+//     setOrderDetails({
+//       name: '',
+//       orderStatus: 'Pending',
+//       email: '',
+//       deliveryDate: '',
+//       phone: '',
+//       address: '',
+//       createdBy: '',
+//       design: '',
+//       type: 'Kitchen, Wardrobe, Living',
+//     });
+//     setImages([]);
+//     setImagePreviews([]);
+//     setActiveStep(0);  // Reset stepper to first step
+//     setTimeout(() => setShowAlert(false), 3000); // Hide alert after 3 seconds
+//   };
+
+//   return (
+//     <div className="p-6 mr-10 sm:px-6 lg:px-8 pt-4 ml-10 lg:ml-80 w-1/8 mt-8 bg-white shadow-lg rounded-lg">
+//       <Box sx={{ width: '100%' }}>
+//         <Stepper activeStep={activeStep} className="mb-6">
+//           {steps.map((label, index) => {
+//             const stepProps = {};
+//             const labelProps = {};
+//             if (isStepOptional(index)) {
+//               // Optional step logic
+//             }
+//             if (isStepSkipped(index)) {
+//               stepProps.completed = false;
+//             }
+//             return (
+//               <Step key={label} {...stepProps}>
+//                 <StepLabel {...labelProps}>{label}</StepLabel>
+//               </Step>
+//             );
+//           })}
+//         </Stepper>
+//         {activeStep === steps.length ? (
+//           <React.Fragment>
+//             <Typography className="text-center text-xl mb-4">
+//               All steps completed - you're finished
+//             </Typography>
+//             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }} className="justify-center">
+//               <Button onClick={handleReset} className="bg-blue-500 text-white hover:bg-blue-700 px-4 py-2 rounded">
+//                 Reset
+//               </Button>
+//             </Box>
+//           </React.Fragment>
+//         ) : (
+//           <React.Fragment>
+//             <Typography className="text-center text-lg mb-4">
+//               Step {activeStep + 1}
+//             </Typography>
+//             <Box sx={{ display: 'flex', flexDirection: 'column', pt: 2 }} className="space-y-4">
+//               {activeStep === 0 && (
+//                 <div>
+//                   <label className="block text-sm font-medium text-gray-700">Name</label>
+//                   <input
+//                     type="text"
+//                     name="name"
+//                     value={orderDetails.name}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Email</label>
+//                   <input
+//                     type="text"
+//                     name="email"
+//                     value={orderDetails.email}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Phone</label>
+//                   <input
+//                     type="number"
+//                     name="phone"
+//                     value={orderDetails.phone}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+//                 </div>
+//               )}
+//               {activeStep === 1 && (
+//                 <div>
+//                   <label className="block text-sm font-medium text-gray-700">Order Status</label>
+//                   <select
+//                     name="orderStatus"
+//                     value={orderDetails.orderStatus}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.orderStatus ? 'border-red-500' : 'border-gray-300'}`}
+//                   >
+//                     <option value="">Select a Status</option>
+//                     <option value="Pending">Pending</option>
+//                     <option value="Processed">Processed</option>
+//                   </select>
+//                   {errors.orderStatus && <p className="text-red-500 text-sm mt-1">{errors.orderStatus}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Delivery Date</label>
+//                   <input
+//                     type="date"
+//                     name="deliveryDate"
+//                     value={orderDetails.deliveryDate}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.deliveryDate ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.deliveryDate && <p className="text-red-500 text-sm mt-1">{errors.deliveryDate}</p>}
+//                 </div>
+//               )}
+//               {activeStep === 2 && (
+//                 <div>
+//                   <label className="block text-sm font-medium text-gray-700">Design</label>
+//                   <textarea
+//                     name="design"
+//                     value={orderDetails.design}
+//                     onChange={handleChange}
+//                     className={`mt-1 p-2 w-full border rounded-md ${errors.design ? 'border-red-500' : 'border-gray-300'}`}
+//                   />
+//                   {errors.design && <p className="text-red-500 text-sm mt-1">{errors.design}</p>}
+//                   <label className="block text-sm font-medium text-gray-700">Image Upload (up to 6 images)</label>
+//                   <input
+//                     type="file"
+//                     accept="image/*"
+//                     multiple
+//                     onChange={handleImageChange}
+//                     className="mt-1 p-2 w-full border rounded-md"
+//                   />
+//                   <div className="grid grid-cols-3 gap-4 mt-4">
+//                     {imagePreviews.map((preview, index) => (
+//                       <div key={index} className="relative">
+//                         <img
+//                           src={preview}
+//                           alt={`Uploaded ${index}`}
+//                           className="w-full h-24 object-cover border rounded-md"
+//                         />
+//                         <button
+//                           type="button"
+//                           onClick={() => handleImageRemove(index)}
+//                           className="absolute top-0 right-0 p-1 bg-red-500 text-white rounded-full"
+//                         >
+//                           &times;
+//                         </button>
+//                       </div>
+//                     ))}
+//                   </div>
+//                 </div>
+//               )}
+//             </Box>
+//             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }} className="justify-between">
+//               <Button
+//                 disabled={activeStep === 0}
+//                 onClick={handleBack}
+//                 className="bg-gray-500 text-white hover:bg-gray-700 px-4 py-2 rounded"
+//               >
+//                 Back
+//               </Button>
+//               {isStepOptional(activeStep) && (
+//                 <Button
+//                   variant="contained"
+//                   onClick={handleSkip}
+//                   sx={{ mr: 1 }}
+//                   className="bg-blue-500 text-white hover:bg-blue-700 px-4 py-2 rounded"
+//                 >
+//                   Skip
+//                 </Button>
+//               )}
+//               <Button
+//                 onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}
+//                 className="bg-blue-500 text-white hover:bg-blue-700 px-4 py-2 rounded"
+//               >
+//                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+//               </Button>
+//             </Box>
+//           </React.Fragment>
+//         )}
+//       </Box>
+//       {showAlert && (
+//         <div className="fixed top-4 right-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded" role="alert">
+//           <strong className="font-bold">Order submitted successfully!</strong>
+//         </div>
+//       )}
+//       {submittedDetails && (
+//         <div className="mt-4 bg-gray-100 p-4 rounded shadow-lg">
+//           <h3 className="text-xl font-bold mb-4">Submitted Order Details:</h3>
+//           <p><strong>Name:</strong> {submittedDetails.name}</p>
+//           <p><strong>Email:</strong> {submittedDetails.email}</p>
+//           <p><strong>Phone:</strong> {submittedDetails.phone}</p>
+//           <p><strong>Order Status:</strong> {submittedDetails.orderStatus}</p>
+//           <p><strong>Expected Delivery Date:</strong> {submittedDetails.deliveryDate}</p>
+//           <p><strong>Design:</strong> {submittedDetails.design}</p>
+//           <div className="grid grid-cols-3 gap-4 mt-4">
+//             {submittedDetails.images && submittedDetails.images.map((img, index) => (
+//               <img key={index} src={img.preview} alt={`Final ${index}`} className="w-full h-24 object-cover border rounded-md" />
+//             ))}
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
+
+// export default AddOrders;
+
+
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
@@ -1984,6 +3577,8 @@ function AddOrders() {
   const [errors, setErrors] = useState({});
   const [showAlert, setShowAlert] = useState(false);
   const [submittedDetails, setSubmittedDetails] = useState(null);
+  const [images, setImages] = useState([]);
+  const [imagePreviews, setImagePreviews] = useState([]);
 
   const isStepOptional = (step) => step === 1;
   const isStepSkipped = (step) => skipped.has(step);
@@ -2017,6 +3612,27 @@ function AddOrders() {
     setOrderDetails({ ...orderDetails, [name]: value });
   };
 
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    if (images.length + files.length > 6) {
+      alert('You can only upload up to 6 images.');
+      return;
+    }
+    const newImages = files.map((file) => ({
+      file,
+      preview: URL.createObjectURL(file),
+    }));
+    setImages([...images, ...newImages]);
+    setImagePreviews([...imagePreviews, ...newImages.map((img) => img.preview)]);
+  };
+
+  const handleImageRemove = (index) => {
+    const newImages = images.filter((_, i) => i !== index);
+    const newPreviews = imagePreviews.filter((_, i) => i !== index);
+    setImages(newImages);
+    setImagePreviews(newPreviews);
+  };
+
   const handleSubmit = () => {
     const newErrors = {};
     if (!orderDetails.name) newErrors.name = 'Name is required';
@@ -2034,7 +3650,7 @@ function AddOrders() {
       return;
     }
 
-    setSubmittedDetails(orderDetails); // Store the submitted details
+    setSubmittedDetails({ ...orderDetails, images: imagePreviews }); // Store the submitted details including image previews
     setShowAlert(true);
 
     setOrderDetails({
@@ -2048,19 +3664,21 @@ function AddOrders() {
       design: '',
       type: 'Kitchen, Wardrobe, Living',
     });
+    setImages([]);
+    setImagePreviews([]);
     setActiveStep(0);  // Reset stepper to first step
     setTimeout(() => setShowAlert(false), 3000); // Hide alert after 3 seconds
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto mt-8 bg-white shadow-lg rounded-lg">
+    <div className="p-6 mr-10 sm:px-6 lg:px-8 pt-4 ml-10 lg:ml-80 w-1/8 mt-8 bg-white shadow-lg rounded-lg">
       <Box sx={{ width: '100%' }}>
         <Stepper activeStep={activeStep} className="mb-6">
           {steps.map((label, index) => {
             const stepProps = {};
             const labelProps = {};
             if (isStepOptional(index)) {
-      
+              // Optional step logic
             }
             if (isStepSkipped(index)) {
               stepProps.completed = false;
@@ -2100,6 +3718,7 @@ function AddOrders() {
                     className={`mt-1 p-2 w-full border rounded-md ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
                   />
                   {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+                  
                   <label className="block text-sm font-medium text-gray-700">Email</label>
                   <input
                     type="text"
@@ -2109,6 +3728,7 @@ function AddOrders() {
                     className={`mt-1 p-2 w-full border rounded-md ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
                   />
                   {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                  
                   <label className="block text-sm font-medium text-gray-700">Phone</label>
                   <input
                     type="number"
@@ -2118,6 +3738,16 @@ function AddOrders() {
                     className={`mt-1 p-2 w-full border rounded-md ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}
                   />
                   {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+                  
+                  <label className="block text-sm font-medium text-gray-700">Address</label>
+                  <input
+                    type="text"
+                    name="address"
+                    value={orderDetails.address}
+                    onChange={handleChange}
+                    className={`mt-1 p-2 w-full border rounded-md ${errors.address ? 'border-red-500' : 'border-gray-300'}`}
+                  />
+                  {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address}</p>}
                 </div>
               )}
               {activeStep === 1 && (
@@ -2134,49 +3764,7 @@ function AddOrders() {
                     <option value="Processed">Processed</option>
                   </select>
                   {errors.orderStatus && <p className="text-red-500 text-sm mt-1">{errors.orderStatus}</p>}
-                  <label className="block text-sm font-medium text-gray-700">Delivery Date</label>
-                  <input
-                    type="date"
-                    name="deliveryDate"
-                    value={orderDetails.deliveryDate}
-                    onChange={handleChange}
-                    className={`mt-1 p-2 w-full border rounded-md ${errors.deliveryDate ? 'border-red-500' : 'border-gray-300'}`}
-                  />
-                  {errors.deliveryDate && <p className="text-red-500 text-sm mt-1">{errors.deliveryDate}</p>}
-                  <label className="block text-sm font-medium text-gray-700">Address</label>
-                  <input
-                    type="text"
-                    name="address"
-                    value={orderDetails.address}
-                    onChange={handleChange}
-                    className={`mt-1 p-2 w-full border rounded-md ${errors.address ? 'border-red-500' : 'border-gray-300'}`}
-                  />
-                  {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address}</p>}
-                </div>
-              )}
-              {activeStep === 2 && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Type</label>
-                  <select
-                    name="type"
-                    value={orderDetails.type}
-                    onChange={handleChange}
-                    className={`mt-1 p-2 w-full border rounded-md ${errors.type ? 'border-red-500' : 'border-gray-300'}`}
-                  >
-                    <option value="">Select a Type</option>
-                    <option value="Kitchen, Wardrobe, Living">Kitchen, Wardrobe, Living</option>
-                    <option value="Bedroom, Dining, Office">Bedroom, Dining, Office</option>
-                  </select>
-                  {errors.type && <p className="text-red-500 text-sm mt-1">{errors.type}</p>}
-                  <label className="block text-sm font-medium text-gray-700">Design</label>
-                  <input
-                    type="text"
-                    name="design"
-                    value={orderDetails.design}
-                    onChange={handleChange}
-                    className={`mt-1 p-2 w-full border rounded-md ${errors.design ? 'border-red-500' : 'border-gray-300'}`}
-                  />
-                  {errors.design && <p className="text-red-500 text-sm mt-1">{errors.design}</p>}
+                  
                   <label className="block text-sm font-medium text-gray-700">Created By</label>
                   <input
                     type="text"
@@ -2186,62 +3774,120 @@ function AddOrders() {
                     className={`mt-1 p-2 w-full border rounded-md ${errors.createdBy ? 'border-red-500' : 'border-gray-300'}`}
                   />
                   {errors.createdBy && <p className="text-red-500 text-sm mt-1">{errors.createdBy}</p>}
+                  
+                  <label className="block text-sm font-medium text-gray-700">Expected Delivery Date</label>
+                  <input
+                    type="date"
+                    name="deliveryDate"
+                    value={orderDetails.deliveryDate}
+                    onChange={handleChange}
+                    className={`mt-1 p-2 w-full border rounded-md ${errors.deliveryDate ? 'border-red-500' : 'border-gray-300'}`}
+                  />
+                  {errors.deliveryDate && <p className="text-red-500 text-sm mt-1">{errors.deliveryDate}</p>}
+                </div>
+              )}
+              {activeStep === 2 && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Design</label>
+                  <textarea
+                    name="design"
+                    value={orderDetails.design}
+                    onChange={handleChange}
+                    className={`mt-1 p-2 w-full border rounded-md ${errors.design ? 'border-red-500' : 'border-gray-300'}`}
+                  />
+                  {errors.design && <p className="text-red-500 text-sm mt-1">{errors.design}</p>}
+                  
+                  <label className="block text-sm font-medium text-gray-700">Image Upload (up to 6 images)</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={handleImageChange}
+                    className="mt-1 p-2 w-full border rounded-md"
+                  />
+                  <div className="grid grid-cols-3 gap-4 mt-4">
+                    {imagePreviews.map((preview, index) => (
+                      <div key={index} className="relative">
+                        <img
+                          src={preview}
+                          alt={`Uploaded ${index}`}
+                          className="w-full h-full object-cover border rounded-md"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => handleImageRemove(index)}
+                          className="absolute top-0 right-0 p-1 bg-red-500 text-white rounded-full"
+                        >
+                          &times;
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <label className="block text-sm font-medium text-gray-700">Type</label>
+                  <input
+                    type="text"
+                    name="type"
+                    value={orderDetails.type}
+                    onChange={handleChange}
+                    className={`mt-1 p-2 w-full border rounded-md ${errors.type ? 'border-red-500' : 'border-gray-300'}`}
+                  />
+                  {errors.type && <p className="text-red-500 text-sm mt-1">{errors.type}</p>}
                 </div>
               )}
             </Box>
-            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }} className="justify-between mt-6">
+            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }} className="justify-between">
               <Button
-                color="inherit"
                 disabled={activeStep === 0}
                 onClick={handleBack}
-                className="text-blue-500 hover:text-blue-700 px-4 py-2 rounded"
+                className="bg-gray-500 text-white hover:bg-gray-700 px-4 py-2 rounded"
               >
                 Back
               </Button>
-              <Box sx={{ flex: '1 1 auto' }} />
               {isStepOptional(activeStep) && (
                 <Button
-                  color="inherit"
+                  variant="contained"
                   onClick={handleSkip}
-                  className="text-blue-500 hover:text-blue-700 px-4 py-2 rounded"
+                  sx={{ mr: 1 }}
+                  className="bg-blue-500 text-white hover:bg-blue-700 px-4 py-2 rounded"
                 >
                   Skip
                 </Button>
               )}
-              {activeStep === steps.length - 1 ? (
-                <Button onClick={handleSubmit} className="bg-green-500 text-white hover:bg-green-700 px-4 py-2 rounded">
-                  Finish
-                </Button>
-              ) : (
-                <Button onClick={handleNext} className="bg-blue-500 text-white hover:bg-blue-700 px-4 py-2 rounded">
-                  Next
-                </Button>
-              )}
+              <Button
+                onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}
+                className="bg-blue-500 text-white hover:bg-blue-700 px-4 py-2 rounded"
+              >
+                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+              </Button>
             </Box>
           </React.Fragment>
         )}
-        {showAlert && (
-          <div className="mt-4 text-green-700 bg-green-100 p-3 rounded">
-            Order submitted successfully!
-          </div>
-        )}
-        {submittedDetails && (
-          <div className="mt-6 p-4 bg-gray-100 rounded-lg shadow-md">
-            <Typography variant="h6" className="text-center mb-4">
-              Submitted Order Details
-            </Typography>
-            <Typography><strong>Name:</strong> {submittedDetails.name}</Typography>
-            <Typography><strong>Email:</strong> {submittedDetails.email}</Typography>
-            <Typography><strong>Phone:</strong> {submittedDetails.phone}</Typography>
-            <Typography><strong>Order Status:</strong> {submittedDetails.orderStatus}</Typography>
-            <Typography><strong>Delivery Date:</strong> {submittedDetails.deliveryDate}</Typography>
-            <Typography><strong>Address:</strong> {submittedDetails.address}</Typography>
-            <Typography><strong>Created By:</strong> {submittedDetails.createdBy}</Typography>
-            <Typography><strong>Design:</strong> {submittedDetails.design}</Typography>
-            <Typography><strong>Type:</strong> {submittedDetails.type}</Typography>
-          </div>
-        )}
       </Box>
+      {showAlert && (
+        <div className="fixed top-4 right-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded" role="alert">
+          <strong className="font-bold">Order submitted successfully!</strong>
+        </div>
+      )}
+      {submittedDetails && (
+        <div className="mt-4 bg-gray-100 p-4 rounded shadow-lg">
+          <h3 className="text-xl font-bold mb-4">Submitted Order Details:</h3>
+          <p><strong>Name:</strong> {submittedDetails.name}</p>
+          <p><strong>Email:</strong> {submittedDetails.email}</p>
+          <p><strong>Phone:</strong> {submittedDetails.phone}</p>
+          <p><strong>Address:</strong> {submittedDetails.address}</p>
+          <p><strong>Order Status:</strong> {submittedDetails.orderStatus}</p>
+          <p><strong>Created By:</strong> {submittedDetails.createdBy}</p>
+          <p><strong>Expected Delivery Date:</strong> {submittedDetails.deliveryDate}</p>
+          <p><strong>Design:</strong> {submittedDetails.design}</p>
+          <p><strong>Type:</strong> {submittedDetails.type}</p>
+          <div className="grid grid-cols-3 gap-4 mt-4">
+            {submittedDetails.images && submittedDetails.images.map((img, index) => (
+              <img key={index} src={img} alt={`Final ${index}`} className="w-full h-24 object-cover border rounded-md" />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
