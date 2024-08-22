@@ -32,15 +32,19 @@ import { useNavigate, useLocation } from 'react-router-dom'; // Import useNaviga
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
 
-  { name: 'Create Orders', href: '/AddOrders', icon: UserIcon },
+  // { name: 'Create Orders', href: '/AddOrders', icon: UserIcon },
 
   { name: 'Orders', href: '/orders', icon: ClipboardDocumentListIcon },
   // { name: 'Add Products', href: '/products', icon: FolderIcon },
   { name: 'Users', href: '/user', icon: UsersIcon },
   // { name: 'Products', href: '/product', icon: FolderIcon },
   { name: 'Stores', href: '/Stores', icon: ShoppingBagIcon },
+  { name: 'Customers', href: '/Customer', icon: UsersIcon },
+
   { name: 'Reports', href: '/Reports', icon: FolderIcon },
   { name: 'Payments', href: '/Payments', icon: CreditCardIcon  },
+
+
 
 
 ];
@@ -116,8 +120,9 @@ export default function Navigation() {
                                 'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6'
                               )}
                             >
-                              <item.icon
+                              <item.icon 
                                 aria-hidden="true"
+                                color='black'
                                 className={classNames(
                                   location.pathname === item.href
                                     ? 'text-white'
@@ -176,15 +181,12 @@ export default function Navigation() {
                           )}
                         >
                           <item.icon
-                            aria-hidden="true"
-                            className={classNames(
-                              location.pathname === item.href
-                                ? ' text-white'
-                                : 'text-indigo-200 group-hover:text-gray-700',
-                              'h-6 w-6 shrink-0'
-                            )}
-                          />
-                          {item.name}
+  aria-hidden="true"
+  className={classNames(
+    location.pathname === item.href ? 'text-white' : 'group-hover:text-gray-700',
+    'h-6 w-6 shrink-0 text-black' // Base color set to black
+  )}
+/>       {item.name}
                         </a>
                       </li>
                     ))}
