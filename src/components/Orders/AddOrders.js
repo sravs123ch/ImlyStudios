@@ -1883,8 +1883,8 @@ const [pdfFile, setPdfFile] = useState(null);
               <button
   color="inherit"
   onClick={handleBack}
-  className={`inline-flex items-center gap-x-1.5 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ${
-    activeStep === 0 ? "cursor-not-allowed opacity-50" : "hover:bg-blue-500"
+  className={`inline-flex items-center gap-x-1.5 rounded-md bg-custom-darkblue px-3 py-2 text-sm font-semibold text-white shadow-sm ${
+    activeStep === 0 ? "cursor-not-allowed opacity-50" : "hover:bg-custom-lightblue  hover:text-gray-700"
   }`}
   disabled={activeStep === 0}
 >
@@ -1896,13 +1896,13 @@ const [pdfFile, setPdfFile] = useState(null);
               <button
                 variant="contained"
                 onClick={handleCancel}
-                className="inline-flex items-center gap-x-1.5 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 ml-2 mr-4"                ><RxCross1 />
+                className="inline-flex items-center gap-x-1.5 rounded-md bg-gray-300  px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm hover: hover:bg-gray-400 ml-2 mr-4"                ><RxCross1 />
 
                 Cancel
               </button>              <button
                 variant="contained"
                 onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}
-                className="inline-flex items-center gap-x-1.5 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 "
+                className="inline-flex items-center gap-x-1.5 rounded-md bg-custom-darkblue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-custom-lightblue hover:text-gray-700 "
                 >
 
                 {activeStep === steps.length - 1 ? 'Submit' : 'Next'}

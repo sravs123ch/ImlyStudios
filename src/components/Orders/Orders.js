@@ -531,6 +531,244 @@
 // }
 
 
+// import { HomeIcon, PrinterIcon } from "@heroicons/react/24/outline";
+// import { useNavigate } from "react-router-dom";
+
+// const data = [
+//   {
+//     id: 1000252,
+//     name: "RIVAGO",
+//     price: 1000,
+//     balance: 50000,
+//     status: "pending",
+//     operation: "Cancel Order",
+//   },
+//   {
+//     id: 1000253,
+//     name: "CASINO",
+//     price: 1200,
+//     balance: 50000,
+//     status: "dispatched",
+//     operation: "Already Dispatched",
+//   },
+//   {
+//     id: 1000254,
+//     name: "ACRILIA",
+//     price: 1500,
+//     balance: 50000,
+//     status: "pending",
+//     operation: "Cancel Order",
+//   },
+//   {
+//     id: 1000255,
+//     name: "ARTEX",
+//     price: 2500,
+//     balance: 50000,
+//     status: "pending",
+//     operation: "Cancel Order",
+//   },
+//   {
+//     id: 1000256,
+//     name: "LAZZARO",
+//     price: 2000,
+//     balance: 50000,
+//     status: "cancelled",
+//     operation: "Cancelled",
+//   },
+//   {
+//     id: 1000257,
+//     name: "MILANO",
+//     price: 800,
+//     balance: 50000,
+//     status: "pending",
+//     operation: "Cancel Order",
+//   },
+//   {
+//     id: 1000258,
+//     name: "LAZZARO",
+//     price: 1800,
+//     balance: 50000,
+//     status: "cancelled",
+//     operation: "Cancelled",
+//   },
+//   {
+//     id: 1000259,
+//     name: "LEON",
+//     price: 1500,
+//     balance: 50000,
+//     status: "pending",
+//     operation: "Cancel Order",
+//   },
+//   {
+//     id: 1000260,
+//     name: "FLIPPO",
+//     price: 2000,
+//     balance: 50000,
+//     status: "dispatched",
+//     operation: "Already Dispatched",
+//   },
+//   {
+//     id: 1000261,
+//     name: "LUCENTO",
+//     price: 1700,
+//     balance: 50000,
+//     status: "pending",
+//     operation: "Cancel Order",
+//   },
+//   {
+//     id: 1000262,
+//     name: "LEON",
+//     price: 1000,
+//     balance: 50000,
+//     status: "cancelled",
+//     operation: "Cancelled",
+//   },
+//   {
+//     id: 1000263,
+//     name: "LAZZARO",
+//     price: 1000,
+//     balance: 50000,
+//     status: "pending",
+//     operation: "Cancel Order",
+//   },
+//   {
+//     id: 1000264,
+//     name: "CASINO",
+//     price: 1000,
+//     balance: 50000,
+//     status: "cancelled",
+//     operation: "Cancelled",
+//   },
+// ];
+
+// const UserData = ({ users }) => {
+//   const isDispatched = (statusChecker) => {
+//     return statusChecker === "dispatched" || statusChecker === "Dispatched";
+//   };
+//   const isActive = (orderChecker) => {
+//     return orderChecker === "Cancel Order" || orderChecker === "cancel order";
+//   };
+
+
+//   const navigate = useNavigate();
+
+//   const handleOrderUpdate = (event, order) => {
+//     event.preventDefault();
+//     navigate("/update-order", { state: { order } });
+//   };
+//   return (
+//     <>
+//       {users.map((curUser) => {
+//         const { id, name, price, balance, status, operation } = curUser;
+
+//         return (
+//           <tr key={id} className="w-[100%] ">
+//             <td className="p-5 border-b-[1px] border-[#33333353] font-bold text-center">
+//               {id}
+//             </td>
+//             <td className="text-center p-5 border-b-[1px] border-[#33333353] text-[#6c7079]">
+//               {name}
+//             </td>
+//             <td className="p-5 text-center border-b-[1px] border-[#33333353] text-[#6c7079]">
+//               &#8377;{price}
+//             </td>
+//             <td className="p-5 text-center border-b-[1px] border-[#33333353] text-[#6c7079]">
+//               &#8377;{balance}
+//             </td>
+//             <td className="p-5 border-b-[1px] text-center border-[#33333353] text-[#6c7079] ">
+//               <button
+//                 className={`${
+//                   isDispatched(status)
+//                     ? " text-center font-semibold border-[1px] border-solid border-green-600 text-green-600 bg-[#eefcee] rounded-full pt-[4px] pr-[10px] pb-[4px] pl-[10px] h-[33px]  "
+//                     : " text-center font-semibold border-[1px] border-solid border-[#BD2B2B] text-[#BD2B2B] bg-[#FFF3F2] rounded-full pt-[4px] pr-[10px] pb-[4px] pl-[10px] h-[33px] "
+//                 }`}
+//               >
+//                 {status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()}
+//               </button>
+//             </td>
+
+//             <td className="text-left p-5 border-b-[1px] border-[#33333353] text-[#6c7079]">
+//               <button
+//                 className={`${
+//                   isActive(operation)
+//                     ? "bg-[#F04A48] cursor-pointer text-[#FFFEFE] p-[8px] border-none rounded hover:bg-[#ff8c8a]"
+//                     : "bg-[#c5c5c5] cursor-pointer text-[#FFFEFE] p-[8px] border-none rounded hover:bg-[#acabab]   "
+//                 }`}
+//               >
+//                 {operation}
+//               </button>
+//             </td>
+//             <td className="p-5 border-b-[1px] border-[#33333353] text-[#6c7079]">
+//               <button onClick={(e) => handleOrderUpdate(e, curUser)}  className="bg-[#0059ff] border-none text-white w-[30px] h-[30px] rounded-full flex justify-center items-center cursor-pointer text-s    hover:bg-[#0059ffb1]">
+//                 <span className="inline-block font-bold text-xl h-[31px] w-[10px] mt-[3px] ml-[2px]">
+//                   &gt;
+//                 </span>
+//               </button>
+//             </td>
+//           </tr>
+//         );
+//       })}
+//     </>
+//   );
+// };
+
+// const OrderPage = () => {
+//   return (
+//     <div className="order p-4 bg-[#F3F4F6] px-4 sm:px-6 lg:px-8 pt-4  ml-10 lg:ml-72 w-auto3 ">
+//       <div className="content flex justify-between">
+//         <h3 className="text-4xl font-display mb-14 text-[#677749] font-bold bg-[#F3F4F6]">
+//           Orders
+//         </h3>
+//         <div className="button flex">
+//           <a href="/AddOrders">
+//             <button className="mt-10 mr-2 mb-10 ml-10 bg-[white] cursor-pointer rounded p-[8px] hover:bg-[#ff8c8a]' hover:bg-[#c6c6c6] flex  items-center border-solid border-[1px] border-black">
+//               <HomeIcon className="block mr-[10px] h-[18px] w-[19px] font-bold " />
+//               Create Order
+//             </button>
+//           </a>
+//           <a href="/create-order">
+//             <button className="ml-1 mt-10 mr-10 mb-10 bg-[white] cursor-pointer rounded p-[8px] hover:bg-[#ff8c8a]' hover:bg-[#c6c6c6] flex  items-center border-solid border-[1px] border-black">
+//               <PrinterIcon className="block mr-[10px] h-[18px] w-[19px] font-bold " />
+//               Export Order
+//             </button>
+//           </a>
+//         </div>
+//       </div>
+//       <table className="w-full border-collapse">
+//         <thead>
+//           <tr>
+//             <th className="pt-[0px] pr-[15px] pb-[25px] pl-[15px]  border-b-[2px] border-[#33333353] text-center">
+//               Order Id
+//             </th>
+//             <th className="pt-[0px] pr-[15px] pb-[25px] pl-[15px]  border-b-[2px] border-[#33333353] text-center">
+//               Product Name
+//             </th>
+//             <th className="pt-[0px] pr-[15px] pb-[25px] pl-[15px]  border-b-[2px] border-[#33333353] text-center">
+//               Price
+//             </th>
+//             <th className="pt-[0px] pr-[15px] pb-[25px] pl-[15px]  border-b-[2px] border-[#33333353]">
+//               Payment Balance
+//             </th>
+//             <th className="pt-[0px] pr-[15px] pb-[25px] pl-[15px]  border-b-[2px] border-[#33333353] text-center">
+//               Status
+//             </th>
+//             <th className="pt-[0px] pr-[15px] pb-[25px] pl-[35px]  border-b-[2px] border-[#33333353] text-left">
+//               Operation
+//             </th>
+//             <th className="pt-[0px] pr-[15px] pb-[25px] pl-[15px]  border-b-[2px] border-[#33333353] text-center"></th>
+//           </tr>
+//         </thead>
+//         <tbody className="ml-4">
+//           <UserData users={data} />
+//         </tbody>
+//       </table>
+//     </div>
+//   );
+// };
+
+// export default OrderPage;
+
+
 import { HomeIcon, PrinterIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 
@@ -657,7 +895,9 @@ const UserData = ({ users }) => {
     navigate("/update-order", { state: { order } });
   };
   return (
+
     <>
+
       {users.map((curUser) => {
         const { id, name, price, balance, status, operation } = curUser;
 
@@ -699,8 +939,9 @@ const UserData = ({ users }) => {
               </button>
             </td>
             <td className="p-5 border-b-[1px] border-[#33333353] text-[#6c7079]">
-              <button onClick={(e) => handleOrderUpdate(e, curUser)}  className="bg-[#0059ff] border-none text-white w-[30px] h-[30px] rounded-full flex justify-center items-center cursor-pointer text-s    hover:bg-[#0059ffb1]">
-                <span className="inline-block font-bold text-xl h-[31px] w-[10px] mt-[3px] ml-[2px]">
+              <button onClick={(e) => handleOrderUpdate(e, curUser)}  className="bg-[#003375] border-none text-white w-[30px] h-[30px] rounded-full flex justify-center items-center cursor-pointer text-s    hover:bg-[#003375a7]">
+                {/* bg-[#0059ff] */}
+                <span className="inline-block font-bold text-xl h-[36px] w-[10px] mt-[3px] mr-[2px] ">
                   &gt;
                 </span>
               </button>
@@ -708,54 +949,56 @@ const UserData = ({ users }) => {
           </tr>
         );
       })}
+
     </>
+
   );
 };
 
 const OrderPage = () => {
   return (
-    <div className="order p-4 bg-[#F3F4F6] px-4 sm:px-6 lg:px-8 pt-4  ml-10 lg:ml-72 w-auto3 ">
-      <div className="content flex justify-between">
+     <div className="order p-4 bg-[#F3F4F6] px-4 sm:px-6 lg:px-8 pt-4  ml-10 lg:ml-72 w-auto3 ">
+<div className="content flex justify-between">
         <h3 className="text-4xl font-display mb-14 text-[#677749] font-bold bg-[#F3F4F6]">
           Orders
         </h3>
         <div className="button flex">
           <a href="/AddOrders">
-            <button className="mt-10 mr-2 mb-10 ml-10 bg-[white] cursor-pointer rounded p-[8px] hover:bg-[#ff8c8a]' hover:bg-[#c6c6c6] flex  items-center border-solid border-[1px] border-black">
+            <button className="mt-10 mr-2 mb-10 ml-10 text-white cursor-pointer rounded p-[8px] hover:bg-[#003375a7] flex  items-center  border-none bg-[#003375]">
               <HomeIcon className="block mr-[10px] h-[18px] w-[19px] font-bold " />
               Create Order
             </button>
           </a>
-          <a href="/create-order">
-            <button className="ml-1 mt-10 mr-10 mb-10 bg-[white] cursor-pointer rounded p-[8px] hover:bg-[#ff8c8a]' hover:bg-[#c6c6c6] flex  items-center border-solid border-[1px] border-black">
+          <a href="/AddOrders">
+            <button className="ml-1 mt-10 mr-10 mb-10 text-white cursor-pointer rounded p-[8px] hover:bg-[#003375a7] flex  items-center border-none bg-[#003375]">
               <PrinterIcon className="block mr-[10px] h-[18px] w-[19px] font-bold " />
               Export Order
             </button>
           </a>
         </div>
       </div>
-      <table className="w-full border-collapse">
-        <thead>
+      <table className="w-full ">
+        <thead className="bg-[#003375] justify-center text-white rounded-lg">
           <tr>
-            <th className="pt-[0px] pr-[15px] pb-[25px] pl-[15px]  border-b-[2px] border-[#33333353] text-center">
+            <th className="pt-[20px] pr-[15px] pb-[20px] pl-[15px] text-center rounded-bl-lg rounded-tl-lg">
               Order Id
             </th>
-            <th className="pt-[0px] pr-[15px] pb-[25px] pl-[15px]  border-b-[2px] border-[#33333353] text-center">
+            <th className="pt-[20px] pr-[15px] pb-[20px] pl-[15px] text-center">
               Product Name
             </th>
-            <th className="pt-[0px] pr-[15px] pb-[25px] pl-[15px]  border-b-[2px] border-[#33333353] text-center">
+            <th className="pt-[20px] pr-[15px] pb-[20px] pl-[15px] text-center">
               Price
             </th>
-            <th className="pt-[0px] pr-[15px] pb-[25px] pl-[15px]  border-b-[2px] border-[#33333353]">
+            <th className="pt-[20px] pr-[15px] pb-[20px] pl-[15px]">
               Payment Balance
             </th>
-            <th className="pt-[0px] pr-[15px] pb-[25px] pl-[15px]  border-b-[2px] border-[#33333353] text-center">
+            <th className="pt-[20px] pr-[15px] pb-[20px] pl-[15px] text-center">
               Status
             </th>
-            <th className="pt-[0px] pr-[15px] pb-[25px] pl-[35px]  border-b-[2px] border-[#33333353] text-left">
+            <th className="pt-[20px] pr-[15px] pb-[20px] pl-[15px] text-left">
               Operation
             </th>
-            <th className="pt-[0px] pr-[15px] pb-[25px] pl-[15px]  border-b-[2px] border-[#33333353] text-center"></th>
+            <th className="pt-[20px] pr-[15px] pb-[20px] pl-[15px] text-center rounded-tr-lg rounded-br-lg"></th>
           </tr>
         </thead>
         <tbody className="ml-4">
