@@ -22,6 +22,7 @@ module.exports = {
         'custom-brown':"#632E0F",
         'custom-darkblue':"#00246B",
         'custom-lightblue':"#CADCFC",
+        'custom-maroon':"#fafafa"
       },
     },
   },

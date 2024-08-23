@@ -12,6 +12,8 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import TablePagination from '@mui/material/TablePagination';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { RxCross1 } from "react-icons/rx";
+
 
 
 
@@ -59,7 +61,8 @@ function AddOrders() {
     ? categories.find(cat => cat.id === selectedCategory.id)?.subOptions || []
     : [];
   const [orderDetails, setOrderDetails] = useState({
-    name: '',
+    firstname: '',
+    lastname: '',
     orderStatus: '',
     email: '',
     deliveryDate: '',
@@ -78,7 +81,6 @@ function AddOrders() {
     width: '',
     totalAmount:"",
     advanceAmount:"",
-    installments:"",
     comments:"",
     orderStatusComments:"",
     startdate:"",
@@ -87,6 +89,7 @@ function AddOrders() {
     finalLength:"",
     finalHeight:"",
     finalWidth:"",
+    paymentscomments:"",
   });
   const handleCategoryChange = (category) => {
     setQuery('');
@@ -150,7 +153,8 @@ function AddOrders() {
 
   const handleSubmit = () => {
     const newErrors = {};
-    if (!orderDetails.name) newErrors.name = 'Name is required';
+    if (!orderDetails.firstname) newErrors.firstname = 'first name is required';
+    if (!orderDetails.lastname) newErrors.lastname = 'last name is required';
     if (!orderDetails.orderStatus) newErrors.orderStatus = 'Order Status is required';
     if (!orderDetails.email) newErrors.email = 'Email is required';
     if (!orderDetails.deliveryDate) newErrors.deliveryDate = 'Expected Delivery Date is required';
@@ -160,20 +164,21 @@ function AddOrders() {
     if (!orderDetails.createdBy) newErrors.createdBy = 'Created By is required';
     if (!orderDetails.design) newErrors.design = 'Design is required';
     if (!orderDetails.type) newErrors.type = 'Type is required';
-    if (!orderDetails.categories) newErrors.categories = 'categories is required';
-    if (!selectedSubOption) newErrors.subOption = 'Sub-option is required';
+    // if (!orderDetails.categories) newErrors.categories = 'categories is required';
+    // if (!selectedSubOption) newErrors.subOption = 'Sub-option is required';
     if (!orderDetails.city) newErrors.city = 'City is required';
     if (!orderDetails.state) newErrors.state = 'State is required';
     if (!orderDetails.length) newErrors.length = 'length is required';
     if (!orderDetails.width) newErrors.width = 'width is required';
     if (!orderDetails.totalAmount) newErrors.totalAmount = 'TotalAmount is required';
     if (!orderDetails.advanceAmount) newErrors.advanceAmount = 'Advance Amount is required';
-    if (!orderDetails.installments) newErrors.installments = 'installments is required';
     if (!orderDetails.comments) newErrors.comments = 'Comments is required';
     if (!orderDetails. orderStatusComments) newErrors.orderStatusComments = 'Comments is required';
     if (!orderDetails.startdate) newErrors.startdate = 'StartDate is required';
     if (!orderDetails.enddate) newErrors.enddate = 'EndDate is required';
     if (!orderDetails.paymentstype) newErrors.paymentstype = 'Payments Type is required'; 
+    if (!orderDetails.paymentscomments) newErrors.paymentscomments = 'Payments comments Type is required'; 
+
     if (!orderDetails.finalLength) newErrors.finalLength = 'Final length is required';
     if (!orderDetails.finalWidth) newErrors.finalWidth = 'Final Width is required';
     if (!orderDetails.finalHeight) newErrors.finalHeight = 'Final height is required';
@@ -197,7 +202,8 @@ function AddOrders() {
     setShowAlert(true);
 
     setOrderDetails({
-      name: '',
+      firstname: '',
+      lastname: '',
       orderStatus: '',
       email: '',
       deliveryDate: '',
@@ -216,7 +222,6 @@ function AddOrders() {
       width: '',
       totalAmount: '',
       advanceAmount: '',
-      installments:"",
       comments:"",
       orderStatusComments:"",
       startdate: "",
@@ -225,6 +230,7 @@ function AddOrders() {
       finalLength: "",
       finalHeight: "",
       finalWidth: "",
+      paymentscomments: "",
     });
     setImages([]);
     setImagePreviews([]);
@@ -236,7 +242,8 @@ function AddOrders() {
 
   const handleCancel = () => {
     setOrderDetails({
-      name: '',
+      firstname: '',
+      lastname: '',
       email: '',
       phone: '',
       address: '',
@@ -257,7 +264,6 @@ function AddOrders() {
       width: '',
       totalAmount: '',
       advanceAmount: '',
-      installments:'',
       comments:'',
       orderStatusComments:'',
       startdate: '',
@@ -267,6 +273,7 @@ function AddOrders() {
       finalWidth:"",
       finalLength: '',
       pdfPreview :"",
+      paymentscomments: '',
     });
     setActiveStep(0); // Optional: Reset to the first step
   };
@@ -310,7 +317,8 @@ function AddOrders() {
   if (!orderDetails.totalAmount) newErrors.totalAmount = 'Total amount is required';
   if (!orderDetails.advanceAmount) newErrors.advanceAmount = 'Advance amountTo is required';
   if (!orderDetails.paymentstype) newErrors.paymentstype = 'Payments Type is required';
-  if (!orderDetails.installments) newErrors.installments = 'Installments Type is required';
+  if (!orderDetails.paymentscomments) newErrors.paymentscomments = 'Payments comments is required';
+
 
   setErrors(newErrors);
 
@@ -323,9 +331,8 @@ function AddOrders() {
       totalAmount: '',
       advanceAmount: '',
       paymentstype: '',
-      installments: '',
       balanceAmount: '',
-      installmentPerMonths:"",
+      paymentscomments: '',
     });
   }
 };
@@ -344,23 +351,62 @@ const [pdfFile, setPdfFile] = useState(null);
     setPdfFile(null);
     setPdfPreview('');
   };
+  const [selectedReferralType, setSelectedReferralType] = useState('');
+  const handleReferralTypeChange = (value) => {
+    if (value) {
+      setSelectedReferralType(value);
+    } else {
+      // Handle the case where no value is selected
+      setSelectedReferralType('');
+    }
+  };
+  const [refereeName, setRefereeName] = useState('');
+  const handleRefereeNameChange = (event) => {
+    setRefereeName(event.target.value);
+  };
+  const [selectedSocialMediaPlatform, setSelectedSocialMediaPlatform] = useState('');
+  const handleSocialMediaPlatformChange = (value) => {
+    if (value) {
+      setSelectedSocialMediaPlatform(value);
+    } else {
+      setSelectedSocialMediaPlatform('');
+    }
+  };
+      
+  const [file, setFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    const uploadedFile = e.target.files[0];
+    if (uploadedFile && uploadedFile.type === "application/pdf") {
+      setFile(uploadedFile);
+    } else {
+      alert("Please upload a PDF file.");
+    }
+  };
+
+  const handleDelete = () => {
+    setFile(null);
+  };
+
+  const [selectedReferenceSubOption, setSelectedReferenceSubOption] = useState('');
+  const [error, setError] = useState('');
+
+ 
+
+  const handleReferenceSubOptionChange = (value) => {
+    setSelectedReferenceSubOption(value);
+    if (value) {
+      setRefereeName('');
+    }
+  };
+
+  
 
   return (
     <>
     <div className="p-6 mr-10 sm:px-6 lg:px-8 pt-4 ml-10 lg:ml-80 w-1/8   rounded-lg">
-            {/* Button at the top */}
-            <div className="flex justify-end mt-4">
-
-            <button 
-                onClick={handleExistingUserClick} 
-                className="bg-blue-500 text-white px-4 py-2 rounded mt-4 "
-            >
-                Existing User
-            </button>
-            <ToastContainer />
-
-            </div>
-
+            {/* Button at the top */} <ToastContainer />
+            
             {/* Search Card */}
             {showSearchCard && (
                 <div className="mt-4 p-4 border rounded shadow-lg">
@@ -422,30 +468,43 @@ const [pdfFile, setPdfFile] = useState(null);
           pt: 2 
         }}
       >
+
       
               {activeStep === 0 && (
                 <>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-700">Name</label>
+                <div className='grid'>
+                <div>
+                    <label className="block text-xs font-medium text-gray-700">First name</label>
                     <input
                       type="text"
-                      name="name"
-                      value={orderDetails.name}
+                      name="firstname"
+                      value={orderDetails.firstname}
                       onChange={handleChange}
-                      className={` p-1 w-full border rounded-md ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
+                      className={` p-1 w-full border rounded-md ${errors.firstname ? 'border-red-500' : 'border-gray-300'}`}
                     />
-                    {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+                    {errors.firstname && <p className="text-red-500 text-sm mt-1">{errors.firstname}</p>}
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-700">Address line1</label>
+                    <label className="block text-xs font-medium text-gray-700">Last name</label>
                     <input
                       type="text"
-                      name="address"
-                      value={orderDetails.address}
+                      name="lastname"
+                      value={orderDetails.lastname}
                       onChange={handleChange}
-                      className={`p-1 w-full border rounded-md ${errors.address ? 'border-red-500' : 'border-gray-300'}`}
+                      className={` p-1 w-full border rounded-md ${errors.lastname ? 'border-red-500' : 'border-gray-300'}`}
                     />
-                    {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address}</p>}
+                    {errors.lastname && <p className="text-red-500 text-sm mt-1">{errors.lastname}</p>}
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700">Email</label>
+                    <input
+                      type="text"
+                      name="email"
+                      value={orderDetails.email}
+                      onChange={handleChange}
+                      className={` p-1 w-full border rounded-md ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+                    />
+                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-gray-700">Phone</label>
@@ -459,64 +518,6 @@ const [pdfFile, setPdfFile] = useState(null);
                     {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-700">Address line2</label>
-                    <input
-                      type="text"
-                      name="address1"
-                      value={orderDetails.address1}
-                      onChange={handleChange}
-                      className={` p-1 w-full border rounded-md ${errors.address1 ? 'border-red-500' : 'border-gray-300'}`}
-                    />
-                    {errors.address1 && <p className="text-red-500 text-sm mt-1">{errors.address1}</p>}
-                  </div>
-       
-                  <div>
-                    <label className="block text-xs font-medium text-gray-700">Email</label>
-                    <input
-                      type="text"
-                      name="email"
-                      value={orderDetails.email}
-                      onChange={handleChange}
-                      className={` p-1 w-full border rounded-md ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
-                    />
-                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-                  </div>
-                  
-                  <div>
-                    <label className="block text-xs font-medium text-gray-700">City</label>
-                    <input
-                      type="text"
-                      name="city"
-                      value={orderDetails.city}
-                      onChange={handleChange}
-                      className={` p-1 w-full border rounded-md ${errors.city ? 'border-red-500' : 'border-gray-300'}`}
-                    />
-                    {errors.city && <p className="text-red-500 text-sm mt-1">{errors.city}</p>}
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-700">State</label>
-                    <input
-                      type="text"
-                      name="state"
-                      value={orderDetails.state}
-                      onChange={handleChange}
-                      className={` p-1 w-full border rounded-md ${errors.state ? 'border-red-500' : 'border-gray-300'}`}
-                    />
-                    {errors.state && <p className="text-red-500 text-sm mt-1">{errors.state}</p>}
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-700">Zipcode</label>
-                    <input
-                      type="number"
-                      name="zipcode"
-                      value={orderDetails.zipcode}
-                      onChange={handleChange}
-                      className={` p-1 w-full border rounded-md ${errors.zipcode ? 'border-red-500' : 'border-gray-300'}`}
-                    />
-                    {errors.zipcode && <p className="text-red-500 text-sm mt-1">{errors.zipcode}</p>}
-                  </div>
-                  
-    <div>
                     <label className="block text-xs font-medium text-gray-700">Type</label>
                     <select
                       name="type"
@@ -553,7 +554,7 @@ const [pdfFile, setPdfFile] = useState(null);
                     />
                     {errors.comments && <p className="text-red-500 text-sm mt-1">{errors.comments}</p>}
                   </div>
-                  <div className="mb-4">
+                  {/* <div className="mb-4">
       <label className="block text-xs font-medium text-gray-700">Referred By</label>
       <Combobox
         as="div"
@@ -595,13 +596,13 @@ const [pdfFile, setPdfFile] = useState(null);
 
       {selectedCategory && subOptions.length > 0 && (
         <div className="mt-4">
-          <label className="block text-sm font-medium text-gray-700">Sub-Category</label>
+          <label className="block text-xs font-medium text-gray-700">Sub-Category</label>
           <Combobox
             as="div"
             value={selectedSubOption}
             onChange={setSelectedSubOption}
           >
-            <div className="relative mt-2">
+            <div className="relative ">
               <Combobox.Input
                 className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 onChange={(event) => setQuery(event.target.value)}
@@ -634,16 +635,337 @@ const [pdfFile, setPdfFile] = useState(null);
           </Combobox>
         </div>
       )}
-    {/* {errors.categories && <p className="text-red-500 text-sm mt-1">{errors.categories}</p>} */}
 
+    </div> */}
+    {/* <div className="mb-4">
+  <label className="block text-xs font-medium text-gray-700">Referred By</label>
+  <Combobox
+    as="div"
+    value={selectedReferralType}
+    onChange={handleReferralTypeChange}
+  >
+    <div className="relative">
+      <Combobox.Input
+        className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        // displayValue={(type) => type}
+        onChange={(event) => setQuery(event.target.value)}
+  displayValue={(type) => type || ''} 
+      />
+      <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
+        <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+      </Combobox.Button>
+
+      <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+        {['Social Media', 'Walk-In', 'Reference'].map((type, index) => (
+          <Combobox.Option
+            key={index}
+            value={type}
+            className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 data-[focus]:bg-indigo-600 data-[focus]:text-white"
+          >
+            <span className="block truncate group-data-[selected]:font-semibold">
+              {type}
+            </span>
+
+            <span className="absolute inset-y-0 right-0 hidden items-center pr-4 text-indigo-600 group-data-[selected]:flex group-data-[focus]:text-white">
+              <CheckIcon className="h-5 w-5" aria-hidden="true" />
+            </span>
+          </Combobox.Option>
+        ))}
+      </Combobox.Options>
     </div>
+  </Combobox>
+
+  {selectedReferralType === 'Reference' && (
+    <div className="mt-4">
+      <label className="block text-xs font-medium text-gray-700">Referee Name</label>
+      <input
+        type="text"
+        name="refereeName"
+        value={refereeName}
+        onChange={handleRefereeNameChange}
+        className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+      />
+    </div>
+  )}
+
+  {selectedReferralType === 'Social Media' && (
+    <div className="mt-4">
+      <label className="block text-xs font-medium text-gray-700">Social Media Platform</label>
+      <Combobox
+        as="div"
+        value={selectedSocialMediaPlatform}
+        onChange={handleSocialMediaPlatformChange}
+      >
+        <div className="relative">
+          <Combobox.Input
+            className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            // displayValue={(platform) => platform}
+            onChange={(event) => setQuery(event.target.value)}
+  displayValue={(type) => type || ''} 
+          />
+          <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
+            <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+          </Combobox.Button>
+
+          <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            {['Facebook', 'Instagram', 'Twitter', 'LinkedIn'].map((platform, index) => (
+              <Combobox.Option
+                key={index}
+                value={platform}
+                className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 data-[focus]:bg-indigo-600 data-[focus]:text-white"
+              >
+                <span className="block truncate group-data-[selected]:font-semibold">
+                  {platform}
+                </span>
+
+                <span className="absolute inset-y-0 right-0 hidden items-center pr-4 text-indigo-600 group-data-[selected]:flex group-data-[focus]:text-white">
+                  <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                </span>
+              </Combobox.Option>
+            ))}
+          </Combobox.Options>
+        </div>
+      </Combobox>
+    </div>
+  )}
+</div>
+ */}
+  <div className="mb-4">
+      <label className="block text-xs font-medium text-gray-700">Referred By</label>
+      <Combobox as="div" value={selectedReferralType} onChange={handleReferralTypeChange}>
+        <div className="relative">
+          <Combobox.Input
+            className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            onChange={(event) => setQuery(event.target.value)}
+            displayValue={(type) => type || ''}
+          />
+          <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
+            <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+          </Combobox.Button>
+
+          <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            {['Social Media', 'Walk-In', 'Reference'].map((type, index) => (
+              <Combobox.Option
+                key={index}
+                value={type}
+                className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 data-[focus]:bg-indigo-600 data-[focus]:text-white"
+              >
+                <span className="block truncate group-data-[selected]:font-semibold">
+                  {type}
+                </span>
+
+                <span className="absolute inset-y-0 right-0 hidden items-center pr-4 text-indigo-600 group-data-[selected]:flex group-data-[focus]:text-white">
+                  <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                </span>
+              </Combobox.Option>
+            ))}
+          </Combobox.Options>
+        </div>
+      </Combobox>
+
+      {/* Conditionally render the additional input fields */}
+      {selectedReferralType === 'Reference' && (
+        <div className="mt-4">
+          <label className="block text-xs font-medium text-gray-700">Reference Sub-option</label>
+          <Combobox as="div" value={selectedReferenceSubOption} onChange={handleReferenceSubOptionChange}>
+            <div className="relative">
+              <Combobox.Input
+                className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                onChange={(event) => setQuery(event.target.value)}
+                displayValue={(option) => option || ''}
+              />
+              <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
+                <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+              </Combobox.Button>
+
+              <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                {['Director', 'Employee', 'Existing'].map((option, index) => (
+                  <Combobox.Option
+                    key={index}
+                    value={option}
+                    className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 data-[focus]:bg-indigo-600 data-[focus]:text-white"
+                  >
+                    <span className="block truncate group-data-[selected]:font-semibold">
+                      {option}
+                    </span>
+
+                    <span className="absolute inset-y-0 right-0 hidden items-center pr-4 text-indigo-600 group-data-[selected]:flex group-data-[focus]:text-white">
+                      <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                  </Combobox.Option>
+                ))}
+              </Combobox.Options>
+            </div>
+          </Combobox>
+        </div>
+      )}
+
+      {selectedReferralType === 'Reference' && selectedReferenceSubOption && (
+        <div className="mt-4">
+          <label className="block text-xs font-medium text-gray-700">Referee Name</label>
+          <input
+            type="text"
+            name="refereeName"
+            value={refereeName}
+            onChange={handleRefereeNameChange}
+            className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          />
+        </div>
+      )}
+
+      {selectedReferralType === 'Social Media' && (
+        <div className="mt-4">
+          <label className="block text-xs font-medium text-gray-700">Social Media Platform</label>
+          <Combobox as="div" value={selectedSocialMediaPlatform} onChange={setSelectedSocialMediaPlatform}>
+            <div className="relative">
+              <Combobox.Input
+                className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                onChange={(event) => setQuery(event.target.value)}
+                displayValue={(platform) => platform || ''}
+              />
+              <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
+                <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+              </Combobox.Button>
+
+              <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                {['Facebook', 'Instagram', 'Twitter', 'LinkedIn'].map((platform, index) => (
+                  <Combobox.Option
+                    key={index}
+                    value={platform}
+                    className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 data-[focus]:bg-indigo-600 data-[focus]:text-white"
+                  >
+                    <span className="block truncate group-data-[selected]:font-semibold">
+                      {platform}
+                    </span>
+
+                    <span className="absolute inset-y-0 right-0 hidden items-center pr-4 text-indigo-600 group-data-[selected]:flex group-data-[focus]:text-white">
+                      <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                  </Combobox.Option>
+                ))}
+              </Combobox.Options>
+            </div>
+          </Combobox>
+        </div>
+      )}
+
+      {error && <p className="mt-2 text-red-600 text-xs">{error}</p>}
+
+   
+    </div>
+    </div>
+    <div className='grid'>
+
+                  
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700">Address line1</label>
+                    <input
+                      type="text"
+                      name="address"
+                      value={orderDetails.address}
+                      onChange={handleChange}
+                      className={`p-1 w-full border rounded-md ${errors.address ? 'border-red-500' : 'border-gray-300'}`}
+                    />
+                    {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address}</p>}
+                  </div>
+               
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700">Address line2</label>
+                    <input
+                      type="text"
+                      name="address1"
+                      value={orderDetails.address1}
+                      onChange={handleChange}
+                      className={` p-1 w-full border rounded-md ${errors.address1 ? 'border-red-500' : 'border-gray-300'}`}
+                    />
+                    {errors.address1 && <p className="text-red-500 text-sm mt-1">{errors.address1}</p>}
+                  </div>
+       
+                  
+                  
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700">City</label>
+                    <input
+                      type="text"
+                      name="city"
+                      value={orderDetails.city}
+                      onChange={handleChange}
+                      className={` p-1 w-full border rounded-md ${errors.city ? 'border-red-500' : 'border-gray-300'}`}
+                    />
+                    {errors.city && <p className="text-red-500 text-sm mt-1">{errors.city}</p>}
+                  </div>
+                  
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700">State</label>
+                    <input
+                      type="text"
+                      name="state"
+                      value={orderDetails.state}
+                      onChange={handleChange}
+                      className={` p-1 w-full border rounded-md ${errors.state ? 'border-red-500' : 'border-gray-300'}`}
+                    />
+                    {errors.state && <p className="text-red-500 text-sm mt-1">{errors.state}</p>}
+                  </div>
+                 
+                  
+   
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700">Zipcode</label>
+                    <input
+                      type="number"
+                      name="zipcode"
+                      value={orderDetails.zipcode}
+                      onChange={handleChange}
+                      className={` p-1 w-full border rounded-md ${errors.zipcode ? 'border-red-500' : 'border-gray-300'}`}
+                    />
+                    {errors.zipcode && <p className="text-red-500 text-sm mt-1">{errors.zipcode}</p>}
+                  </div>
+                  <div>
+       <label className="block text-xs font-medium text-gray-700 mt-1">Total amount</label>
+       <input
+        type="number"
+        name="totalAmount"
+        value={orderDetails.totalAmount}
+        onChange={handleChange}
+        className={` p-1 w-full border rounded-md ${errors.totalAmount ? 'border-red-500' : 'border-gray-300'}`}
+      />
+      {errors.totalAmount && <p className="text-red-500 text-sm mt-1">{errors.totalAmount}</p>}
+    </div>
+  
+    <div>
+      <label className="block text-xs font-medium text-gray-700 mt-1">Advance amount</label>
+      
+      <input 
+        type="number"
+        name="advanceAmount"
+        value={orderDetails.advanceAmount}
+        onChange={handleChange}
+        className={` p-1 w-full border rounded-md ${errors.advanceAmount ? 'border-red-500' : 'border-gray-300'}`}
+      />
+      {errors.advanceAmount && <p className="text-red-500 text-sm mt-1">{errors.advanceAmount}</p>}
+    </div>
+    
+                  <div>
+      <label className="block text-xs font-medium text-gray-700 mt-1">Balance amount</label>
+      <input
+        type="number"
+        name="balanceAmount"
+        value={orderDetails.totalAmount-orderDetails.advanceAmount}
+        onChange={handleChange}
+        className={`p-1 w-full border rounded-md`}
+      />
+    </div>
+
+                  </div>
+                 
+                 
                 </>
               )}
                      </Box>
                      <Box 
         sx={{ 
           display: 'grid', 
-          gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, // Ensure proper grid layout
+          gridTemplateColumns: { xs: '1fr', sm: '1fr ' }, // Ensure proper grid layout
           gap: 2, // Adjust spacing between items
           pt: 2 
         }}
@@ -652,18 +974,18 @@ const [pdfFile, setPdfFile] = useState(null);
                 <>
                  
                   
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Design</label>
+                  <div className='flex gap-36 '>
+                    <label className=" text-xs font-medium text-gray-700 mt-2">Designer Name:</label>
                     <input
                       type="text"
                       name="design"
                       value={orderDetails.design}
                       onChange={handleChange}
-                      className={`mt-1 p-2 w-full border rounded-md ${errors.design ? 'border-red-500' : 'border-gray-300'}`}
+                      className={` p-1 w-1/3 border rounded-md ${errors.design ? 'border-red-500' : 'border-gray-300'}`}
                     />
                     {errors.design && <p className="text-red-500 text-sm mt-1">{errors.design}</p>}
                   </div>
-<br/>
+
 
     {/* <div>
     <h2 className="text-lg font-semibold text-gray-700 mb-4">Initial Measurement</h2>
@@ -701,9 +1023,9 @@ const [pdfFile, setPdfFile] = useState(null);
       {errors.width && <p className="text-red-500 text-sm mt-1">{errors.width}</p>}
     </div> */}
 
-<div className="grid grid-cols-1 md:grid-cols-1 gap-6">
-  {/* Initial Measurement */}
-  <div>
+{/* <div className="flex w-full gap-6">
+  
+  <div className='flex w-full'>
     <h2 className="text-lg font-semibold text-gray-700 mb-4">Initial Measurement</h2>
 
     <label className="block text-sm font-medium text-gray-700">Length (cm)</label>
@@ -736,11 +1058,12 @@ const [pdfFile, setPdfFile] = useState(null);
     />
     {errors.width && <p className="text-red-500 text-sm mt-1">{errors.width}</p>}
   </div>
+  <br/>
 
-  {/* Final Measurement */}
+  
   
 </div>
-<div>
+<div className='flex '>
     <h2 className="text-lg font-semibold text-gray-700 mb-4">Final Measurement</h2>
 
     <label className="block text-sm font-medium text-gray-700">Length (cm)</label>
@@ -772,7 +1095,159 @@ const [pdfFile, setPdfFile] = useState(null);
       className={`mt-1 p-2 w-full border rounded-md ${errors.finalWidth ? 'border-red-500' : 'border-gray-300'}`}
     />
     {errors.finalWidth && <p className="text-red-500 text-sm mt-1">{errors.finalWidth}</p>}
+  </div> */}
+
+<div className="flex w-full flex-wrap ">
+  {/* Initial Measurement */}
+  <div className="w-full">
+    
+    <div className="flex gap-4">
+    <h2 className="mt-6 text-lg font-semibold text-gray-700 mb-4">Initial Measurement</h2>
+
+      <div >
+        <label className="block text-xs font-medium text-gray-700">Length (cm)</label>
+        <input
+          type="number"
+          name="length"
+          value={orderDetails.length}
+          onChange={handleChange}
+          className={` p-1 w-full border rounded-md ${errors.length ? 'border-red-500' : 'border-gray-300'}`}
+        />
+        {errors.length && <p className="text-red-500 text-sm mt-1">{errors.length}</p>}
+      </div>
+
+      <div >
+        <label className="block text-xs font-medium text-gray-700">Height (cm)</label>
+        <input
+          type="number"
+          name="height"
+          value={orderDetails.height}
+          onChange={handleChange}
+          className={` p-1 w-full border rounded-md ${errors.height ? 'border-red-500' : 'border-gray-300'}`}
+        />
+        {errors.height && <p className="text-red-500 text-sm mt-1">{errors.height}</p>}
+      </div>
+
+      <div >
+        <label className="block text-xs font-medium text-gray-700">Width (cm)</label>
+        <input
+          type="number"
+          name="width"
+          value={orderDetails.width}
+          onChange={handleChange}
+          className={` p-1 w-full border rounded-md ${errors.width ? 'border-red-500' : 'border-gray-300'}`}
+        />
+        {errors.width && <p className="text-red-500 text-sm mt-1">{errors.width}</p>}
+      </div>
+       {!file ? (
+        <div className="mt-4">
+          <input
+            type="file"
+            id="upload"
+            accept="application/pdf"
+            onChange={handleFileChange}
+            className="hidden"
+          />
+          <label
+            htmlFor="upload"
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
+          >
+            <i className="fas fa-upload"></i> Upload Initial Measurements
+          </label>
+        </div>
+      ) : (
+        <div className="flex items-center">
+          <span className="text-red-600 mr-4">
+            <i className="fas fa-file-pdf"></i> {file.name}
+          </span>
+          <a href={URL.createObjectURL(file)} target="_blank" rel="noopener noreferrer" className="text-blue-600 mr-4">
+            VIEW
+          </a>
+          <button onClick={handleDelete} className="text-red-600">
+            DELETE
+          </button>
+        </div>
+      )}  
+    </div>
+   
   </div>
+
+  {/* Final Measurement */}
+  <div className="flex w-full flex-wrap">
+    
+    <div className="flex gap-5">
+    <h2 className="text-lg font-semibold text-gray-700 mb-4 mt-4">Final Measurement</h2>
+
+      <div >
+        <label className=" block text-xs font-medium text-gray-700">Length (cm)</label>
+        <input
+          type="number"
+          name="finalLength"
+          value={orderDetails.finalLength}
+          onChange={handleChange}
+          className={` p-1 w-full border rounded-md ${errors.finalLength ? 'border-red-500' : 'border-gray-300'}`}
+        />
+        {errors.finalLength && <p className="text-red-500 text-sm mt-1">{errors.finalLength}</p>}
+      </div>
+
+      <div >
+        <label className="block text-xs font-medium text-gray-700">Height (cm)</label>
+        <input
+          type="number"
+          name="finalHeight"
+          value={orderDetails.finalHeight}
+          onChange={handleChange}
+          className={` p-1 w-full border rounded-md ${errors.finalHeight ? 'border-red-500' : 'border-gray-300'}`}
+        />
+        {errors.finalHeight && <p className="text-red-500 text-sm mt-1">{errors.finalHeight}</p>}
+      </div>
+
+      <div >
+        <label className="block text-xs font-medium text-gray-700">Width (cm)</label>
+        <input
+          type="number"
+          name="finalWidth"
+          value={orderDetails.finalWidth}
+          onChange={handleChange}
+          className={` p-1 w-full border rounded-md ${errors.finalWidth ? 'border-red-500' : 'border-gray-300'}`}
+        />
+        {errors.finalWidth && <p className="text-red-500 text-sm mt-1">{errors.finalWidth}</p>}
+      </div>
+      {!file ? (
+        <div className="mt-4">
+          <input
+            type="file"
+            id="upload"
+            accept="application/pdf"
+            onChange={handleFileChange}
+            className="hidden"
+          />
+          <label
+            htmlFor="upload"
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
+          >
+            <i className="fas fa-upload"></i> Upload Final Measurements
+          </label>
+        </div>
+      ) : (
+        <div className="flex items-center">
+          <span className="text-red-600 mr-4">
+            <i className="fas fa-file-pdf"></i> {file.name}
+          </span>
+          <a href={URL.createObjectURL(file)} target="_blank" rel="noopener noreferrer" className="text-blue-600 mr-4">
+            VIEW
+          </a>
+          <button onClick={handleDelete} className="text-red-600">
+            DELETE
+          </button>
+        </div>
+      )}  
+    </div>
+    
+  </div>
+</div>
+
+  
 
   
                   {/* <div>
@@ -800,7 +1275,7 @@ const [pdfFile, setPdfFile] = useState(null);
                     )}
                   </div> */}
                   <div>
-      <label className="block text-sm font-medium text-gray-700">Upload Images (Upto 6 images)</label>
+      <label className="block text-xs font-medium text-gray-700">Upload Images (Upto 6 images)</label>
       <input
         type="file"
         multiple
@@ -834,12 +1309,12 @@ const [pdfFile, setPdfFile] = useState(null);
     </div>
 
     <div className='mb-4'>
-        <label className="block text-sm font-medium text-gray-700">Upload PDF</label>
+        <label className="block text-xs font-medium text-gray-700">Upload whole designPDF</label>
         <input
           type="file"
           accept=".pdf"
           onChange={handlePdfChange}
-          className="mt-1 p-2 w-full border rounded-md"
+          className="mt-1 p-2 w-1/2 border rounded-md"
         />
         {pdfPreview && (
           <div className="mt-2 flex items-center">
@@ -971,12 +1446,12 @@ const [pdfFile, setPdfFile] = useState(null);
 //                 </>
  <>
       <div className='flex gap-32'>
-        <label className="w-1/8 text-left ml-44 mt-3 text-sm font-medium text-gray-700">Order Status:</label>
+        <label className="w-1/8 text-left ml-44 mt-3 text-xs font-medium text-gray-700">Order Status:</label>
         <select
           name="orderStatus"
           value={orderDetails.orderStatus}
           onChange={handleChange}
-          className={`mt-1 w-1/3 p-2 border rounded-md ${errors.orderStatus ? 'border-red-500' : 'border-gray-300'}`}
+          className={` w-1/4 p-1 border rounded-md ${errors.orderStatus ? 'border-red-500' : 'border-gray-300'}`}
         >
           <option value="">Select a Status</option>
           <option value="Pending">Pending</option>
@@ -985,46 +1460,46 @@ const [pdfFile, setPdfFile] = useState(null);
         {errors.orderStatus && <p className="text-red-500 text-sm mt-1">{errors.orderStatus}</p>}
       </div>
       <div className='flex gap-36'>
-        <label className="text-sm text-left mt-3 w-1/8 ml-44 font-medium text-gray-700">Assign To:</label>
+        <label className="text-xs text-left mt-3 w-1/8 ml-44 font-medium text-gray-700">Assign To:</label>
         <input
           type="text"
           name="createdBy"
           value={orderDetails.createdBy}
           onChange={handleChange}
-          className={`mt-1 p-2 w-1/3 border rounded-md ${errors.createdBy ? 'border-red-500' : 'border-gray-300'}`}
+          className={` p-1 w-1/4 border rounded-md ${errors.createdBy ? 'border-red-500' : 'border-gray-300'}`}
         />
         {errors.createdBy && <p className="text-red-500 text-sm mt-1">{errors.createdBy}</p>}
       </div>
       <div className='flex gap-36'>
-        <label className="text-left mt-3 w-1/8 ml-44 text-sm font-medium text-gray-700">Start Date:</label>
+        <label className="text-left mt-3 w-1/8 ml-44 text-xs font-medium text-gray-700">Start Date:</label>
         <input
           type="date"
           name="startdate"
           value={orderDetails.startdate}
           onChange={handleChange}
-          className={`mt-1 p-2 w-1/3 border rounded-md ${errors.startdate ? 'border-red-500' : 'border-gray-300'}`}
+          className={` p-1 w-1/4 border rounded-md ${errors.startdate ? 'border-red-500' : 'border-gray-300'}`}
         />
         {errors.startdate && <p className="text-red-500 text-sm mt-1">{errors.startdate}</p>}
       </div>
-      <div className='flex gap-10'>
-        <label className="text-left mt-3 w-1/8 ml-44 text-sm font-medium text-gray-700">Expected Completed Date:</label>
+      <div className='flex gap-14'>
+        <label className="text-left mt-3 w-1/8 ml-44 text-xs font-medium text-gray-700">Expected Completed Date:</label>
         <input
           type="date"
           name="enddate"
           value={orderDetails.enddate}
           onChange={handleChange}
-          className={`mt-1 p-2 w-1/3 border rounded-md ${errors.enddate ? 'border-red-500' : 'border-gray-300'}`}
+          className={`mt-1 p-1 w-1/4 border rounded-md ${errors.enddate ? 'border-red-500' : 'border-gray-300'}`}
         />
         {errors.enddate && <p className="text-red-500 text-sm mt-1">{errors.enddate}</p>}
       </div>
       <div className='flex gap-36'>
-        <label className="text-left mt-3 w-1/8 ml-44 text-sm font-medium text-gray-700">Comments:</label>
+        <label className="text-left mt-3 w-1/8 ml-44 text-xs font-medium text-gray-700">Comments:</label>
         <input
           type="text"
           name="orderStatusComments"
           value={orderDetails.orderStatusComments}
           onChange={handleChange}
-          className={`mt-1 p-2 w-1/3 border rounded-md ${errors.orderStatusComments ? 'border-red-500' : 'border-gray-300'}`}
+          className={`mt-1 p-1 w-1/4 border rounded-md ${errors.orderStatusComments ? 'border-red-500' : 'border-gray-300'}`}
         />
         {errors.orderStatusComments && <p className="text-red-500 text-sm mt-1">{errors.orderStatusComments}</p>}
       </div>
@@ -1036,16 +1511,16 @@ const [pdfFile, setPdfFile] = useState(null);
       </button> */}
       <div className="relative">
   <button
-    onClick={handleAddOrder1}
-    className="absolute bottom-2 right-0 w-16 inline-flex items-center gap-x-1.5 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
+    onClick={handleAddOrder}
+    className="absolute bottom-2  right-0 w-18 inline-flex items-center gap-x-1.5 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
   >
     Add <span className="text-lg"><IoMdAddCircleOutline /></span>
   </button>
 </div>
 
-      {orders.length > 0 && (
+      {orders.length >= 0 && (
         <>
-          <table className="min-w-full divide-y divide-gray-200 mt-4">
+          {/* <table className="min-w-full divide-y divide-gray-200 mt-4">
             <thead>
               <tr>
                 <th>Order Status</th>
@@ -1068,7 +1543,33 @@ const [pdfFile, setPdfFile] = useState(null);
                   </tr>
                 ))}
             </tbody>
-          </table>
+          </table> */}
+
+<table className="min-w-full border-collapse border border-gray-300 mt-4">
+  <thead className='bg-custom-maroon'>
+    <tr className="text-center border-b border-gray-300">
+      <th className="px-4 py-2 font-normal border-r border-gray-300">Order Status</th>
+      <th className="px-4 py-2 font-normal border-r border-gray-300">Assign To</th>
+      <th className="px-4 py-2 font-normal border-r border-gray-300">Start Date</th>
+      <th className="px-4 py-2 font-normal border-r border-gray-300">Expected Completed Date</th>
+      <th className="px-4 py-2 font-normal">Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+    {orders
+      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+      .map((order, index) => (
+        <tr key={index} className="text-center border-b border-gray-300">
+          <td className="px-4 py-2 border-r border-gray-300">{order.orderStatus}</td>
+          <td className="px-4 py-2 border-r border-gray-300">{order.createdBy}</td>
+          <td className="px-4 py-2 border-r border-gray-300">{order.startdate}</td>
+          <td className="px-4 py-2 border-r border-gray-300">{order.enddate}</td>
+          <td className="px-4 py-2">{order.orderStatusComments}</td>
+        </tr>
+      ))}
+  </tbody>
+</table>
+
 
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
@@ -1169,29 +1670,57 @@ const [pdfFile, setPdfFile] = useState(null);
     //               </>
     <>
     <div className='flex '>
-      <label className="w-1/4 ml-44 text-left mt-3 text-sm font-medium text-gray-700">Total Amount:</label>
+      <label className="text-left  ml-44 w-1/4 mt-3  text-xs font-medium text-gray-700">Payments Type:</label>
+      <select
+                      name="paymentstype"
+                   value={orderDetails.paymentstype}
+                       onChange={handleChange}
+                      className={`p-1 w-1/4 border rounded-md ${errors.paymentstype ? 'border-red-500' : 'border-gray-300'}`}
+                    >
+                      <option value="select a type">Select a Type</option>
+                    <option value="Cash">Cash</option>
+                     <option value="UPI">UPI</option>
+                     <option value="Card">Card</option>
+                    </select>
+                    {errors.paymentstype && <p className="text-red-500 text-sm mt-1">{errors.paymentstype}</p>}
+        
+    </div>
+    <div className='flex '>
+      <label className="w-1/4 ml-44 text-left mt-3 text-xs font-medium text-gray-700">Total Amount:</label>
       <input
         type="number"
         name="totalAmount"
        value={orderDetails.totalAmount}
       onChange={handleChange}
- className={`mt-1 w-1/3 p-2 border rounded-md ${errors.totalAmount ? 'border-red-500' : 'border-gray-300'}`}
+ className={` w-1/4 p-1 border rounded-md ${errors.totalAmount ? 'border-red-500' : 'border-gray-300'}`}
      />
           {errors.totalAmount && <p className="text-red-500 text-sm mt-1">{errors.totalAmount}</p>}
     </div>
     <div className='flex '>
-      <label className="text-sm text-left mt-3 w-1/4 ml-44 font-medium text-gray-700">Advance Amount:</label>
+      <label className="text-xs text-left mt-3 w-1/4 ml-44 font-medium text-gray-700">Advance Amount:</label>
       <input 
          type="number"
         name="advanceAmount"
         value={orderDetails.advanceAmount}
          onChange={handleChange}
-         className={`mt-1 p-2 w-1/3 border rounded-md ${errors.advanceAmount ? 'border-red-500' : 'border-gray-300'}`}
+         className={` p-1 w-1/4 border rounded-md ${errors.advanceAmount ? 'border-red-500' : 'border-gray-300'}`}
        />
       {errors.advanceAmount && <p className="text-red-500 text-sm mt-1">{errors.advanceAmount}</p>}
      
     </div>
-    <div className='flex'>
+    <div className='flex '>
+      <label className="text-xs text-left mt-3 w-1/4 ml-44 font-medium text-gray-700">comments:</label>
+      <input 
+         type="text"
+        name="paymentscomments"
+        value={orderDetails.paymentscomments}
+         onChange={handleChange}
+         className={` p-1 w-1/4 border rounded-md ${errors.paymentscomments ? 'border-red-500' : 'border-gray-300'}`}
+       />
+      {errors.paymentscomments && <p className="text-red-500 text-sm mt-1">{errors.paymentscomments}</p>}
+     
+    </div>
+    {/* <div className='flex'>
       <label className=" text-left mt-3 w-1/4 ml-44 text-sm font-medium text-gray-700">Installments (In months):</label>
       <input
          type="number"
@@ -1223,23 +1752,8 @@ const [pdfFile, setPdfFile] = useState(null);
          onChange={handleChange}
         className={`mt-1 p-2 w-1/3 border rounded-md`}
       />
-    </div>
-    <div className='flex '>
-      <label className="text-left  ml-44 w-1/4 mt-3  text-sm font-medium text-gray-700">Paymenys Type:</label>
-      <select
-                      name="paymentstype"
-                   value={orderDetails.paymentstype}
-                       onChange={handleChange}
-                      className={`mt-1 p-2 w-1/3 border rounded-md ${errors.paymentstype ? 'border-red-500' : 'border-gray-300'}`}
-                    >
-                      <option value="select a type">Select a Type</option>
-                    <option value="Cash">Cash</option>
-                     <option value="UPI">UPI</option>
-                     <option value="Card">Card</option>
-                    </select>
-                    {errors.paymentstype && <p className="text-red-500 text-sm mt-1">{errors.paymentstype}</p>}
-        
-    </div>
+    </div> */}
+    
     
     <div className="relative">
   <button
@@ -1250,9 +1764,9 @@ const [pdfFile, setPdfFile] = useState(null);
   </button>
 </div>
 
-    {orders.length > 0 && (
+    {orders.length >= 0 && (
       <>
-        <table className="min-w-full divide-y divide-gray-200 mt-4">
+        {/* <table className="min-w-full divide-y divide-gray-200 mt-4">
           <thead>
             <tr>
               <th>TotalAmount</th>
@@ -1279,7 +1793,38 @@ const [pdfFile, setPdfFile] = useState(null);
                 </tr>
               ))}
           </tbody>
-        </table>
+        </table> */}
+
+<table className="min-w-full border-collapse border border-gray-300 mt-4">
+  <thead className='bg-custom-maroon'>
+    <tr className="text-center border-b border-gray-300">
+    <th className="px-4 py-2 font-normal border-r">Payment Type</th>
+
+      <th className="px-4 py-2 font-normal border-r border-gray-300">Total Amount</th>
+      <th className="px-4 py-2 font-normal border-r border-gray-300">Advance Amount</th>
+      <th className="px-4 py-2 font-normal border-r border-gray-300">Balance Amount</th>
+      <th className="px-4 py-2 font-normal">Comments</th>
+
+   
+    </tr>
+  </thead>
+  <tbody>
+    {orders
+      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+      .map((order, index) => (
+        <tr key={index} className="text-center border-b border-gray-300">
+                    <td className="px-4 py-2 border-r">{order.paymentstype}</td>
+
+          <td className="px-4 py-2 border-r border-gray-300">{order.totalAmount}</td>
+          <td className="px-4 py-2 border-r border-gray-300">{order.advanceAmount}</td>
+          <td className="px-4 py-2 border-r border-gray-300">{order.totalAmount - order.advanceAmount}</td>
+
+          <td className="px-4 py-2">{order.paymentscomments}</td>
+        </tr>
+      ))}
+  </tbody>
+</table>
+
 
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
@@ -1297,7 +1842,7 @@ const [pdfFile, setPdfFile] = useState(null);
 
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-              <button
+              {/* <button
                 color="inherit"
                 onClick={handleBack}
                                         className="inline-flex items-center gap-x-1.5 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 "
@@ -1305,12 +1850,25 @@ const [pdfFile, setPdfFile] = useState(null);
               >
                           <MdArrowBackIosNew />
                           Back
-              </button>
+              </button> */}
+              <button
+  color="inherit"
+  onClick={handleBack}
+  className={`inline-flex items-center gap-x-1.5 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ${
+    activeStep === 0 ? "cursor-not-allowed opacity-50" : "hover:bg-blue-500"
+  }`}
+  disabled={activeStep === 0}
+>
+  <MdArrowBackIosNew />
+  Back
+</button>
+
               <Box sx={{ flex: '1 1 auto' }} />
               <button
                 variant="contained"
                 onClick={handleCancel}
-                className="inline-flex items-center gap-x-1.5 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 ml-2 mr-4"                ><MdDelete/>
+                className="inline-flex items-center gap-x-1.5 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 ml-2 mr-4"                ><RxCross1 />
+
                 Cancel
               </button>              <button
                 variant="contained"
@@ -1333,7 +1891,8 @@ const [pdfFile, setPdfFile] = useState(null);
         {submittedDetails && (
           <div className="mt-4 bg-gray-100 p-4 rounded shadow-lg">
             <h3 className="text-xl font-bold mb-4">Submitted Order Details:</h3>
-            <p><strong>Name:</strong> {submittedDetails.name}</p>
+            <p><strong>FirstName:</strong> {submittedDetails.firstname}</p>
+            <p><strong>LastName:</strong> {submittedDetails.lastname}</p>
             <p><strong>Email:</strong> {submittedDetails.email}</p>
             <p><strong>Phone:</strong> {submittedDetails.phone}</p>
             <p><strong>Address:</strong> {submittedDetails.address}</p>
