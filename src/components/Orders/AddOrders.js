@@ -13,9 +13,7 @@ import TablePagination from '@mui/material/TablePagination';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { RxCross1 } from "react-icons/rx";
-
-
-
+import { FiUpload } from "react-icons/fi";
 
 
 import {
@@ -1117,7 +1115,7 @@ const [pdfFile, setPdfFile] = useState(null);
   <div className="w-full">
     
     <div className="flex gap-4">
-    <h2 className="mt-6 text-lg font-semibold text-gray-700 mb-4">Initial Measurement</h2>
+    <h2 className="mt-6 text-lg font-semibold text-gray-700 mb-4 mr-2">Initial Measurement </h2>
 
       <div >
         <label className="block text-xs font-medium text-gray-700">Length (cm)</label>
@@ -1163,12 +1161,23 @@ const [pdfFile, setPdfFile] = useState(null);
             onChange={handleFileChange}
             className="hidden"
           />
-          <label
+
+          {/* <label
             htmlFor="upload"
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
+            className="bg-white text-blue-500 border border-blue-500 px-4 py-2 rounded hover:bg-blue-600 cursor-pointer hover:text-white"
           >
-            <i className="fas fa-upload"></i> Upload Initial Measurements
-          </label>
+            <FiUpload className="text-lg" /> 
+            <i className="fas fa-upload"></i> 
+
+  <span>Upload Initial Measurements</span>
+          </label> */}
+            <label
+    htmlFor="upload"
+    className="bg-white text-blue-500 border border-blue-500 px-4 py-2 rounded hover:bg-blue-600 cursor-pointer hover:text-white flex items-center space-x-2"
+  >
+    <FiUpload className="text-lg" /> 
+    <span>Upload Initial Measurements</span>
+  </label>
         </div>
       ) : (
         <div className="flex items-center">
@@ -1239,10 +1248,15 @@ const [pdfFile, setPdfFile] = useState(null);
           />
           <label
             htmlFor="upload"
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
+            // className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
+            className="bg-white text-blue-500 border border-blue-500 px-4 py-2 rounded hover:bg-blue-600 cursor-pointer hover:text-white flex items-center space-x-2"
+
           >
-            <i className="fas fa-upload"></i> Upload Final Measurements
+                <FiUpload className="text-lg" /> 
+
+            <i className="fas fa-upload"></i> <span> Upload Final Measurements</span>
           </label>
+
         </div>
       ) : (
         <div className="flex items-center">
