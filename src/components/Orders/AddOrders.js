@@ -388,6 +388,21 @@ const [pdfFile, setPdfFile] = useState(null);
     setFile(null);
   };
 
+  const [file1, setFile1] = useState(null);
+
+  const handleFileChange1 = (e) => {
+    const uploadedFile = e.target.files[0];
+    if (uploadedFile && uploadedFile.type === "application/pdf") {
+      setFile1(uploadedFile);
+    } else {
+      alert("Please upload a PDF file.");
+    }
+  };
+
+  const handleDelete1 = () => {
+    setFile1(null);
+  };
+
   const [selectedReferenceSubOption, setSelectedReferenceSubOption] = useState('');
   const [error, setError] = useState('');
 
@@ -1213,13 +1228,13 @@ const [pdfFile, setPdfFile] = useState(null);
         />
         {errors.finalWidth && <p className="text-red-500 text-sm mt-1">{errors.finalWidth}</p>}
       </div>
-      {!file ? (
+      {!file1 ? (
         <div className="mt-4">
           <input
             type="file"
             id="upload"
             accept="application/pdf"
-            onChange={handleFileChange}
+            onChange={handleFileChange1}
             className="hidden"
           />
           <label
@@ -1232,12 +1247,12 @@ const [pdfFile, setPdfFile] = useState(null);
       ) : (
         <div className="flex items-center">
           <span className="text-red-600 mr-4">
-            <i className="fas fa-file-pdf"></i> {file.name}
+            <i className="fas fa-file-pdf"></i> {file1.name}
           </span>
-          <a href={URL.createObjectURL(file)} target="_blank" rel="noopener noreferrer" className="text-blue-600 mr-4">
+          <a href={URL.createObjectURL(file1)} target="_blank" rel="noopener noreferrer" className="text-blue-600 mr-4">
             VIEW
           </a>
-          <button onClick={handleDelete} className="text-red-600">
+          <button onClick={handleDelete1} className="text-red-600">
             DELETE
           </button>
         </div>
