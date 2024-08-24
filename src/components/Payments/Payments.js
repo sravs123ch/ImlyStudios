@@ -1192,6 +1192,352 @@
 // }
 
 
+// import React, { useState, useEffect } from "react";
+// import { styled } from "@mui/material/styles";
+// import Table from "@mui/material/Table";
+// import TableBody from "@mui/material/TableBody";
+// import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+// import TableContainer from "@mui/material/TableContainer";
+// import TableHead from "@mui/material/TableHead";
+// import TableRow from "@mui/material/TableRow";
+// import Paper from "@mui/material/Paper";
+// import * as XLSX from 'xlsx';
+// import TableFooter from '@mui/material/TableFooter';
+// import TablePagination from '@mui/material/TablePagination';
+// import { FaTable, FaPlus, FaCreditCard, FaWallet, FaCashRegister } from 'react-icons/fa';
+// import SearchIcon from '@mui/icons-material/Search';
+
+// // Styled components
+// const StyledTableCell = styled(TableCell)(({ theme }) => ({
+//   [`&.${tableCellClasses.head}`]: {
+//     backgroundColor: '#003375', // Dark blue color
+//     color: theme.palette.common.white,
+//     fontWeight: 'bold',
+//   },
+//   [`&.${tableCellClasses.body}`]: {
+//     fontSize: 14,
+//   },
+// }));
+
+// const StyledTableRow = styled(TableRow)(({ theme }) => ({
+//   "&:nth-of-type(odd)": {
+//     backgroundColor: theme.palette.action.hover,
+//   },
+//   "&:last-child td, &:last-child th": {
+//     border: 0,
+//   },
+// }));
+
+// // Sample data
+// const initialPayments = [
+//   {
+//     paymentMethod: "Credit Card",
+//     paymentDate: "06-09-2024",
+//     orderNumber: "ORD123456",
+//     customerName: "John Doe",
+//     amount: "₹150.00",
+//     icon: <FaCreditCard className="text-xl" /> // Add icon for Credit Card
+//   },
+//   {
+//     paymentMethod: "UPI",
+//     paymentDate: "06-09-2024",
+//     orderNumber: "ORD163456",
+//     customerName: "John",
+//     amount: "₹156.00",
+//     icon: <FaWallet className="text-xl" /> // Add icon for UPI
+//   },
+//   {
+//     paymentMethod: "Credit Card",
+//     paymentDate: "06-09-2024",
+//     orderNumber: "ORD183456",
+//     customerName: "Doe",
+//     amount: "₹159.00",
+//     icon: <FaCreditCard className="text-xl" /> // Add icon for Credit Card
+//   },
+//   {
+//     paymentMethod: "Cash",
+//     paymentDate: "06-09-2024",
+//     orderNumber: "ORD193456",
+//     customerName: "Tim",
+//     amount: "₹157.00",
+//     icon: <FaWallet className="text-xl" /> // Add icon for UPI
+    
+//   },
+//   {
+//     paymentMethod: "Credit Card",
+//     paymentDate: "06-09-2024",
+//     orderNumber: "ORD123956",
+//     customerName: "Tod",
+//     amount: "₹154.00",
+//     icon: <FaCreditCard className="text-xl" /> // Add icon for Credit Card
+//   },
+// ];
+
+// export default function PaymentList() {
+//   const [payments, setPayments] = useState(initialPayments);
+//   const [formData, setFormData] = useState(null);
+//   const [editingIndex, setEditingIndex] = useState(null);
+//   const [isFormVisible, setIsFormVisible] = useState(false);
+//   const [page, setPage] = useState(0);
+//   const [rowsPerPage, setRowsPerPage] = useState(5);
+//   const [searchName, setSearchName] = useState('');
+
+//   // Handle form changes
+//   const handleFormChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({
+//       ...formData,
+//       [name]: value,
+//     });
+//   };
+
+//   // Handle form submission
+//   const handleFormSubmit = (e) => {
+//     e.preventDefault();
+//     if (editingIndex !== null) {
+//       const updatedPayments = [...payments];
+//       updatedPayments[editingIndex] = formData;
+//       setPayments(updatedPayments);
+//       setEditingIndex(null);
+//     } else {
+//       setPayments([...payments, formData]);
+//     }
+//     setFormData(null);
+//     setIsFormVisible(false);
+//   };
+
+//   // Handle cancel button click
+//   const handleCancel = () => {
+//     setFormData(null);
+//     setEditingIndex(null);
+//     setIsFormVisible(false);
+//   };
+
+//   // Handle add payment button click
+//   const handleAddPaymentClick = () => {
+//     setFormData({
+//       paymentMethod: "",
+//       paymentDate: "",
+//       orderNumber: "",
+//       customerName: "",
+//       amount: "",
+//     });
+//     setEditingIndex(null);
+//     setIsFormVisible(true);
+//   };
+
+//   const exportToExcel = (data, fileName) => {
+//     const worksheet = XLSX.utils.json_to_sheet(data);
+//     const workbook = XLSX.utils.book_new();
+//     XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+//     XLSX.writeFile(workbook, `${fileName}.xlsx`);
+//   };
+
+//   const handleExportPaymentsData = () => {
+//     exportToExcel(payments, 'Payments');
+//   };
+
+//   // Handle search functionality
+//   const handleSearch = () => {
+//     const filteredPayments = payments.filter(payment =>
+//       payment.customerName.toLowerCase().includes(searchName.toLowerCase())
+//     );
+//     setPaginatedPayments(filteredPayments.slice(0, rowsPerPage));
+//   };
+
+//   // Pagination calculations
+//   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - payments.length) : 0;
+
+//   // Handle page change
+//   const handleChangePage = (event, newPage) => {
+//     setPage(newPage);
+//   };
+
+//   // Handle rows per page change
+//   const handleChangeRowsPerPage = (event) => {
+//     setRowsPerPage(parseInt(event.target.value, 10));
+//     setPage(0);
+//   };
+
+//   const [paginatedPayments, setPaginatedPayments] = useState([]);
+
+//   // Initial pagination setup or when data changes
+//   useEffect(() => {
+//     setPaginatedPayments(
+//       payments.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+//     );
+//   }, [payments, page, rowsPerPage]);
+
+//   return (
+//     <div className="px-4 sm:px-6 lg:px-8 pt-4 ml-10 lg:ml-72 w-auto">
+//       {!isFormVisible ? (
+//         <div className="mt-6 bg-white p-6 rounded-lg shadow-md">
+//           <div className="flex justify-between items-center mb-4">
+//             <h2 className="text-xl font-semibold">Payments</h2>
+//             <div className="flex items-center space-x-4">
+//               <div className="relative flex flex-col w-[20rem]">
+//                 <label htmlFor="searchName" className="text-sm font-medium"></label>
+//                 <input
+//                   id="searchName"
+//                   type="text"
+//                   placeholder="Search by Customer Name"
+//                   value={searchName}
+//                   onChange={(e) => setSearchName(e.target.value)}
+//                   className="mt-1 p-2 pr-10 border border-gray-300 rounded-md"
+//                 />
+//                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+//                   <SearchIcon />
+//                 </div>
+//               </div>
+//               <button
+//                 type="button"
+//                 className="inline-flex items-center gap-x-1 rounded-md bg-custom-darkblue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-custom-lightblue hover:text-gray-700"
+//                 onClick={handleAddPaymentClick}
+//               >
+//                 <FaPlus aria-hidden="true" className="-ml-0.5 h-4 w-4" />
+//                 Add Payment
+//               </button>
+//               <button
+//                 type="button"
+//                 className="inline-flex items-center gap-x-1 rounded-md bg-custom-darkblue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-custom-lightblue hover:text-gray-700"
+//                 onClick={handleExportPaymentsData}
+//               >
+//                 <FaTable aria-hidden="true" className="-ml-0.5 h-4 w-4" />
+//                 Export Payments
+//               </button>
+//             </div>
+//           </div>
+
+//           <TableContainer component={Paper} className="mt-4">
+//             <Table>
+//               <TableHead>
+//                 <TableRow>
+//                   <StyledTableCell>Payment Method</StyledTableCell>
+//                   <StyledTableCell>Payment Date</StyledTableCell>
+//                   <StyledTableCell>Order Number</StyledTableCell>
+//                   <StyledTableCell>Customer Name</StyledTableCell>
+//                   <StyledTableCell>Amount</StyledTableCell>
+//                 </TableRow>
+//               </TableHead>
+//               <TableBody>
+//                 {paginatedPayments.map((payment, index) => (
+//                   <StyledTableRow key={index}>
+//                     <StyledTableCell>
+//                       <div className="flex justify-center items-center">
+//                         {payment.icon}
+//                       </div>
+//                     </StyledTableCell>
+//                     <StyledTableCell>{payment.paymentDate}</StyledTableCell>
+//                     <StyledTableCell>{payment.orderNumber}</StyledTableCell>
+//                     <StyledTableCell>{payment.customerName}</StyledTableCell>
+//                     <StyledTableCell>{payment.amount}</StyledTableCell>
+//                   </StyledTableRow>
+//                 ))}
+//                 {emptyRows > 0 && (
+//                   <StyledTableRow style={{ height: 53 * emptyRows }}>
+//                     <StyledTableCell colSpan={5} />
+//                   </StyledTableRow>
+//                 )}
+//               </TableBody>
+//               <TableFooter>
+//                 <TableRow>
+//                   <TablePagination
+//                     rowsPerPageOptions={[5, 10, 25]}
+//                     component="td"
+//                     count={payments.length}
+//                     rowsPerPage={rowsPerPage}
+//                     page={page}
+//                     onPageChange={handleChangePage}
+//                     onRowsPerPageChange={handleChangeRowsPerPage}
+//                   />
+//                 </TableRow>
+//               </TableFooter>
+//             </Table>
+//           </TableContainer>
+//         </div>
+//       ) : (
+//         <div className="mt-6 bg-white p-6 rounded-lg shadow-md">
+//           <form onSubmit={handleFormSubmit}>
+//             <div className="flex flex-col space-y-4">
+//               <div>
+//                 <label htmlFor="paymentMethod" className="block text-sm font-medium">Payment Method</label>
+//                 <input
+//                   id="paymentMethod"
+//                   name="paymentMethod"
+//                   type="text"
+//                   value={formData.paymentMethod || ''}
+//                   onChange={handleFormChange}
+//                   className="mt-1 p-2 border border-gray-300 rounded-md"
+//                 />
+//               </div>
+//               <div>
+//                 <label htmlFor="paymentDate" className="block text-sm font-medium">Payment Date</label>
+//                 <input
+//                   id="paymentDate"
+//                   name="paymentDate"
+//                   type="date"
+//                   value={formData.paymentDate || ''}
+//                   onChange={handleFormChange}
+//                   className="mt-1 p-2 border border-gray-300 rounded-md"
+//                 />
+//               </div>
+//               <div>
+//                 <label htmlFor="orderNumber" className="block text-sm font-medium">Order Number</label>
+//                 <input
+//                   id="orderNumber"
+//                   name="orderNumber"
+//                   type="text"
+//                   value={formData.orderNumber || ''}
+//                   onChange={handleFormChange}
+//                   className="mt-1 p-2 border border-gray-300 rounded-md"
+//                 />
+//               </div>
+//               <div>
+//                 <label htmlFor="customerName" className="block text-sm font-medium">Customer Name</label>
+//                 <input
+//                   id="customerName"
+//                   name="customerName"
+//                   type="text"
+//                   value={formData.customerName || ''}
+//                   onChange={handleFormChange}
+//                   className="mt-1 p-2 border border-gray-300 rounded-md"
+//                 />
+//               </div>
+//               <div>
+//                 <label htmlFor="amount" className="block text-sm font-medium">Amount</label>
+//                 <input
+//                   id="amount"
+//                   name="amount"
+//                   type="text"
+//                   value={formData.amount || ''}
+//                   onChange={handleFormChange}
+//                   className="mt-1 p-2 border border-gray-300 rounded-md"
+//                 />
+//               </div>
+//             </div>
+//             <div className="flex justify-end space-x-4 mt-4">
+//               <button
+//                 type="submit"
+//                 className="inline-flex items-center gap-x-1 rounded-md bg-custom-darkblue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-custom-lightblue hover:text-gray-700"
+//               >
+//                 {editingIndex !== null ? 'Save Changes' : 'Add Payment'}
+//               </button>
+//               <button
+//                 type="button"
+//                 className="inline-flex items-center gap-x-1 rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm hover:bg-gray-400"
+//                 onClick={handleCancel}
+//               >
+//                 Cancel
+//               </button>
+//             </div>
+//           </form>
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
+
+
 import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -1201,10 +1547,14 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import PayPal from "../../assests/Images/PayPal.png";
+import GPay from "../../assests/Images/GPay.png";
+import mastercard from "../../assests/Images/mastercard.png";
+import amazonpay from "../../assests/Images/amazonpay.png";
 import * as XLSX from 'xlsx';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
-import { FaTable, FaPlus, FaCreditCard, FaWallet, FaCashRegister } from 'react-icons/fa';
+import { FaTable, FaPlus } from 'react-icons/fa';
 import SearchIcon from '@mui/icons-material/Search';
 
 // Styled components
@@ -1228,48 +1578,39 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-// Sample data
+// Sample data with images
 const initialPayments = [
   {
-    paymentMethod: "Credit Card",
+    paymentMethod: "PayPal",
     paymentDate: "06-09-2024",
     orderNumber: "ORD123456",
     customerName: "John Doe",
     amount: "₹150.00",
-    icon: <FaCreditCard className="text-xl" /> // Add icon for Credit Card
+    icon: PayPal,
   },
   {
-    paymentMethod: "UPI",
+    paymentMethod: "GPay",
     paymentDate: "06-09-2024",
     orderNumber: "ORD163456",
     customerName: "John",
     amount: "₹156.00",
-    icon: <FaWallet className="text-xl" /> // Add icon for UPI
+    icon: GPay,
   },
   {
-    paymentMethod: "Credit Card",
+    paymentMethod: "Mastercard",
     paymentDate: "06-09-2024",
     orderNumber: "ORD183456",
     customerName: "Doe",
     amount: "₹159.00",
-    icon: <FaCreditCard className="text-xl" /> // Add icon for Credit Card
+    icon: mastercard,
   },
   {
-    paymentMethod: "Cash",
+    paymentMethod: "Amazon Pay",
     paymentDate: "06-09-2024",
     orderNumber: "ORD193456",
     customerName: "Tim",
     amount: "₹157.00",
-    icon: <FaWallet className="text-xl" /> // Add icon for UPI
-    
-  },
-  {
-    paymentMethod: "Credit Card",
-    paymentDate: "06-09-2024",
-    orderNumber: "ORD123956",
-    customerName: "Tod",
-    amount: "₹154.00",
-    icon: <FaCreditCard className="text-xl" /> // Add icon for Credit Card
+    icon: amazonpay,
   },
 ];
 
@@ -1282,7 +1623,6 @@ export default function PaymentList() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [searchName, setSearchName] = useState('');
 
-  // Handle form changes
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -1291,7 +1631,6 @@ export default function PaymentList() {
     });
   };
 
-  // Handle form submission
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (editingIndex !== null) {
@@ -1306,14 +1645,12 @@ export default function PaymentList() {
     setIsFormVisible(false);
   };
 
-  // Handle cancel button click
   const handleCancel = () => {
     setFormData(null);
     setEditingIndex(null);
     setIsFormVisible(false);
   };
 
-  // Handle add payment button click
   const handleAddPaymentClick = () => {
     setFormData({
       paymentMethod: "",
@@ -1337,7 +1674,6 @@ export default function PaymentList() {
     exportToExcel(payments, 'Payments');
   };
 
-  // Handle search functionality
   const handleSearch = () => {
     const filteredPayments = payments.filter(payment =>
       payment.customerName.toLowerCase().includes(searchName.toLowerCase())
@@ -1345,15 +1681,12 @@ export default function PaymentList() {
     setPaginatedPayments(filteredPayments.slice(0, rowsPerPage));
   };
 
-  // Pagination calculations
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - payments.length) : 0;
 
-  // Handle page change
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
-  // Handle rows per page change
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -1361,7 +1694,6 @@ export default function PaymentList() {
 
   const [paginatedPayments, setPaginatedPayments] = useState([]);
 
-  // Initial pagination setup or when data changes
   useEffect(() => {
     setPaginatedPayments(
       payments.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -1423,8 +1755,9 @@ export default function PaymentList() {
                 {paginatedPayments.map((payment, index) => (
                   <StyledTableRow key={index}>
                     <StyledTableCell>
-                      <div className="flex justify-center items-center">
-                        {payment.icon}
+                      <div className="flex items-center">
+                        <img src={payment.icon} alt={payment.paymentMethod} className="h-6 w-6 mr-2" />
+                        {payment.paymentMethod}
                       </div>
                     </StyledTableCell>
                     <StyledTableCell>{payment.paymentDate}</StyledTableCell>
@@ -1456,82 +1789,94 @@ export default function PaymentList() {
           </TableContainer>
         </div>
       ) : (
-        <div className="mt-6 bg-white p-6 rounded-lg shadow-md">
-          <form onSubmit={handleFormSubmit}>
-            <div className="flex flex-col space-y-4">
-              <div>
-                <label htmlFor="paymentMethod" className="block text-sm font-medium">Payment Method</label>
-                <input
-                  id="paymentMethod"
-                  name="paymentMethod"
-                  type="text"
-                  value={formData.paymentMethod || ''}
-                  onChange={handleFormChange}
-                  className="mt-1 p-2 border border-gray-300 rounded-md"
-                />
-              </div>
-              <div>
-                <label htmlFor="paymentDate" className="block text-sm font-medium">Payment Date</label>
-                <input
-                  id="paymentDate"
-                  name="paymentDate"
-                  type="date"
-                  value={formData.paymentDate || ''}
-                  onChange={handleFormChange}
-                  className="mt-1 p-2 border border-gray-300 rounded-md"
-                />
-              </div>
-              <div>
-                <label htmlFor="orderNumber" className="block text-sm font-medium">Order Number</label>
-                <input
-                  id="orderNumber"
-                  name="orderNumber"
-                  type="text"
-                  value={formData.orderNumber || ''}
-                  onChange={handleFormChange}
-                  className="mt-1 p-2 border border-gray-300 rounded-md"
-                />
-              </div>
-              <div>
-                <label htmlFor="customerName" className="block text-sm font-medium">Customer Name</label>
-                <input
-                  id="customerName"
-                  name="customerName"
-                  type="text"
-                  value={formData.customerName || ''}
-                  onChange={handleFormChange}
-                  className="mt-1 p-2 border border-gray-300 rounded-md"
-                />
-              </div>
-              <div>
-                <label htmlFor="amount" className="block text-sm font-medium">Amount</label>
-                <input
-                  id="amount"
-                  name="amount"
-                  type="text"
-                  value={formData.amount || ''}
-                  onChange={handleFormChange}
-                  className="mt-1 p-2 border border-gray-300 rounded-md"
-                />
-              </div>
-            </div>
-            <div className="flex justify-end space-x-4 mt-4">
-              <button
-                type="submit"
-                className="inline-flex items-center gap-x-1 rounded-md bg-custom-darkblue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-custom-lightblue hover:text-gray-700"
-              >
-                {editingIndex !== null ? 'Save Changes' : 'Add Payment'}
-              </button>
-              <button
-                type="button"
-                className="inline-flex items-center gap-x-1 rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm hover:bg-gray-400"
-                onClick={handleCancel}
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>
+        <form
+          className="bg-white p-6 rounded-lg shadow-md"
+          onSubmit={handleFormSubmit}
+        >
+          <h2 className="text-xl font-semibold mb-4">
+            {editingIndex !== null ? "Edit Payment" : "Add Payment"}
+          </h2>
+          <div className="mb-4">
+            <label htmlFor="paymentMethod" className="block text-sm font-medium">
+              Payment Method
+            </label>
+            <input
+              type="text"
+              id="paymentMethod"
+              name="paymentMethod"
+              value={formData.paymentMethod}
+              onChange={handleFormChange}
+              className="mt-1 p-2 pr-10 border border-gray-300 rounded-md w-full"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="paymentDate" className="block text-sm font-medium">
+              Payment Date
+            </label>
+            <input
+              type="text"
+              id="paymentDate"
+              name="paymentDate"
+              value={formData.paymentDate}
+              onChange={handleFormChange}
+              className="mt-1 p-2 pr-10 border border-gray-300 rounded-md w-full"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="orderNumber" className="block text-sm font-medium">
+              Order Number
+            </label>
+            <input
+              type="text"
+              id="orderNumber"
+              name="orderNumber"
+              value={formData.orderNumber}
+              onChange={handleFormChange}
+              className="mt-1 p-2 pr-10 border border-gray-300 rounded-md w-full"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="customerName" className="block text-sm font-medium">
+              Customer Name
+            </label>
+            <input
+              type="text"
+              id="customerName"
+              name="customerName"
+              value={formData.customerName}
+              onChange={handleFormChange}
+              className="mt-1 p-2 pr-10 border border-gray-300 rounded-md w-full"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="amount" className="block text-sm font-medium">
+              Amount
+            </label>
+            <input
+              type="text"
+              id="amount"
+              name="amount"
+              value={formData.amount}
+              onChange={handleFormChange}
+              className="mt-1 p-2 pr-10 border border-gray-300 rounded-md w-full"
+            />
+          </div>
+          <div className="flex justify-end">
+            <button
+              type="button"
+              className="mr-2 inline-flex items-center gap-x-1 rounded-md bg-custom-darkblue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-custom-lightblue hover:text-gray-700"
+              onClick={handleCancel}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="inline-flex items-center gap-x-1 rounded-md bg-custom-darkblue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-custom-lightblue hover:text-gray-700"
+            >
+              {editingIndex !== null ? "Update" : "Add Payment"}
+            </button>
+          </div>
+        </form>
       )}
     </div>
   );
