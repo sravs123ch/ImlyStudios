@@ -21,13 +21,16 @@ import {
   XMarkIcon,
   ShoppingBagIcon,
   
+  
   ClipboardDocumentListIcon,
   CreditCardIcon, 
   UserIcon
 } from '@heroicons/react/24/outline';
+import { TbReportSearch } from "react-icons/tb"
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import logo from '../../assests/Images/imly-logo-new.jpg';
 import { useNavigate, useLocation } from 'react-router-dom'; // Import useNavigate and useLocation
+import {CogIcon } from '@heroicons/react/20/solid'
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
@@ -35,14 +38,24 @@ const navigation = [
   // { name: 'Create Orders', href: '/AddOrders', icon: UserIcon },
 
   { name: 'Orders', href: '/orders', icon: ClipboardDocumentListIcon },
+  { name: 'Payments', href: '/Payments', icon: CreditCardIcon  },
+  { name: 'Returns', href: '/Returns', icon: TbReportSearch },
+
+  { name: 'Customers', href: '/Customer', icon: UsersIcon },
+  { name: 'Reports', href: '/Reports', icon: FolderIcon },
+
   // { name: 'Add Products', href: '/products', icon: FolderIcon },
   { name: 'Users', href: '/user', icon: UsersIcon },
+  { name: 'UserRole', href: '/userrole', icon: UsersIcon },
+  { name: 'Production', href: '/production', icon: CogIcon },
+
+
+
   // { name: 'Products', href: '/product', icon: FolderIcon },
   { name: 'Stores', href: '/Stores', icon: ShoppingBagIcon },
-  { name: 'Customers', href: '/Customer', icon: UsersIcon },
+  
+  
 
-  { name: 'Reports', href: '/Reports', icon: FolderIcon },
-  { name: 'Payments', href: '/Payments', icon: CreditCardIcon  },
 
 
 

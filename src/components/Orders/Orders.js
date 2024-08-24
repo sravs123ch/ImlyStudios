@@ -769,244 +769,645 @@
 // export default OrderPage;
 
 
-import { HomeIcon, PrinterIcon } from "@heroicons/react/24/outline";
-import { useNavigate } from "react-router-dom";
+// import { HomeIcon, PrinterIcon } from "@heroicons/react/24/outline";
+// import { useNavigate } from "react-router-dom";
 
+// const data = [
+//   {
+//     id: 1000252,
+//     name: "RIVAGO",
+//     price: 1000,
+//     balance: 50000,
+//     status: "pending",
+//     operation: "Cancel Order",
+//   },
+//   {
+//     id: 1000253,
+//     name: "CASINO",
+//     price: 1200,
+//     balance: 50000,
+//     status: "dispatched",
+//     operation: "Already Dispatched",
+//   },
+//   {
+//     id: 1000254,
+//     name: "ACRILIA",
+//     price: 1500,
+//     balance: 50000,
+//     status: "pending",
+//     operation: "Cancel Order",
+//   },
+//   {
+//     id: 1000255,
+//     name: "ARTEX",
+//     price: 2500,
+//     balance: 50000,
+//     status: "pending",
+//     operation: "Cancel Order",
+//   },
+//   {
+//     id: 1000256,
+//     name: "LAZZARO",
+//     price: 2000,
+//     balance: 50000,
+//     status: "cancelled",
+//     operation: "Cancelled",
+//   },
+//   {
+//     id: 1000257,
+//     name: "MILANO",
+//     price: 800,
+//     balance: 50000,
+//     status: "pending",
+//     operation: "Cancel Order",
+//   },
+//   {
+//     id: 1000258,
+//     name: "LAZZARO",
+//     price: 1800,
+//     balance: 50000,
+//     status: "cancelled",
+//     operation: "Cancelled",
+//   },
+//   {
+//     id: 1000259,
+//     name: "LEON",
+//     price: 1500,
+//     balance: 50000,
+//     status: "pending",
+//     operation: "Cancel Order",
+//   },
+//   {
+//     id: 1000260,
+//     name: "FLIPPO",
+//     price: 2000,
+//     balance: 50000,
+//     status: "dispatched",
+//     operation: "Already Dispatched",
+//   },
+//   {
+//     id: 1000261,
+//     name: "LUCENTO",
+//     price: 1700,
+//     balance: 50000,
+//     status: "pending",
+//     operation: "Cancel Order",
+//   },
+//   {
+//     id: 1000262,
+//     name: "LEON",
+//     price: 1000,
+//     balance: 50000,
+//     status: "cancelled",
+//     operation: "Cancelled",
+//   },
+//   {
+//     id: 1000263,
+//     name: "LAZZARO",
+//     price: 1000,
+//     balance: 50000,
+//     status: "pending",
+//     operation: "Cancel Order",
+//   },
+//   {
+//     id: 1000264,
+//     name: "CASINO",
+//     price: 1000,
+//     balance: 50000,
+//     status: "cancelled",
+//     operation: "Cancelled",
+//   },
+// ];
+
+// const UserData = ({ users }) => {
+//   const isDispatched = (statusChecker) => {
+//     return statusChecker === "dispatched" || statusChecker === "Dispatched";
+//   };
+//   const isActive = (orderChecker) => {
+//     return orderChecker === "Cancel Order" || orderChecker === "cancel order";
+//   };
+
+
+//   const navigate = useNavigate();
+
+//   const handleOrderUpdate = (event, order) => {
+//     event.preventDefault();
+//     navigate("/update-order", { state: { order } });
+//   };
+//   return (
+
+//     <>
+
+//       {users.map((curUser) => {
+//         const { id, name, price, balance, status, operation } = curUser;
+
+//         return (
+//           <tr key={id} className="w-[100%] ">
+//             <td className="p-5 border-b-[1px] border-[#33333353] font-bold text-center">
+//               {id}
+//             </td>
+//             <td className="text-center p-5 border-b-[1px] border-[#33333353] text-[#6c7079]">
+//               {name}
+//             </td>
+//             <td className="p-5 text-center border-b-[1px] border-[#33333353] text-[#6c7079]">
+//               &#8377;{price}
+//             </td>
+//             <td className="p-5 text-center border-b-[1px] border-[#33333353] text-[#6c7079]">
+//               &#8377;{balance}
+//             </td>
+//             <td className="p-5 border-b-[1px] text-center border-[#33333353] text-[#6c7079] ">
+//               <button
+//                 className={`${
+//                   isDispatched(status)
+//                     ? " text-center font-semibold border-[1px] border-solid border-green-600 text-green-600 bg-[#eefcee] rounded-full pt-[4px] pr-[10px] pb-[4px] pl-[10px] h-[33px]  "
+//                     : " text-center font-semibold border-[1px] border-solid border-[#BD2B2B] text-[#BD2B2B] bg-[#FFF3F2] rounded-full pt-[4px] pr-[10px] pb-[4px] pl-[10px] h-[33px] "
+//                 }`}
+//               >
+//                 {status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()}
+//               </button>
+//             </td>
+
+//             <td className="text-left p-5 border-b-[1px] border-[#33333353] text-[#6c7079]">
+//               <button
+//                 className={`${
+//                   isActive(operation)
+//                     ? "bg-[#F04A48] cursor-pointer text-[#FFFEFE] p-[8px] border-none rounded hover:bg-[#ff8c8a]"
+//                     : "bg-[#c5c5c5] cursor-pointer text-[#FFFEFE] p-[8px] border-none rounded hover:bg-[#acabab]   "
+//                 }`}
+//               >
+//                 {operation}
+//               </button>
+//             </td>
+//             <td className="p-5 border-b-[1px] border-[#33333353] text-[#6c7079]">
+//               <button onClick={(e) => handleOrderUpdate(e, curUser)}  className="bg-[#003375] border-none text-white w-[30px] h-[30px] rounded-full flex justify-center items-center cursor-pointer text-s    hover:bg-[#003375a7]">
+//                 {/* bg-[#0059ff] */}
+//                 <span className="inline-block font-bold text-xl h-[36px] w-[10px] mt-[3px] mr-[2px] ">
+//                   &gt;
+//                 </span>
+//               </button>
+//             </td>
+//           </tr>
+//         );
+//       })}
+
+//     </>
+
+//   );
+// };
+
+// const OrderPage = () => {
+//   return (
+//      <div className="order p-4 bg-[#F3F4F6] px-4 sm:px-6 lg:px-8 pt-4  ml-10 lg:ml-72 w-auto3 ">
+// <div className="content flex justify-between">
+//         <h3 className="text-4xl font-display mb-14 text-[#677749] font-bold bg-[#F3F4F6]">
+//           Orders
+//         </h3>
+//         <div className="button flex">
+//           <a href="/AddOrders">
+//             <button className="mt-10 mr-2 mb-10 ml-10 text-white cursor-pointer rounded p-[8px] hover:bg-[#003375a7] flex  items-center  border-none bg-[#003375]">
+//               <HomeIcon className="block mr-[10px] h-[18px] w-[19px] font-bold " />
+//               Create Order
+//             </button>
+//           </a>
+//           <a href="/AddOrders">
+//             <button className="ml-1 mt-10 mr-10 mb-10 text-white cursor-pointer rounded p-[8px] hover:bg-[#003375a7] flex  items-center border-none bg-[#003375]">
+//               <PrinterIcon className="block mr-[10px] h-[18px] w-[19px] font-bold " />
+//               Export Order
+//             </button>
+//           </a>
+//         </div>
+//       </div>
+//       <table className="w-full ">
+//         <thead className="bg-[#003375] justify-center text-white rounded-lg">
+//           <tr>
+//             <th className="pt-[20px] pr-[15px] pb-[20px] pl-[15px] text-center rounded-bl-lg rounded-tl-lg">
+//               Order Id
+//             </th>
+//             <th className="pt-[20px] pr-[15px] pb-[20px] pl-[15px] text-center">
+//               Product Name
+//             </th>
+//             <th className="pt-[20px] pr-[15px] pb-[20px] pl-[15px] text-center">
+//               Price
+//             </th>
+//             <th className="pt-[20px] pr-[15px] pb-[20px] pl-[15px]">
+//               Payment Balance
+//             </th>
+//             <th className="pt-[20px] pr-[15px] pb-[20px] pl-[15px] text-center">
+//               Status
+//             </th>
+//             <th className="pt-[20px] pr-[15px] pb-[20px] pl-[15px] text-left">
+//               Operation
+//             </th>
+//             <th className="pt-[20px] pr-[15px] pb-[20px] pl-[15px] text-center rounded-tr-lg rounded-br-lg"></th>
+//           </tr>
+//         </thead>
+//         <tbody className="ml-4">
+//           <UserData users={data} />
+//         </tbody>
+//       </table>
+//     </div>
+//   );
+// };
+
+// export default OrderPage;
+
+
+
+import {
+  Edit as EditIcon,
+  Home as HomeIcon,
+  Print as PrinterIcon,
+} from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import {
+  Container,
+  Box,
+  Typography,
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  IconButton,
+  TablePagination,
+} from "@mui/material";
+import React, { useState } from "react";
+ 
 const data = [
   {
     id: 1000252,
     name: "RIVAGO",
-    price: 1000,
-    balance: 50000,
+    balance: 1000,
+    price: 50000,
     status: "pending",
     operation: "Cancel Order",
   },
   {
     id: 1000253,
     name: "CASINO",
-    price: 1200,
-    balance: 50000,
+    balance: 1200,
+    price: 50000,
     status: "dispatched",
     operation: "Already Dispatched",
   },
   {
     id: 1000254,
     name: "ACRILIA",
-    price: 1500,
-    balance: 50000,
+    balance: 1500,
+    price: 50000,
     status: "pending",
     operation: "Cancel Order",
   },
   {
     id: 1000255,
     name: "ARTEX",
-    price: 2500,
-    balance: 50000,
+    balance: 2500,
+    price: 50000,
     status: "pending",
     operation: "Cancel Order",
   },
   {
     id: 1000256,
     name: "LAZZARO",
-    price: 2000,
-    balance: 50000,
+    balance: 2000,
+    price: 50000,
     status: "cancelled",
     operation: "Cancelled",
   },
   {
     id: 1000257,
     name: "MILANO",
-    price: 800,
-    balance: 50000,
+    balance: 800,
+    price: 50000,
     status: "pending",
     operation: "Cancel Order",
   },
   {
     id: 1000258,
     name: "LAZZARO",
-    price: 1800,
-    balance: 50000,
+    balance: 1800,
+    price: 50000,
     status: "cancelled",
     operation: "Cancelled",
   },
   {
     id: 1000259,
     name: "LEON",
-    price: 1500,
-    balance: 50000,
+    balance: 1500,
+    price: 50000,
     status: "pending",
     operation: "Cancel Order",
   },
   {
     id: 1000260,
     name: "FLIPPO",
-    price: 2000,
-    balance: 50000,
+    balance: 2000,
+    price: 50000,
     status: "dispatched",
     operation: "Already Dispatched",
   },
   {
     id: 1000261,
     name: "LUCENTO",
-    price: 1700,
-    balance: 50000,
+    balance: 1700,
+    price: 50000,
     status: "pending",
     operation: "Cancel Order",
   },
   {
     id: 1000262,
     name: "LEON",
-    price: 1000,
-    balance: 50000,
+    balance: 1000,
+    price: 50000,
     status: "cancelled",
     operation: "Cancelled",
   },
   {
     id: 1000263,
     name: "LAZZARO",
-    price: 1000,
-    balance: 50000,
+    balance: 1000,
+    price: 50000,
     status: "pending",
     operation: "Cancel Order",
   },
   {
     id: 1000264,
     name: "CASINO",
-    price: 1000,
-    balance: 50000,
+    balance: 1000,
+    price: 50000,
     status: "cancelled",
     operation: "Cancelled",
   },
 ];
-
+ 
 const UserData = ({ users }) => {
+  const navigate = useNavigate();
+ 
   const isDispatched = (statusChecker) => {
     return statusChecker === "dispatched" || statusChecker === "Dispatched";
   };
+ 
   const isActive = (orderChecker) => {
     return orderChecker === "Cancel Order" || orderChecker === "cancel order";
   };
-
-
-  const navigate = useNavigate();
-
+ 
   const handleOrderUpdate = (event, order) => {
     event.preventDefault();
     navigate("/update-order", { state: { order } });
   };
+ 
   return (
-
     <>
-
       {users.map((curUser) => {
         const { id, name, price, balance, status, operation } = curUser;
-
+ 
         return (
-          <tr key={id} className="w-[100%] ">
-            <td className="p-5 border-b-[1px] border-[#33333353] font-bold text-center">
-              {id}
-            </td>
-            <td className="text-center p-5 border-b-[1px] border-[#33333353] text-[#6c7079]">
+          <TableRow key={id}>
+            <TableCell align="center">
+              <Typography fontWeight="bold">{id}</Typography>
+            </TableCell>
+            <TableCell align="center" sx={{ color: "#6c7079" }}>
               {name}
-            </td>
-            <td className="p-5 text-center border-b-[1px] border-[#33333353] text-[#6c7079]">
+            </TableCell>
+            <TableCell align="center" sx={{ color: "#6c7079" }}>
               &#8377;{price}
-            </td>
-            <td className="p-5 text-center border-b-[1px] border-[#33333353] text-[#6c7079]">
+            </TableCell>
+            <TableCell align="center" sx={{ color: "#6c7079" }}>
               &#8377;{balance}
-            </td>
-            <td className="p-5 border-b-[1px] text-center border-[#33333353] text-[#6c7079] ">
-              <button
-                className={`${
-                  isDispatched(status)
-                    ? " text-center font-semibold border-[1px] border-solid border-green-600 text-green-600 bg-[#eefcee] rounded-full pt-[4px] pr-[10px] pb-[4px] pl-[10px] h-[33px]  "
-                    : " text-center font-semibold border-[1px] border-solid border-[#BD2B2B] text-[#BD2B2B] bg-[#FFF3F2] rounded-full pt-[4px] pr-[10px] pb-[4px] pl-[10px] h-[33px] "
-                }`}
+            </TableCell>
+            <TableCell align="center">
+              <Button
+                disableRipple
+                variant="contained"
+                sx={{
+                  borderRadius: "50px",
+                  minWidth: "8vw",
+                  color: isDispatched(status) ? "green" : "#BD2B2B",
+                  backgroundColor: isDispatched(status) ? "#eefcee" : "#FFF3F2",
+                  borderColor: isDispatched(status) ? "green" : "#BD2B2B",
+                  border: 1,
+                  textTransform: "capitalize",
+                  boxShadow: "none",
+                  ":hover": {
+                    color: isDispatched(status) ? "green" : "#BD2B2B",
+                    backgroundColor: isDispatched(status)
+                      ? "#eefcee"
+                      : "#FFF3F2",
+                    borderColor: isDispatched(status) ? "green" : "#BD2B2B",
+                    boxShadow: "none",
+                  },
+                }}
               >
-                {status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()}
-              </button>
-            </td>
-
-            <td className="text-left p-5 border-b-[1px] border-[#33333353] text-[#6c7079]">
-              <button
-                className={`${
-                  isActive(operation)
-                    ? "bg-[#F04A48] cursor-pointer text-[#FFFEFE] p-[8px] border-none rounded hover:bg-[#ff8c8a]"
-                    : "bg-[#c5c5c5] cursor-pointer text-[#FFFEFE] p-[8px] border-none rounded hover:bg-[#acabab]   "
-                }`}
+                {status}
+              </Button>
+            </TableCell>
+            <TableCell align="left">
+              <Button
+                disableRipple
+                variant="contained"
+                sx={{
+                  boxShadow: "none",
+                  backgroundColor: isActive(operation) ? "#F04A48" : "#c5c5c5",
+                  color: "#FFFEFE",
+                  textTransform: "capitalize",
+                  ":hover": {
+                    backgroundColor: isActive(operation)
+                      ? "#ff8c8a"
+                      : "#acabab",
+                    boxShadow: "none",
+                  },
+                }}
               >
                 {operation}
-              </button>
-            </td>
-            <td className="p-5 border-b-[1px] border-[#33333353] text-[#6c7079]">
-              <button onClick={(e) => handleOrderUpdate(e, curUser)}  className="bg-[#003375] border-none text-white w-[30px] h-[30px] rounded-full flex justify-center items-center cursor-pointer text-s    hover:bg-[#003375a7]">
-                {/* bg-[#0059ff] */}
-                <span className="inline-block font-bold text-xl h-[36px] w-[10px] mt-[3px] mr-[2px] ">
-                  &gt;
-                </span>
-              </button>
-            </td>
-          </tr>
+              </Button>
+            </TableCell>
+            <TableCell align="center">
+              <Button
+                variant="contained"
+                startIcon={<EditIcon />}
+                sx={{
+                  backgroundColor: "#2563eb",
+                  color: "white",
+                  fontSize: "0.75rem",
+                  padding: "4px 8px",
+                  borderRadius: "4px",
+                  boxShadow: "none",
+                  textTransform: "none",
+                  ":hover": {
+                    backgroundColor: "#3b82f6 ",
+                    boxShadow: "none",
+                  },
+                }}
+              >
+                Edit
+              </Button>
+            </TableCell>
+          </TableRow>
         );
       })}
-
     </>
-
   );
 };
-
-const OrderPage = () => {
+ 
+const OrderPageMui = () => {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+ 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+ 
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+ 
+  const paginatedData = data.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
+ 
   return (
-     <div className="order p-4 bg-[#F3F4F6] px-4 sm:px-6 lg:px-8 pt-4  ml-10 lg:ml-72 w-auto3 ">
-<div className="content flex justify-between">
-        <h3 className="text-4xl font-display mb-14 text-[#677749] font-bold bg-[#F3F4F6]">
+        <div className="order p-4 bg-[#F3F4F6] px-4 sm:px-6 lg:px-8 pt-4  ml-10 lg:ml-72 w-auto3 ">
+
+    <Container maxWidth="lg" sx={{ backgroundColor: "#F3F4F6", p: 4 }}>
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Typography variant="h3" fontWeight="bold" color="#677749">
           Orders
-        </h3>
-        <div className="button flex">
-          <a href="/AddOrders">
-            <button className="mt-10 mr-2 mb-10 ml-10 text-white cursor-pointer rounded p-[8px] hover:bg-[#003375a7] flex  items-center  border-none bg-[#003375]">
-              <HomeIcon className="block mr-[10px] h-[18px] w-[19px] font-bold " />
-              Create Order
-            </button>
-          </a>
-          <a href="/AddOrders">
-            <button className="ml-1 mt-10 mr-10 mb-10 text-white cursor-pointer rounded p-[8px] hover:bg-[#003375a7] flex  items-center border-none bg-[#003375]">
-              <PrinterIcon className="block mr-[10px] h-[18px] w-[19px] font-bold " />
-              Export Order
-            </button>
-          </a>
-        </div>
-      </div>
-      <table className="w-full ">
-        <thead className="bg-[#003375] justify-center text-white rounded-lg">
-          <tr>
-            <th className="pt-[20px] pr-[15px] pb-[20px] pl-[15px] text-center rounded-bl-lg rounded-tl-lg">
-              Order Id
-            </th>
-            <th className="pt-[20px] pr-[15px] pb-[20px] pl-[15px] text-center">
-              Product Name
-            </th>
-            <th className="pt-[20px] pr-[15px] pb-[20px] pl-[15px] text-center">
-              Price
-            </th>
-            <th className="pt-[20px] pr-[15px] pb-[20px] pl-[15px]">
-              Payment Balance
-            </th>
-            <th className="pt-[20px] pr-[15px] pb-[20px] pl-[15px] text-center">
-              Status
-            </th>
-            <th className="pt-[20px] pr-[15px] pb-[20px] pl-[15px] text-left">
-              Operation
-            </th>
-            <th className="pt-[20px] pr-[15px] pb-[20px] pl-[15px] text-center rounded-tr-lg rounded-br-lg"></th>
-          </tr>
-        </thead>
-        <tbody className="ml-4">
-          <UserData users={data} />
-        </tbody>
-      </table>
+        </Typography>
+        <Box>
+          <Button
+            variant="contained"
+            disableRipple
+            sx={{
+              backgroundColor: "#003375",
+              color: "white",
+              mx: 1,
+              boxShadow: "none",
+              textTransform: "capitalize",
+              fontSize: "0.925rem",
+              ":hover": {
+                backgroundColor: "#cadcfc",
+                color: "#374151",
+                boxShadow: "none",
+              },
+            }}
+            startIcon={<HomeIcon />}
+            href="/create-order"
+          >
+            Create Order
+          </Button>
+          <Button
+            variant="contained"
+            disableRipple
+            sx={{
+              backgroundColor: "#003375",
+              color: "white",
+              mr: 0,
+              boxShadow: "none",
+              textTransform: "capitalize",
+              fontSize: "0.925rem",
+              ":hover": {
+                backgroundColor: "#cadcfc",
+                color: "#374151",
+                boxShadow: "none",
+              },
+            }}
+            startIcon={<PrinterIcon />}
+            href="/create-order"
+          >
+            Export Order
+          </Button>
+        </Box>
+      </Box>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow sx={{ backgroundColor: "#003375" }}>
+              <TableCell
+                align="center"
+                sx={{
+                  color: "white",
+                  fontWeight: "bold",
+                  fontSize: "0.925rem",
+                }}
+              >
+                Order Id
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{
+                  color: "white",
+                  fontWeight: "bold",
+                  fontSize: "0.925rem",
+                }}
+              >
+                Product Name
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{
+                  color: "white",
+                  fontWeight: "bold",
+                  fontSize: "0.925rem",
+                }}
+              >
+                Price
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{
+                  color: "white",
+                  fontWeight: "bold",
+                  fontSize: "0.925rem",
+                }}
+              >
+                Payment Balance
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{
+                  color: "white",
+                  fontWeight: "bold",
+                  fontSize: "0.925rem",
+                }}
+              >
+                Status
+              </TableCell>
+              <TableCell
+                align="left"
+                sx={{
+                  color: "white",
+                  fontWeight: "bold",
+                  fontSize: "0.925rem",
+                }}
+              >
+                Operation
+              </TableCell>
+              <TableCell align="center"></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            <UserData users={paginatedData} />
+          </TableBody>
+        </Table>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={data.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </TableContainer>
+    </Container>
     </div>
   );
 };
-
-export default OrderPage;
+ 
+export default OrderPageMui;
+ 

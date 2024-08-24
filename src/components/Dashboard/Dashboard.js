@@ -228,10 +228,9 @@
 // export default Dashboard;
 
 
-
 import React, { useEffect, useRef } from 'react';
 import { Chart, registerables } from 'chart.js';
-import { Line, Bar } from 'react-chartjs-2';
+import { Line, Doughnut,Bar } from 'react-chartjs-2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartLine, faUsers, faIndianRupeeSign, faTasks } from '@fortawesome/free-solid-svg-icons';
 import 'chart.js/auto';
@@ -241,7 +240,8 @@ Chart.register(...registerables);
 
 const Dashboard = () => {
     const lineChartRef = useRef(null);
-    const barChartRef = useRef(null);
+    const doughnutChartRef = useRef(null);
+    const bigChartRef = useRef(null);
 
     const lineData = {
         labels: ['January', 'February', 'March', 'April', 'May', 'June'],
@@ -256,14 +256,34 @@ const Dashboard = () => {
         ],
     };
 
-    const barData = {
+    const doughnutData = {
+        labels: ['Orders Pending', 'Dispatched', 'Production Design'],
+        datasets: [
+            {
+                label: 'Order Status',
+                data: [120, 80, 50], // Example data: replace with actual values
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)', // Orders Pending
+                    'rgba(54, 162, 235, 0.6)', // Dispatched
+                    'rgba(255, 206, 86, 0.6)', // Production Design
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                ],
+                borderWidth: 1,
+            },
+        ],
+    };
+    const bigChartData = {
         labels: ['January', 'February', 'March', 'April', 'May', 'June'],
         datasets: [
             {
-                label: 'Revenue Generated Per Month',
-                data: [65, 59, 80, 81, 56, 55],
-                backgroundColor: 'rgba(153, 102, 255, 0.6)',
-                borderColor: 'rgba(153, 102, 255, 1)',
+                label: 'Revenue Generated',
+                data: [85, 69, 90, 101, 76, 65],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1,
             },
         ],
@@ -271,14 +291,18 @@ const Dashboard = () => {
 
     useEffect(() => {
         const lineChartInstance = lineChartRef.current;
-        const barChartInstance = barChartRef.current;
+        const doughnutChartInstance = doughnutChartRef.current;
+        const bigChartInstance = bigChartRef.current;
 
         return () => {
             if (lineChartInstance) {
                 lineChartInstance.destroy();
             }
-            if (barChartInstance) {
-                barChartInstance.destroy();
+            if (doughnutChartInstance) {
+                doughnutChartInstance.destroy();
+            }
+            if (bigChartInstance) {
+                bigChartInstance.destroy();
             }
         };
     }, []);
@@ -327,15 +351,23 @@ const Dashboard = () => {
 
             {/* Graph Section */}
             <div className="container mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                     <div className="bg-white shadow rounded-lg p-4">
                         <h2 className="text-xl font-semibold mb-4">Sales</h2>
                         <Line data={lineData} ref={lineChartRef} />
                     </div>
                     <div className="bg-white shadow rounded-lg p-4">
-                        <h2 className="text-xl font-semibold mb-4">Revenue</h2>
-                        <Bar data={barData} ref={barChartRef} />
+                        <h2 className="text-xl font-semibold mb-4">Order Status</h2>
+                        <div className="w-64 h-64 mx-auto">
+                            <Doughnut data={doughnutData} ref={doughnutChartRef} />
+                        </div>
                     </div>
+                </div>
+
+                {/* Full-width Big Chart */}
+                <div className="bg-white shadow rounded-lg p-4">
+                    <h2 className="text-xl font-semibold mb-4">Revenue Generated</h2>
+                    <Bar data={bigChartData} ref={bigChartRef} />
                 </div>
             </div>
         </div>

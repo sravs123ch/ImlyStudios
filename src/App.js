@@ -106,7 +106,9 @@ import Reports from './components/Reports/Reports';
 import Payments from './components/Payments/Payments';
 import ReportsStatic from './components/Reports/ReportsStatic';
 import Customer from './components/Customer/Customer'
-
+import UserRoleForm from './components/User/UserRole';
+import Returns from './components/Returns/Returns'
+import Production from './components/Production/Production'
 function App() {
   const location = useLocation();
   const showNavigation = location.pathname !== '/';
@@ -130,6 +132,13 @@ function App() {
 
           <Route path="/Payments" element={<Payments/>} />
           <Route path="/Customer" element={<Customer/>} />
+          <Route path="/userrole" element={<UserRoleForm/>} />
+          <Route path="/Returns" element={<Returns/>} />
+          <Route path="/Production" element={<Production/>} />
+
+
+
+
 
 
 

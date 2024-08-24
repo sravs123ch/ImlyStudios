@@ -493,7 +493,7 @@ const [pdfFile, setPdfFile] = useState(null);
                       name="firstname"
                       value={orderDetails.firstname}
                       onChange={handleChange}
-                      className={` p-1 w-full border rounded-md ${errors.firstname ? 'border-red-500' : 'border-gray-300'}`}
+                      className={` p-1 mt-2 mb-1 w-full border rounded-md ${errors.firstname ? 'border-red-500' : 'border-gray-300'}`}
                     />
                     {errors.firstname && <p className="text-red-500 text-sm mt-1">{errors.firstname}</p>}
                   </div>
@@ -504,7 +504,7 @@ const [pdfFile, setPdfFile] = useState(null);
                       name="lastname"
                       value={orderDetails.lastname}
                       onChange={handleChange}
-                      className={` p-1 w-full border rounded-md ${errors.lastname ? 'border-red-500' : 'border-gray-300'}`}
+                      className={` p-1 mt-2 mb-1 w-full border rounded-md ${errors.lastname ? 'border-red-500' : 'border-gray-300'}`}
                     />
                     {errors.lastname && <p className="text-red-500 text-sm mt-1">{errors.lastname}</p>}
                   </div>
@@ -515,7 +515,7 @@ const [pdfFile, setPdfFile] = useState(null);
                       name="email"
                       value={orderDetails.email}
                       onChange={handleChange}
-                      className={` p-1 w-full border rounded-md ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+                      className={` p-1  mt-2 mb-1 w-full border rounded-md ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
                     />
                     {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                   </div>
@@ -526,7 +526,7 @@ const [pdfFile, setPdfFile] = useState(null);
                       name="phone"
                       value={orderDetails.phone}
                       onChange={handleChange}
-                      className={` p-1 w-full border rounded-md ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}
+                      className={` p-1  mt-2 mb-1 w-full border rounded-md ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}
                     />
                     {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
                   </div>
@@ -536,7 +536,7 @@ const [pdfFile, setPdfFile] = useState(null);
                       name="type"
                       value={orderDetails.type}
                       onChange={handleChange}
-                      className={` p-1 w-full border rounded-md ${errors.type ? 'border-red-500' : 'border-gray-300'}`}
+                      className={` p-1  mt-2 mb-1 w-full border rounded-md ${errors.type ? 'border-red-500' : 'border-gray-300'}`}
                     >
                       <option value="select a type">Select a Type</option>
                       <option value="Kitchen">Kitchen</option>
@@ -552,7 +552,7 @@ const [pdfFile, setPdfFile] = useState(null);
                       name="deliveryDate"
                       value={orderDetails.deliveryDate}
                       onChange={handleChange}
-                      className={` p-1 w-full border rounded-md ${errors.deliveryDate ? 'border-red-500' : 'border-gray-300'}`}
+                      className={` p-1  mt-2 mb-1 w-full border rounded-md ${errors.deliveryDate ? 'border-red-500' : 'border-gray-300'}`}
                     />
                     {errors.deliveryDate && <p className="text-red-500 text-sm mt-1">{errors.deliveryDate}</p>}
                   </div>
@@ -563,7 +563,7 @@ const [pdfFile, setPdfFile] = useState(null);
                       name="comments"
                       value={orderDetails.comments}
                       onChange={handleChange}
-                      className={` p-1 w-full border rounded-md ${errors.comments ? 'border-red-500' : 'border-gray-300'}`}
+                      className={` p-1  mt-2 mb-1 w-full border rounded-md ${errors.comments ? 'border-red-500' : 'border-gray-300'}`}
                     />
                     {errors.comments && <p className="text-red-500 text-sm mt-1">{errors.comments}</p>}
                   </div>
@@ -748,7 +748,7 @@ const [pdfFile, setPdfFile] = useState(null);
       <Combobox as="div" value={selectedReferralType} onChange={handleReferralTypeChange}>
         <div className="relative">
           <Combobox.Input
-            className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            className="w-full  mt-2 mb-1 rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             onChange={(event) => setQuery(event.target.value)}
             displayValue={(type) => type || ''}
           />
@@ -783,7 +783,7 @@ const [pdfFile, setPdfFile] = useState(null);
           <Combobox as="div" value={selectedReferenceSubOption} onChange={handleReferenceSubOptionChange}>
             <div className="relative">
               <Combobox.Input
-                className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="w-full  mt-2 mb-1 rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 onChange={(event) => setQuery(event.target.value)}
                 displayValue={(option) => option || ''}
               />
@@ -821,7 +821,7 @@ const [pdfFile, setPdfFile] = useState(null);
             name="refereeName"
             value={refereeName}
             onChange={handleRefereeNameChange}
-            className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            className="w-full  mt-2 mb-1 rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           />
         </div>
       )}
@@ -832,7 +832,7 @@ const [pdfFile, setPdfFile] = useState(null);
           <Combobox as="div" value={selectedSocialMediaPlatform} onChange={setSelectedSocialMediaPlatform}>
             <div className="relative">
               <Combobox.Input
-                className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="w-full  mt-2 mb-1 rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 onChange={(event) => setQuery(event.target.value)}
                 displayValue={(platform) => platform || ''}
               />
@@ -877,7 +877,7 @@ const [pdfFile, setPdfFile] = useState(null);
                       name="address"
                       value={orderDetails.address}
                       onChange={handleChange}
-                      className={`p-1 w-full border rounded-md ${errors.address ? 'border-red-500' : 'border-gray-300'}`}
+                      className={`p-1  mt-2 mb-1 w-full border rounded-md ${errors.address ? 'border-red-500' : 'border-gray-300'}`}
                     />
                     {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address}</p>}
                   </div>
@@ -889,7 +889,7 @@ const [pdfFile, setPdfFile] = useState(null);
                       name="address1"
                       value={orderDetails.address1}
                       onChange={handleChange}
-                      className={` p-1 w-full border rounded-md ${errors.address1 ? 'border-red-500' : 'border-gray-300'}`}
+                      className={` p-1  mt-2 mb-1 w-full border rounded-md ${errors.address1 ? 'border-red-500' : 'border-gray-300'}`}
                     />
                     {errors.address1 && <p className="text-red-500 text-sm mt-1">{errors.address1}</p>}
                   </div>
@@ -903,7 +903,7 @@ const [pdfFile, setPdfFile] = useState(null);
                       name="city"
                       value={orderDetails.city}
                       onChange={handleChange}
-                      className={` p-1 w-full border rounded-md ${errors.city ? 'border-red-500' : 'border-gray-300'}`}
+                      className={` p-1  mt-2 mb-1 w-full border rounded-md ${errors.city ? 'border-red-500' : 'border-gray-300'}`}
                     />
                     {errors.city && <p className="text-red-500 text-sm mt-1">{errors.city}</p>}
                   </div>
@@ -915,7 +915,7 @@ const [pdfFile, setPdfFile] = useState(null);
                       name="state"
                       value={orderDetails.state}
                       onChange={handleChange}
-                      className={` p-1 w-full border rounded-md ${errors.state ? 'border-red-500' : 'border-gray-300'}`}
+                      className={` p-1  mt-2 mb-1 w-full border rounded-md ${errors.state ? 'border-red-500' : 'border-gray-300'}`}
                     />
                     {errors.state && <p className="text-red-500 text-sm mt-1">{errors.state}</p>}
                   </div>
@@ -929,7 +929,7 @@ const [pdfFile, setPdfFile] = useState(null);
                       name="zipcode"
                       value={orderDetails.zipcode}
                       onChange={handleChange}
-                      className={` p-1 w-full border rounded-md ${errors.zipcode ? 'border-red-500' : 'border-gray-300'}`}
+                      className={` p-1  mt-2 mb-1 w-full border rounded-md ${errors.zipcode ? 'border-red-500' : 'border-gray-300'}`}
                     />
                     {errors.zipcode && <p className="text-red-500 text-sm mt-1">{errors.zipcode}</p>}
                   </div>
@@ -940,7 +940,7 @@ const [pdfFile, setPdfFile] = useState(null);
         name="totalAmount"
         value={orderDetails.totalAmount}
         onChange={handleChange}
-        className={` p-1 w-full border rounded-md ${errors.totalAmount ? 'border-red-500' : 'border-gray-300'}`}
+        className={` p-1  mt-2 mb-1 w-full border rounded-md ${errors.totalAmount ? 'border-red-500' : 'border-gray-300'}`}
       />
       {errors.totalAmount && <p className="text-red-500 text-sm mt-1">{errors.totalAmount}</p>}
     </div>
@@ -953,7 +953,7 @@ const [pdfFile, setPdfFile] = useState(null);
         name="advanceAmount"
         value={orderDetails.advanceAmount}
         onChange={handleChange}
-        className={` p-1 w-full border rounded-md ${errors.advanceAmount ? 'border-red-500' : 'border-gray-300'}`}
+        className={` p-1  mt-2 mb-1 w-full border rounded-md ${errors.advanceAmount ? 'border-red-500' : 'border-gray-300'}`}
       />
       {errors.advanceAmount && <p className="text-red-500 text-sm mt-1">{errors.advanceAmount}</p>}
     </div>
@@ -965,7 +965,7 @@ const [pdfFile, setPdfFile] = useState(null);
         name="balanceAmount"
         value={orderDetails.totalAmount-orderDetails.advanceAmount}
         onChange={handleChange}
-        className={`p-1 w-full border rounded-md`}
+        className={`p-1  mt-2 mb-1 w-full border rounded-md`}
       />
     </div>
 
