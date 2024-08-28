@@ -2440,15 +2440,15 @@ const handleSearch = () => {
                    <StyledTableCell>
   <div className="flex items-center space-x-2">
     <Avatar src={person.profileImg} />
-    <span>{person.firstName}</span>
-    <span>{person.lastName}</span>
+    <span class="py-4  text-sm text-gray-500">{person.firstName}</span>
+    <span class="py-4  text-sm text-gray-500">{person.lastName}</span>
   </div>
 </StyledTableCell>
 
 
-                      <StyledTableCell>{person.email}</StyledTableCell>
-                      <StyledTableCell>{person.phoneNumber}</StyledTableCell>
-                      <StyledTableCell>
+                      <StyledTableCell class="py-4 px-6 text-sm text-gray-500">{person.email}</StyledTableCell>
+                      <StyledTableCell class="py-4 px-6 text-sm text-gray-500">{person.phoneNumber}</StyledTableCell>
+                      <StyledTableCell class="py-4 px-6 text-sm text-gray-500">
                         {person.addressLine1}
                         {person.addressLine2 && `, ${person.addressLine2}`}
                         <br />
@@ -2539,6 +2539,7 @@ const handleSearch = () => {
                 <TableFooter>
                   <TableRow>
                     <TablePagination
+                    class="py-4 px-6 text-sm text-gray-500"
                       rowsPerPageOptions={[5, 10, 25]}
                       colSpan={6}
                       count={people.length}

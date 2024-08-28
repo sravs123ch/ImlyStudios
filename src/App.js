@@ -109,6 +109,7 @@ import Customer from './components/Customer/Customer'
 import UserRoleForm from './components/User/UserRole';
 import Returns from './components/Returns/Returns'
 import Production from './components/Production/Production'
+import CreateOrder from './components/Orders/CreateOrder';
 function App() {
   const location = useLocation();
   const showNavigation = location.pathname !== '/';
@@ -135,11 +136,7 @@ function App() {
           <Route path="/userrole" element={<UserRoleForm/>} />
           <Route path="/Returns" element={<Returns/>} />
           <Route path="/Production" element={<Production/>} />
-
-
-
-
-
+          <Route path="/createorder" element={<CreateOrder/>} />
 
 
         </Routes>

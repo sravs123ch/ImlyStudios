@@ -2052,19 +2052,19 @@ export default function User(props) {
                 </TableHead>
                 <TableBody>
                   {paginatedPeople.map((person, index) => (
-                    <StyledTableRow key={index}>
-                      <StyledTableCell>{person.name}</StyledTableCell>
-                      <StyledTableCell>{person.email}</StyledTableCell>
-                      <StyledTableCell>{person.role}</StyledTableCell>
+                    <StyledTableRow key={index} class="py-4 px-6 text-sm text-gray-500">
+                      <StyledTableCell class="py-4 px-6 text-sm text-gray-500">{person.name}</StyledTableCell>
+                      <StyledTableCell class="py-4 px-6 text-sm text-gray-500">{person.email}</StyledTableCell>
+                      <StyledTableCell class="py-4 px-6 text-sm text-gray-500">{person.role}</StyledTableCell>
                       {/* <StyledTableCell>{person.title}</StyledTableCell> */}
                       {/* <StyledTableCell>{person.gender}</StyledTableCell> */}
-                      <StyledTableCell>
+                      <StyledTableCell class="py-4 px-6 text-sm text-gray-500">
                         {person.addressLine1}
                         {person.addressLine2 && `, ${person.addressLine2}`}
                         <br />
                         {person.city}, {person.state}, {person.zipCode}
                       </StyledTableCell>
-                      <StyledTableCell>
+                      <StyledTableCell class="py-4 px-6 text-sm text-gray-500">
                         <button
                           type="button"
                           onClick={() => handleEditClick(index)}
@@ -2093,6 +2093,7 @@ export default function User(props) {
                 <TableFooter>
                     <TableRow>
                     <TablePagination
+                    class="py-4 px-6 text-sm text-gray-500"
                       rowsPerPageOptions={[5, 10, 25]}
                       colSpan={6}
                       count={people.length}

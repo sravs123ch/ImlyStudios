@@ -763,8 +763,8 @@ function UserRoleForm() {
                 <TableBody>
                   {roleData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
                     <StyledTableRow key={row.id}>
-                      <StyledTableCell>{row.id}</StyledTableCell>
-                      <StyledTableCell>{row.name}</StyledTableCell>
+                      <StyledTableCell class="py-4 px-6 text-sm text-gray-500">{row.id}</StyledTableCell>
+                      <StyledTableCell class="py-4 px-6 text-sm text-gray-500">{row.name}</StyledTableCell>
                       <StyledTableCell>
                         <span
                           className={`inline-block px-3 py-2 text-xs font-semibold rounded-full ${
@@ -805,6 +805,7 @@ function UserRoleForm() {
               </Table>
             </div>
             <TablePagination
+            class="py-4 px-6 text-sm text-gray-500"
               rowsPerPageOptions={[5, 10, 25]}
               component="div"
               count={roleData.length}

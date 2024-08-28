@@ -110,15 +110,15 @@ export default function Orders() {
         </TableHead>
         <TableBody>
           {filteredOrders.map((product) => (
-            <StyledTableRow key={product.id}>
-              <StyledTableCell>{product.name}</StyledTableCell>
-              <StyledTableCell>{product.productName}</StyledTableCell>
-              <StyledTableCell align="center">{product.price}</StyledTableCell>
-              <StyledTableCell align="center">{product.stock}</StyledTableCell>
-              <StyledTableCell align="center">
+            <StyledTableRow key={product.id} class="py-4 px-6 text-sm text-gray-500">
+              <StyledTableCell class="py-4 px-6 text-sm text-gray-500">{product.name}</StyledTableCell>
+              <StyledTableCell class="py-4 px-6 text-sm text-gray-500">{product.productName}</StyledTableCell>
+              <StyledTableCell align="center" class="py-4 px-6 text-sm text-gray-500">{product.price}</StyledTableCell>
+              <StyledTableCell align="center" class="py-4 px-6 text-sm text-gray-500">{product.stock}</StyledTableCell>
+              <StyledTableCell align="center" class="py-4 px-6 text-sm text-gray-500">
                 <StatusBadge status={product.status} />
               </StyledTableCell>
-              <StyledTableCell align="center">
+              <StyledTableCell align="center"class="py-4 px-6 text-sm text-gray-500">
                 <button
                   type="button"
                   className={`rounded-md w-20 h-8 text-xs font-semibold text-white shadow-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 ${

@@ -122,11 +122,11 @@ export default function Payments() {
                     key={index}
                     className={`hover:bg-gray-100 ${index % 2 === 0 ? 'bg-gray-50' : ''}`}
                   >
-                    <TableCell>{item.orderNumber}</TableCell>
-                    <TableCell>{item.customerName}</TableCell>
-                    <TableCell>{item.amount}</TableCell>
-                    <TableCell>{item.dispatchedDate}</TableCell>
-                    <TableCell className="text-center">
+                    <TableCell class="py-4 px-6 text-sm text-gray-500">{item.orderNumber}</TableCell>
+                    <TableCell class="py-4 px-6 text-sm text-gray-500">{item.customerName}</TableCell>
+                    <TableCell class="py-4 px-6 text-sm text-gray-500">{item.amount}</TableCell>
+                    <TableCell class="py-4 px-6 text-sm text-gray-500">{item.dispatchedDate}</TableCell>
+                    <TableCell className="text-center" class="py-4 px-6 text-sm text-gray-500">
                       <span className={`inline-block px-2 py-1 text-xs font-semibold rounded-full
                         ${item.status === "Return" ? 'bg-red-200 text-red-800' :
                           item.status === "Replacement" ? 'bg-green-200 text-green-800' : ''}`}>
@@ -144,6 +144,7 @@ export default function Payments() {
             <TableFooter>
               <TableRow>
                 <TablePagination
+                class="py-4 px-6 text-sm text-gray-500"
                   rowsPerPageOptions={[5, 10, 25]}
                   colSpan={5}
                   count={filteredPayments.length}

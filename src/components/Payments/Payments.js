@@ -1756,14 +1756,16 @@ export default function PaymentList() {
                   <StyledTableRow key={index}>
                     <StyledTableCell>
                       <div className="flex items-center">
-                        <img src={payment.icon} alt={payment.paymentMethod} className="h-6 w-6 mr-2" />
-                        {payment.paymentMethod}
+                        <img src={payment.icon} alt={payment.paymentMethod} className="h-6 w-6 mr-2"  />
+                        <span class="py-4 px-6 text-sm text-gray-500">                         {payment.paymentMethod}
+                        </span>
                       </div>
                     </StyledTableCell>
-                    <StyledTableCell>{payment.paymentDate}</StyledTableCell>
-                    <StyledTableCell>{payment.orderNumber}</StyledTableCell>
-                    <StyledTableCell>{payment.customerName}</StyledTableCell>
-                    <StyledTableCell>{payment.amount}</StyledTableCell>
+                    <td className="py-4 px-6 text-sm text-gray-500">{payment.paymentDate}</td>
+                    <td class="py-4 px-6 text-sm text-gray-500">{payment.orderNumber}</td>
+
+                    <StyledTableCell class="py-4 px-6 text-sm text-gray-500">{payment.customerName}</StyledTableCell>
+                    <StyledTableCell class="py-4 px-6 text-sm text-gray-500">{payment.amount}</StyledTableCell>
                   </StyledTableRow>
                 ))}
                 {emptyRows > 0 && (
@@ -1775,6 +1777,7 @@ export default function PaymentList() {
               <TableFooter>
                 <TableRow>
                   <TablePagination
+                  class="py-4 px-6 text-sm text-gray-500"
                     rowsPerPageOptions={[5, 10, 25]}
                     component="td"
                     count={payments.length}
