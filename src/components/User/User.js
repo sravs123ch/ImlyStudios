@@ -1985,7 +1985,861 @@
 
 
 
-import React, { useState,useEffect} from "react";
+// import React, { useState,useEffect} from "react";
+// import { styled } from "@mui/material/styles";
+// import Box from "@mui/material/Box";
+// import Table from "@mui/material/Table";
+// import TableBody from "@mui/material/TableBody";
+// import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+// import TableContainer from "@mui/material/TableContainer";
+// import TableHead from "@mui/material/TableHead";
+// import TableRow from "@mui/material/TableRow";
+// import Paper from "@mui/material/Paper";
+// import Avatar from "@mui/material/Avatar";
+// import IconButton from "@mui/material/IconButton";
+// import TableFooter from "@mui/material/TableFooter";
+// import TablePagination from "@mui/material/TablePagination";
+// import FirstPageIcon from "@mui/icons-material/FirstPage";
+// import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+// import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+// import LastPageIcon from "@mui/icons-material/LastPage";
+// import { useTheme } from "@mui/material/styles";
+// import p1 from "../../assests/profile/p1.jpeg";
+// import p2 from "../../assests/profile/p2.jpeg";
+// import p3 from "../../assests/profile/p3.jpeg";
+// import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
+// import * as XLSX from "xlsx";
+// import PropTypes from "prop-types";
+// import { FaTable } from "react-icons/fa";
+// import { FaFilter } from 'react-icons/fa';
+// import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
+// import { IoIosSearch } from "react-icons/io";
+// // import UserRoleForm from "./UserRole";
+
+
+// const StyledTableCell = styled(TableCell)(({ theme }) => ({
+//   [`&.${tableCellClasses.head}`]: {
+//     // backgroundColor: theme.palette.grey[200],
+//     // color: theme.palette.common.black,
+//     // fontWeight: 'bold',
+//     [`&.${tableCellClasses.head}`]: {
+//       backgroundColor: '#003375', // Dark blue color
+//       color: theme.palette.common.white,
+//       fontWeight: 'bold',
+//     },
+//     [`&.${tableCellClasses.body}`]: {
+//       fontSize: 14,
+//     },
+//   },
+  
+// }));
+
+// const StyledTableRow = styled(TableRow)(({ theme }) => ({
+//   "&:nth-of-type(even)": {
+//     backgroundColor: theme.palette.action.hover,
+//   },
+//   "&:last-child td, &:last-child th": {
+//     border: 0,
+//   },
+// }));
+
+// const initialPeople = [
+//   {
+//     firstName: "Jane",
+//     lastName: "Smith",
+//     title: "Chennai",
+//     email: "jane.smith@example.com",
+//     phoneNumber: "7702253548",
+//     gender: "Male",
+//     profileImg: p1,
+//     addressLine1: "123 Main St",
+//     addressLine2: "Apt 4B",
+//     city: "Chennai",
+//     state: "Tamil Nadu",
+//     country: "India",
+//   },
+//   {
+//     firstName: "Alice",
+//     lastName: "Johnson",
+//     title: "Hyderabad",
+//     email: "alice.johnson@example.com",
+//     phoneNumber: "7702253549",
+//     gender: "Female",
+//     profileImg: p2,
+//     addressLine1: "456 Oak St",
+//     addressLine2: "Suite 12",
+//     city: "Hyderabad",
+//     state: "Telangana",
+//     country: "India",
+//   },
+//   {
+//     firstName: "Robert",
+//     lastName: "Brown",
+//     title: "Mumbai",
+//     email: "robert.brown@example.com",
+//     phoneNumber: "7702253550",
+//     gender: "Female",
+//     profileImg: p3,
+//     addressLine1: "789 Pine St",
+//     addressLine2: "",
+//     city: "Mumbai",
+//     state: "Maharashtra",
+//     country: "India",
+//   },
+//   {
+//     firstName: "Michael",
+//     lastName: "Davis",
+//     title: "Delhi",
+//     email: "michael.davis@example.com",
+//     phoneNumber: "7702253551",
+//     gender: "Male",
+//     addressLine1: "101 Maple St",
+//     addressLine2: "Apt 3C",
+//     city: "Delhi",
+//     state: "Delhi",
+//     country: "India",
+//   },
+// ];
+
+// function TablePaginationActions(props) {
+//   const { count, page, rowsPerPage, onPageChange } = props;
+//   const theme = useTheme();
+
+//   const handleFirstPageButtonClick = (event) => {
+//     onPageChange(event, 0);
+//   };
+
+//   const handleBackButtonClick = (event) => {
+//     onPageChange(event, page - 1);
+//   };
+
+//   const handleNextButtonClick = (event) => {
+//     onPageChange(event, page + 1);
+//   };
+
+//   const handleLastPageButtonClick = (event) => {
+//     onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
+//   };
+
+//   return (
+//     <Box sx={{ flexShrink: 0, ml: 2.5 }}>
+//       <IconButton
+//         onClick={handleFirstPageButtonClick}
+//         disabled={page === 0}
+//         aria-label="first page"
+//       >
+//         {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
+       
+//       </IconButton>
+//         <IconButton
+//         onClick={handleBackButtonClick}
+//         disabled={page === 0}
+//         aria-label="previous page"
+//       >
+//         {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+//       </IconButton>
+//       <IconButton
+//         onClick={handleNextButtonClick}
+//         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+//         aria-label="next page"
+//       >
+//         {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+//       </IconButton>
+//       <IconButton
+//         onClick={handleLastPageButtonClick}
+//         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+//         aria-label="last page"
+//       >
+//         {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
+//       </IconButton>
+//     </Box>
+//   );
+// }
+
+// TablePaginationActions.propTypes = {
+//   count: PropTypes.number.isRequired,
+//   onPageChange: PropTypes.func.isRequired,
+//   page: PropTypes.number.isRequired,
+//   rowsPerPage: PropTypes.number.isRequired,
+// };
+
+// function User() {
+//   const [people, setPeople] = useState(initialPeople);
+//   const [formData, setFormData] = useState(null);
+//   const [editingIndex, setEditingIndex] = useState(null);
+//   const [isFormVisible, setIsFormVisible] = useState(false);
+//   const [page, setPage] = useState(0);
+//   const [rowsPerPage, setRowsPerPage] = useState(5);
+//   const [searchName, setSearchName] = useState("");
+//   const [searchEmail, setSearchEmail] = useState("");
+
+//   const [role, setRole] = useState('');
+//   const [showDropdown, setShowDropdown] = useState(false);
+
+//   const handleRoleChange = (event) => {
+//     setRole(event.target.value);
+//   };
+
+//   const handleStatusChange = (event) => {
+//     setStatus(event.target.value);
+//   };
+
+  
+
+//   // Handle form changes
+//   const handleFormChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({
+//       ...formData,
+//       [name]: value,
+//     });
+//   };
+
+//   // Handle image upload
+//   const handleImageChange = (e) => {
+//     const file = e.target.files[0];
+//     if (file) {
+//       const reader = new FileReader();
+//       reader.onloadend = () => {
+//         setFormData({
+//           ...formData,
+//           profileImg: reader.result,
+//         });
+//       };
+//       reader.readAsDataURL(file);
+//     }
+//   };
+
+//   // Handle form submission
+//   const handleFormSubmit = (e) => {
+//     e.preventDefault();
+//     if (editingIndex !== null) {
+//       const updatedPeople = [...people];
+//       updatedPeople[editingIndex] = formData;
+//       setPeople(updatedPeople);
+//       setEditingIndex(null);
+//     } else {
+//       setPeople([...people, formData]);
+//     }
+//     setFormData(null);
+//     setIsFormVisible(false);
+//   };
+
+//   // Handle cancel button click
+//   const handleCancel = () => {
+//     setFormData(null);
+//     setEditingIndex(null);
+//     setIsFormVisible(false);
+//   };
+
+//   // Handle add user button click
+//   const handleAddUserClick = () => {
+//     setFormData({
+//       name: "",
+//       title: "",
+//       email: "",
+//       role: "",
+//       gender: "",
+//       profileImg: "",
+//       addressLine1: "",
+//       addressLine2: "",
+//       city: "",
+//       state: "",
+//       country: "",
+//     });
+//     setEditingIndex(null);
+//     setIsFormVisible(true);
+//   };
+
+//   // const handleSearch = (event) => {
+//   //   const { name, value } = event.target;
+//   //   if (name === "searchName") {
+//   //     setSearchName(value);
+//   //   } else if (name === "searchEmail") {
+//   //     setSearchEmail(value);
+//   //   }
+//   // };
+//   //   // Example if using useState
+// const [paginatedPeople, setPaginatedPeople] = useState([]);
+
+
+// // Handle search functionality
+// const handleSearch = () => {
+//   const filteredPeople = people.filter(person =>
+//     person.name.toLowerCase().includes(searchName.toLowerCase()) &&
+//     person.email.toLowerCase().includes(searchEmail.toLowerCase())
+//   );
+//   setPaginatedPeople(filteredPeople.slice(0, rowsPerPage));
+// };
+
+  
+//   const exportToExcel = (data, fileName) => {
+//     const worksheet = XLSX.utils.json_to_sheet(data);
+//     const workbook = XLSX.utils.book_new();
+//     XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+//     XLSX.writeFile(workbook, `${fileName}.xlsx`);
+//   };
+
+//   const handleExportUsersData = () => {
+//     exportToExcel(people, "Customers");
+//   };
+
+//   // Handle page change
+//   const handleChangePage = (event, newPage) => {
+//     setPage(newPage);
+//   };
+
+//   // Handle edit button click
+//   const handleEditClick = (index) => {
+//     const realIndex = page * rowsPerPage + index;
+//     setFormData(people[realIndex]);
+//     setEditingIndex(realIndex);
+//     setIsFormVisible(true);
+//   };
+
+//   // Handle delete button click
+//   const handleDeleteClick = (index) => {
+//     const realIndex = page * rowsPerPage + index;
+//     const updatedPeople = people.filter((_, i) => i !== realIndex);
+//     setPeople(updatedPeople);
+
+//     // Adjust the page if necessary
+//     if (updatedPeople.length <= page * rowsPerPage && page > 0) {
+//       setPage(page - 1);
+//     }
+//   };
+
+//   // Handle rows per page change
+//   const handleChangeRowsPerPage = (event) => {
+//     setRowsPerPage(parseInt(event.target.value, 10));
+//     setPage(0);
+//   };
+//   useEffect(() => {
+//     setPaginatedPeople(
+//       people.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+//     );
+//   }, [people, page, rowsPerPage]);
+  
+
+
+//   const emptyRows =
+//     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - people.length) : 0;
+//     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+//     const [selectedRole, setSelectedRole] = useState('');
+//     const [status, setStatus] = useState('');
+  
+//     // const toggleDropdown = () => {
+//     //   setIsDropdownOpen(!isDropdownOpen);
+//     // };
+  
+//     // const handleRoleSelect = (role) => {
+//     //   setSelectedRole(role);
+//     //   setIsDropdownOpen(false);
+//     // };
+//     // const [showUserRoleForm, setShowUserRoleForm] = useState(false);
+
+//     const toggleDropdown = () => {
+//       setShowUserRoleForm(!showUserRoleForm);
+//     };
+//     const [isRoleFormVisible, setRoleFormVisible] = useState(false);
+
+//     // const handleAddUserRole = () => {
+//     //   setRoleFormVisible(true);
+//     // };
+  
+//     // const handleCloseForm = () => {
+//     //   setRoleFormVisible(false);
+//     // };
+  
+//     // const handleSaveRole = (role, status) => {
+//     //   console.log('Role:', role);
+//     //   console.log('Status:', status);
+//     //   // Implement role saving logic here
+//     //   setRoleFormVisible(false);
+//     // };
+//     const [showUserRoleForm, setShowUserRoleForm] = useState(false);
+
+//     const handleRoleSave = (role, status) => {
+//       // Logic to save the role and status
+//       console.log('Saved Role:', role);
+//       console.log('Saved Status:', status);
+  
+//       // Close the form after saving
+//       setShowUserRoleForm(false);
+//     };
+  
+//     const handleRoleCancel = () => {
+//       // Close the form without saving
+//       setShowUserRoleForm(false);
+//     };
+//   return (
+//     <div className="px-4 sm:px-6 lg:px-8 pt-4 ml-10 lg:ml-72 w-auto">
+//       {!isFormVisible ? (
+//         <div className="mt-6 bg-white p-6 rounded-lg shadow-md">
+//           <div className="flex justify-between items-center">
+//             <h2 className="text-xl font-semibold">Users</h2>
+
+//             <div className="flex items-center space-x-4">
+//           <div className="relative flex flex-col w-[20rem] -ml-4">
+//               <label htmlFor="searchName" className="text-sm font-medium"></label>
+//               <input
+//                 id="searchName"
+//                 type="text"
+//                 placeholder="Search by Name or Email or Mobile"
+//                 value={searchName}
+//                 onChange={(e) => setSearchName(e.target.value)}
+//                 className="mt-1 p-2 pr-10 border border-gray-300 rounded-md"
+//               />
+//               <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+//               <IoIosSearch />
+//               </div>
+//             </div>
+//             </div>
+//             <ul className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none flex gap-2 list-none">
+//               <li>
+//                 <button
+//                   type="button"
+//                   className="inline-flex items-center gap-x-1.5 rounded-md bg-custom-darkblue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-custom-lightblue hover:text-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+//                   onClick={handleAddUserClick}
+//                 >
+//                   <FaPlus aria-hidden="true" className="-ml-0.5 h-4 w-4" />
+//                   Add Users
+//                 </button>
+//               </li>
+//               <li>
+//                 <button
+//                   type="button"
+//                   className="inline-flex items-center gap-x-1.5 rounded-md bg-custom-darkblue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-custom-lightblue hover:text-gray-700"
+//                   onClick={handleExportUsersData}
+//                 >
+//                   <FaTable aria-hidden="true" className="-ml-0.5 h-4 w-4" />
+//                   Export Users
+//                 </button>
+//               </li>
+//             </ul>
+//           </div>
+
+  
+
+//             <TableContainer component={Paper} className="mt-4">
+//               <Table>
+//                 <TableHead>
+//                   <TableRow>
+//                     <StyledTableCell>Name</StyledTableCell>
+//                     <StyledTableCell>Email</StyledTableCell>
+//                     <StyledTableCell>Mobile No</StyledTableCell>
+//                     <StyledTableCell>Address</StyledTableCell>
+//                     <StyledTableCell>Gender</StyledTableCell>
+//                     <StyledTableCell>Actions</StyledTableCell>
+//                   </TableRow>
+//                 </TableHead>
+
+//                 <TableBody>
+//                   {paginatedPeople.map((person, index) => (
+//                     <StyledTableRow key={index}>
+//                    <StyledTableCell>
+//   <div className="flex items-center space-x-2">
+//     <Avatar src={person.profileImg} />
+//     <span class="py-4  text-sm text-gray-500">{person.firstName}</span>
+//     <span class="py-4  text-sm text-gray-500">{person.lastName}</span>
+//   </div>
+// </StyledTableCell>
+
+
+//                       <StyledTableCell class="py-4 px-6 text-sm text-gray-500">{person.email}</StyledTableCell>
+//                       <StyledTableCell class="py-4 px-6 text-sm text-gray-500">{person.phoneNumber}</StyledTableCell>
+//                       <StyledTableCell class="py-4 px-6 text-sm text-gray-500">
+//                         {person.addressLine1}
+//                         {person.addressLine2 && `, ${person.addressLine2}`}
+//                         <br />
+//                         {person.city}, {person.state}, {person.zipCode}
+//                       </StyledTableCell>
+//                       {/* <StyledTableCell>{person.gender}</StyledTableCell> */}
+//                       <StyledTableCell>
+//                         <span
+//                           className={`inline-block px-3 py-2 text-xs font-semibold rounded-full ${
+//                             person.gender === "Male"
+//                               ? "bg-green-100 text-green-800 shadow-md"
+//                               : person.gender === "Female"
+//                               ? "bg-pink-100 text-pink-800 shadow-md"
+//                               : "bg-gray-100 text-gray-800 shadow-md"
+//                           }`}
+//                         >
+//                           {person.gender}
+//                         </span>
+//                       </StyledTableCell>
+//                       {/* <StyledTableCell>
+//                         <div
+//                           className="inline-flex items-center justify-center w-14 h-7 cursor-pointer rounded-lg bg-blue-100 text-blue-800 shadow-md"
+//                           onClick={() => handleEditClick(index)}
+//                         >
+//                           <FaEdit className="w-4 h-4" />
+//                         </div>
+//                       </StyledTableCell>
+//                       <StyledTableCell>
+//                         <div
+//                           className="inline-flex items-center justify-center w-14 h-7 cursor-pointer rounded-lg bg-pink-100 text-red-500 shadow-md"
+//                           onClick={() => handleDeleteClick(index)}
+//                         >
+//                           <FaTrash className="w-4 h-4" />
+//                         </div>
+
+                       
+//                       </StyledTableCell> */}
+//                       {/* <StyledTableCell>
+                     
+//                         <button
+//                           type="button"
+//                           onClick={() => handleEditClick(index)}
+//                           className="inline-flex items-center gap-x-1 rounded-md bg-blue-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-blue-500"
+//                         >
+//                           <AiOutlineEdit aria-hidden="true" className="h-4 w-4" />
+//                           Edit
+//                         </button>
+                    
+                     
+// </StyledTableCell>
+// <StyledTableCell>
+// <button
+//                           type="button"
+//                           onClick={() => handleDeleteClick(index)}
+//                           className="inline-flex items-center gap-x-1 ml-2 rounded-md bg-red-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-red-500"
+//                         >
+//                           <AiOutlineDelete aria-hidden="true" className="h-4 w-4" />
+//                           Delete
+//                         </button>
+// </StyledTableCell> */}
+
+// <StyledTableCell>
+//                         <button
+//                           type="button"
+//                           onClick={() => handleEditClick(index)}
+//                           className="inline-flex items-center gap-x-1 rounded-md bg-blue-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-blue-500"
+//                         >
+//                           <AiOutlineEdit aria-hidden="true" className="h-4 w-4" />
+//                           Edit
+//                         </button>
+//                         <button
+//                           type="button"
+//                           onClick={() => handleDeleteClick(index)}
+//                           className="inline-flex items-center gap-x-1 ml-2 rounded-md bg-red-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-red-500"
+//                         >
+//                           <AiOutlineDelete aria-hidden="true" className="h-4 w-4" />
+//                           Delete
+//                         </button>
+//                       </StyledTableCell>
+//                     </StyledTableRow>
+//                   ))}
+//                   {emptyRows > 0 && (
+//                     <StyledTableRow style={{ height: 53 * emptyRows }}>
+//                       <StyledTableCell colSpan={6} />
+//                     </StyledTableRow>
+//                   )}
+//                 </TableBody>
+//                 <TableFooter>
+//                   <TableRow>
+//                     <TablePagination
+//                     class="py-4 px-6 text-sm text-gray-500"
+//                       rowsPerPageOptions={[5, 10, 25]}
+//                       colSpan={6}
+//                       count={people.length}
+//                       rowsPerPage={rowsPerPage}
+//                       page={page}
+//                       SelectProps={{
+//                         inputProps: {
+//                           "aria-label": "rows per page",
+//                         },
+//                         native: true,
+//                       }}
+//                       onPageChange={handleChangePage}
+//                       onRowsPerPageChange={handleChangeRowsPerPage}
+//                       ActionsComponent={TablePaginationActions}
+//                     />
+//                   </TableRow>
+//                 </TableFooter>
+//               </Table>
+//             </TableContainer>
+//           </div>
+       
+//       ) : (
+//         <div className="mt-6 bg-white p-6 rounded-lg shadow-md">
+
+// <form onSubmit={handleFormSubmit}>
+//   {/* <h2 className="text-xl font-semibold">Users</h2> */}
+  
+//   <div className="flex justify-between items-center mb-6">
+//   <h2 className="text-xl font-semibold mb-4 px-24">Users</h2>
+ 
+//       {/* <button
+//         onClick={() => setShowUserRoleForm(true)}
+//         // className="bg-blue-500 text-white px-4 py-2 rounded"
+//          className="inline-flex items-center gap-x-1.5 rounded-md bg-custom-darkblue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-custom-lightblue hover:text-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+//       >
+//           <FaPlus aria-hidden="true" className="-ml-0.5 h-4 w-4" />
+//         User Role
+//       </button> */}
+// </div>
+//     {/* <div>
+
+//       {showUserRoleForm && (
+//         <div className="px-16">
+//           <UserRoleForm onSave={handleRoleSave} onCancel={handleRoleCancel} />
+//         </div>
+//       )}
+//     </div> */}
+
+//   <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8 px-16 md:px-24">
+//     {/* First Name */}
+//     <div className="flex items-center">
+//       <div className="w-full">
+//         <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
+//           First Name
+//         </label>
+//         <input
+//           type="text"
+//           name="firstName"
+//           value={formData?.firstName || ""}
+//           onChange={handleFormChange}
+//           required
+//           className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+//         />
+//       </div>
+//     </div>
+
+//     {/* Address Line 1 */}
+//     <div className="flex items-center">
+//       <div className="w-full">
+//         <label htmlFor="addressLine1" className="block text-sm font-medium text-gray-700">
+//           Address Line 1
+//         </label>
+//         <input
+//           type="text"
+//           name="addressLine1"
+//           value={formData?.addressLine1 || ""}
+//           onChange={handleFormChange}
+//           required
+//           className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+//         />
+//       </div>
+//     </div>
+
+//     {/* Last Name */}
+//     <div>
+//       <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
+//         Last Name
+//       </label>
+//       <input
+//         type="text"
+//         name="lastName"
+//         value={formData?.lastName || ""}
+//         onChange={handleFormChange}
+//         required
+//         className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+//       />
+//     </div>
+
+//     {/* Address Line 2 */}
+//     <div>
+//       <label htmlFor="addressLine2" className="block text-sm font-medium text-gray-700">
+//         Address Line 2
+//       </label>
+//       <input
+//         type="text"
+//         name="addressLine2"
+//         value={formData?.addressLine2 || ""}
+//         onChange={handleFormChange}
+//         className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+//       />
+//     </div>
+
+//     {/* Email */}
+//     <div>
+//       <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+//         Email
+//       </label>
+//       <input
+//         type="email"
+//         name="email"
+//         value={formData?.email || ""}
+//         onChange={handleFormChange}
+//         required
+//         className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+//       />
+//     </div>
+
+//     {/* City */}
+//     <div>
+//       <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+//         City
+//       </label>
+//       <input
+//         type="text"
+//         name="city"
+//         value={formData?.city || ""}
+//         onChange={handleFormChange}
+//         required
+//         className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+//       />
+//     </div>
+
+//     {/* Phone Number */}
+//     <div>
+//       <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">
+//         Phone Number
+//       </label>
+//       <input
+//         type="text"
+//         name="phoneNumber"
+//         value={formData?.phoneNumber || ""}
+//         onChange={handleFormChange}
+//         required
+//         pattern="\d{10}"
+//         title="Phone Number should be 10 digits."
+//         className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+//       />
+//     </div>
+
+//     {/* State */}
+//     <div>
+//       <label htmlFor="state" className="block text-sm font-medium text-gray-700">
+//         State
+//       </label>
+//       <input
+//         type="text"
+//         name="state"
+//         value={formData?.state || ""}
+//         onChange={handleFormChange}
+//         required
+//         className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+//       />
+//     </div>
+
+//     {/* Gender */}
+//     <div>
+//       <label htmlFor="gender" className="block text-sm font-medium text-gray-700">
+//         Gender
+//       </label>
+//       <select
+//         name="gender"
+//         value={formData?.gender || ""}
+//         onChange={handleFormChange}
+//         required
+//         className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 sm:text-sm"
+//       >
+//         <option value="">Select Gender</option>
+//         <option value="Male">Male</option>
+//         <option value="Female">Female</option>
+//       </select>
+//     </div>
+
+//     {/* Zip Code */}
+//     <div>
+//       <label htmlFor="zipCode" className="block text-sm font-medium text-gray-700">
+//         Zip Code
+//       </label>
+//       <input
+//         type="text"
+//         name="zipCode"
+//         value={formData?.zipCode || ""}
+//         onChange={handleFormChange}
+//         required
+//         pattern="\d{5,6}"
+//         title="Zip Code should be 5 or 6 digits."
+//         className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+//       />
+//     </div>
+
+//     {/* Role ID */}
+//     <div>
+//       <label htmlFor="roleId" className="block text-sm font-medium text-gray-700">
+//         Role ID
+//       </label>
+//       <select
+//         name="roleId"
+//         value={formData?.roleId || ""}
+//         onChange={handleFormChange}
+//         required
+//         className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+//       >
+//         <option value="" disabled>Select a role</option>
+//         <option value="admin">Admin</option>
+//         <option value="store user">Store User</option>
+//         <option value="finance">Finance</option>
+//         <option value="production">Production</option>
+//         <option value="technical">Technical</option>
+//       </select>
+//     </div>
+
+//    {/* Profile Image */}
+// <div className="flex items-center">
+//   <div>
+//     <label htmlFor="profileImg" className="block text-sm font-medium text-gray-700">
+//       Profile Image
+//     </label>
+//     <input
+//       type="file"
+//       accept="image/*"
+//       onChange={handleImageChange}
+//       className="mt-1 block w-auto text-sm text-gray-500"
+//     />
+//   </div>
+
+//   {formData?.profileImg && (
+//     <img
+//       src={formData.profileImg}
+//       alt="Profile"
+//       className="w-20 h-20 object-cover rounded-full"
+//     />
+//   )}
+// </div>
+
+
+
+//     {/* Comments */}
+//     <div>
+//       <label htmlFor="comments" className="block text-sm font-medium text-gray-700">
+//         Comments
+//       </label>
+//       <textarea
+//         name="comments"
+//         value={formData?.comments || ""}
+//         onChange={handleFormChange}
+//         className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+//         rows="3"
+//       />
+//     </div>
+//   </div>
+
+//   <div className="mt-6 flex justify-end gap-4">
+//     <button
+//       type="submit"
+//       className="inline-flex justify-center rounded-md border border-transparent bg-custom-darkblue py-2 px-4 text-sm font-medium text-white hover:text-black shadow-sm hover:bg-custom-lightblue focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+//     >
+//       Save
+//     </button>
+//     <button
+//                 type="button"
+//                 onClick={handleCancel}
+//                 className="inline-flex justify-center rounded-md border border-transparent bg-red-500 py-2 px-4 text-sm font-medium text-white hover:text-black shadow-sm hover:bg-red-200"
+//               >
+//                 Cancel
+//               </button>
+//   </div>
+// </form>
+
+
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
+// export default User;
+
+
+
+
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
@@ -1995,7 +2849,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import TableFooter from "@mui/material/TableFooter";
 import TablePagination from "@mui/material/TablePagination";
@@ -2004,34 +2857,23 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import { useTheme } from "@mui/material/styles";
-import p1 from "../../assests/profile/p1.jpeg";
-import p2 from "../../assests/profile/p2.jpeg";
-import p3 from "../../assests/profile/p3.jpeg";
-import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
+import { FaPlus, FaTable } from "react-icons/fa";
 import * as XLSX from "xlsx";
 import PropTypes from "prop-types";
-import { FaTable } from "react-icons/fa";
-import { FaFilter } from 'react-icons/fa';
-import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
+import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { IoIosSearch } from "react-icons/io";
-// import UserRoleForm from "./UserRole";
-
+import axios from "axios";
+import { UserContext } from "../../Context/userContext";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    // backgroundColor: theme.palette.grey[200],
-    // color: theme.palette.common.black,
-    // fontWeight: 'bold',
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: '#003375', // Dark blue color
-      color: theme.palette.common.white,
-      fontWeight: 'bold',
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
+    backgroundColor: "#003375",
+    color: theme.palette.common.white,
+    fontWeight: "bold",
   },
-  
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -2043,67 +2885,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const initialPeople = [
-  {
-    firstName: "Jane",
-    lastName: "Smith",
-    title: "Chennai",
-    email: "jane.smith@example.com",
-    phoneNumber: "7702253548",
-    gender: "Male",
-    profileImg: p1,
-    addressLine1: "123 Main St",
-    addressLine2: "Apt 4B",
-    city: "Chennai",
-    state: "Tamil Nadu",
-    country: "India",
-  },
-  {
-    firstName: "Alice",
-    lastName: "Johnson",
-    title: "Hyderabad",
-    email: "alice.johnson@example.com",
-    phoneNumber: "7702253549",
-    gender: "Female",
-    profileImg: p2,
-    addressLine1: "456 Oak St",
-    addressLine2: "Suite 12",
-    city: "Hyderabad",
-    state: "Telangana",
-    country: "India",
-  },
-  {
-    firstName: "Robert",
-    lastName: "Brown",
-    title: "Mumbai",
-    email: "robert.brown@example.com",
-    phoneNumber: "7702253550",
-    gender: "Female",
-    profileImg: p3,
-    addressLine1: "789 Pine St",
-    addressLine2: "",
-    city: "Mumbai",
-    state: "Maharashtra",
-    country: "India",
-  },
-  {
-    firstName: "Michael",
-    lastName: "Davis",
-    title: "Delhi",
-    email: "michael.davis@example.com",
-    phoneNumber: "7702253551",
-    gender: "Male",
-    addressLine1: "101 Maple St",
-    addressLine2: "Apt 3C",
-    city: "Delhi",
-    state: "Delhi",
-    country: "India",
-  },
-];
-
 function TablePaginationActions(props) {
-  const { count, page, rowsPerPage, onPageChange } = props;
   const theme = useTheme();
+  const { count, page, rowsPerPage, onPageChange } = props;
 
   const handleFirstPageButtonClick = (event) => {
     onPageChange(event, 0);
@@ -2128,29 +2912,28 @@ function TablePaginationActions(props) {
         disabled={page === 0}
         aria-label="first page"
       >
-        {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
-       
+        {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
-        <IconButton
+      <IconButton
         onClick={handleBackButtonClick}
         disabled={page === 0}
         aria-label="previous page"
       >
-        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+        {theme.direction === "rtl" ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
       </IconButton>
       <IconButton
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="next page"
       >
-        {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+        {theme.direction === "rtl" ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
       </IconButton>
       <IconButton
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="last page"
       >
-        {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
+        {theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon />}
       </IconButton>
     </Box>
   );
@@ -2164,115 +2947,107 @@ TablePaginationActions.propTypes = {
 };
 
 function User() {
-  const [people, setPeople] = useState(initialPeople);
-  const [formData, setFormData] = useState(null);
-  const [editingIndex, setEditingIndex] = useState(null);
-  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [users, setUsers] = useState([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [totalUsers, setTotalUsers] = useState(0);
   const [searchName, setSearchName] = useState("");
-  const [searchEmail, setSearchEmail] = useState("");
+  const navigate = useNavigate();
+  const { setUserDetails } = useContext(UserContext);
 
-  const [role, setRole] = useState('');
-  const [showDropdown, setShowDropdown] = useState(false);
-
-  const handleRoleChange = (event) => {
-    setRole(event.target.value);
-  };
-
-  const handleStatusChange = (event) => {
-    setStatus(event.target.value);
-  };
-
-  
-
-  // Handle form changes
-  const handleFormChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  // Handle image upload
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setFormData({
-          ...formData,
-          profileImg: reader.result,
-        });
+  const getAllUsers = async (pageNum, pageSize, search = "") => {
+    try {
+      const response = await axios.get(
+        "https://imlystudios-backend-mqg4.onrender.com/api/users/getAllUsers",
+        {
+          params: {
+            page: pageNum + 1,
+            pageSize: pageSize,
+            search: search
+          }
+        }
+      );
+      return {
+        users: response.data.users,
+        totalCount: response.data.totalItems
       };
-      reader.readAsDataURL(file);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      throw error;
     }
   };
 
-  // Handle form submission
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (editingIndex !== null) {
-      const updatedPeople = [...people];
-      updatedPeople[editingIndex] = formData;
-      setPeople(updatedPeople);
-      setEditingIndex(null);
-    } else {
-      setPeople([...people, formData]);
+  useEffect(() => {
+    fetchUsers();
+  }, [page, rowsPerPage, searchName]);
+
+  const fetchUsers = async () => {
+    try {
+      const { users, totalCount } = await getAllUsers(page, rowsPerPage, searchName);
+      setUsers(users);
+      setTotalUsers(totalCount);
+    } catch (error) {
+      console.error("Failed to fetch users", error);
     }
-    setFormData(null);
-    setIsFormVisible(false);
   };
 
-  // Handle cancel button click
-  const handleCancel = () => {
-    setFormData(null);
-    setEditingIndex(null);
-    setIsFormVisible(false);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
   };
 
-  // Handle add user button click
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const getUserById = async (userId) => {
+    try {
+      const response = await axios.get(
+        `https://imlystudios-backend-mqg4.onrender.com/api/users/getUserById/${userId}`
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      throw error;
+    }
+  };
+
+  const deleteUserById = async (userId) => {
+    try {
+      const response = await axios.delete(
+        `https://imlystudios-backend-mqg4.onrender.com/api/users/deleteUser/${userId}`
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      throw error;
+    }
+  };
+
+  const handleEditClick = async (userId) => {
+    try {
+      const userDetails = await getUserById(userId);
+      setUserDetails(userDetails);
+      navigate("/userform");
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    }
+  };
+
+  const handleDeleteClick = async (userId) => {
+    try {
+      await deleteUserById(userId);
+      fetchUsers(); // Refresh the user list after deletion
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
+
   const handleAddUserClick = () => {
-    setFormData({
-      name: "",
-      title: "",
-      email: "",
-      role: "",
-      gender: "",
-      profileImg: "",
-      addressLine1: "",
-      addressLine2: "",
-      city: "",
-      state: "",
-      country: "",
-    });
-    setEditingIndex(null);
-    setIsFormVisible(true);
+    setUserDetails(null);
+    navigate("/userform");
   };
 
-  // const handleSearch = (event) => {
-  //   const { name, value } = event.target;
-  //   if (name === "searchName") {
-  //     setSearchName(value);
-  //   } else if (name === "searchEmail") {
-  //     setSearchEmail(value);
-  //   }
-  // };
-  //   // Example if using useState
-const [paginatedPeople, setPaginatedPeople] = useState([]);
-
-
-// Handle search functionality
-const handleSearch = () => {
-  const filteredPeople = people.filter(person =>
-    person.name.toLowerCase().includes(searchName.toLowerCase()) &&
-    person.email.toLowerCase().includes(searchEmail.toLowerCase())
-  );
-  setPaginatedPeople(filteredPeople.slice(0, rowsPerPage));
-};
-
-  
   const exportToExcel = (data, fileName) => {
     const worksheet = XLSX.utils.json_to_sheet(data);
     const workbook = XLSX.utils.book_new();
@@ -2280,557 +3055,146 @@ const handleSearch = () => {
     XLSX.writeFile(workbook, `${fileName}.xlsx`);
   };
 
-  const handleExportUsersData = () => {
-    exportToExcel(people, "Customers");
-  };
-
-  // Handle page change
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  // Handle edit button click
-  const handleEditClick = (index) => {
-    const realIndex = page * rowsPerPage + index;
-    setFormData(people[realIndex]);
-    setEditingIndex(realIndex);
-    setIsFormVisible(true);
-  };
-
-  // Handle delete button click
-  const handleDeleteClick = (index) => {
-    const realIndex = page * rowsPerPage + index;
-    const updatedPeople = people.filter((_, i) => i !== realIndex);
-    setPeople(updatedPeople);
-
-    // Adjust the page if necessary
-    if (updatedPeople.length <= page * rowsPerPage && page > 0) {
-      setPage(page - 1);
+  const handleExportUsersData = async () => {
+    try {
+      const { users } = await getAllUsers(0, totalUsers); // Fetch all users for export
+      exportToExcel(users, "Customers");
+    } catch (error) {
+      console.error("Error exporting users data:", error);
     }
   };
 
-  // Handle rows per page change
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-  useEffect(() => {
-    setPaginatedPeople(
-      people.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-    );
-  }, [people, page, rowsPerPage]);
-  
-
-
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - people.length) : 0;
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [selectedRole, setSelectedRole] = useState('');
-    const [status, setStatus] = useState('');
-  
-    // const toggleDropdown = () => {
-    //   setIsDropdownOpen(!isDropdownOpen);
-    // };
-  
-    // const handleRoleSelect = (role) => {
-    //   setSelectedRole(role);
-    //   setIsDropdownOpen(false);
-    // };
-    // const [showUserRoleForm, setShowUserRoleForm] = useState(false);
-
-    const toggleDropdown = () => {
-      setShowUserRoleForm(!showUserRoleForm);
-    };
-    const [isRoleFormVisible, setRoleFormVisible] = useState(false);
-
-    // const handleAddUserRole = () => {
-    //   setRoleFormVisible(true);
-    // };
-  
-    // const handleCloseForm = () => {
-    //   setRoleFormVisible(false);
-    // };
-  
-    // const handleSaveRole = (role, status) => {
-    //   console.log('Role:', role);
-    //   console.log('Status:', status);
-    //   // Implement role saving logic here
-    //   setRoleFormVisible(false);
-    // };
-    const [showUserRoleForm, setShowUserRoleForm] = useState(false);
-
-    const handleRoleSave = (role, status) => {
-      // Logic to save the role and status
-      console.log('Saved Role:', role);
-      console.log('Saved Status:', status);
-  
-      // Close the form after saving
-      setShowUserRoleForm(false);
-    };
-  
-    const handleRoleCancel = () => {
-      // Close the form without saving
-      setShowUserRoleForm(false);
-    };
   return (
     <div className="px-4 sm:px-6 lg:px-8 pt-4 ml-10 lg:ml-72 w-auto">
-      {!isFormVisible ? (
-        <div className="mt-6 bg-white p-6 rounded-lg shadow-md">
-          <div className="flex justify-between items-center">
-            <h2 className="text-xl font-semibold">Users</h2>
+      <div className="mt-6 bg-white p-6 rounded-lg shadow-md">
+        <div className="flex justify-between items-center">
+          <h2 className="text-xl font-semibold">Users</h2>
 
-            <div className="flex items-center space-x-4">
-          <div className="relative flex flex-col w-[20rem] -ml-4">
-              <label htmlFor="searchName" className="text-sm font-medium"></label>
+          <div className="flex items-center space-x-4">
+            <div className="relative flex flex-col w-[20rem] -ml-4">
               <input
                 id="searchName"
                 type="text"
-                placeholder="Search by Name or Email or Mobile"
+                placeholder="Search by Name, Email or Mobile"
                 value={searchName}
                 onChange={(e) => setSearchName(e.target.value)}
                 className="mt-1 p-2 pr-10 border border-gray-300 rounded-md"
               />
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-              <IoIosSearch />
+                <IoIosSearch />
               </div>
             </div>
-            </div>
-            <ul className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none flex gap-2 list-none">
-              <li>
-                <button
-                  type="button"
-                  className="inline-flex items-center gap-x-1.5 rounded-md bg-custom-darkblue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-custom-lightblue hover:text-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
-                  onClick={handleAddUserClick}
-                >
-                  <FaPlus aria-hidden="true" className="-ml-0.5 h-4 w-4" />
-                  Add Users
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  className="inline-flex items-center gap-x-1.5 rounded-md bg-custom-darkblue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-custom-lightblue hover:text-gray-700"
-                  onClick={handleExportUsersData}
-                >
-                  <FaTable aria-hidden="true" className="-ml-0.5 h-4 w-4" />
-                  Export Users
-                </button>
-              </li>
-            </ul>
           </div>
-
-  
-
-            <TableContainer component={Paper} className="mt-4">
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <StyledTableCell>Name</StyledTableCell>
-                    <StyledTableCell>Email</StyledTableCell>
-                    <StyledTableCell>Mobile No</StyledTableCell>
-                    <StyledTableCell>Address</StyledTableCell>
-                    <StyledTableCell>Gender</StyledTableCell>
-                    <StyledTableCell>Actions</StyledTableCell>
-                  </TableRow>
-                </TableHead>
-
-                <TableBody>
-                  {paginatedPeople.map((person, index) => (
-                    <StyledTableRow key={index}>
-                   <StyledTableCell>
-  <div className="flex items-center space-x-2">
-    <Avatar src={person.profileImg} />
-    <span class="py-4  text-sm text-gray-500">{person.firstName}</span>
-    <span class="py-4  text-sm text-gray-500">{person.lastName}</span>
-  </div>
-</StyledTableCell>
-
-
-                      <StyledTableCell class="py-4 px-6 text-sm text-gray-500">{person.email}</StyledTableCell>
-                      <StyledTableCell class="py-4 px-6 text-sm text-gray-500">{person.phoneNumber}</StyledTableCell>
-                      <StyledTableCell class="py-4 px-6 text-sm text-gray-500">
-                        {person.addressLine1}
-                        {person.addressLine2 && `, ${person.addressLine2}`}
-                        <br />
-                        {person.city}, {person.state}, {person.zipCode}
-                      </StyledTableCell>
-                      {/* <StyledTableCell>{person.gender}</StyledTableCell> */}
-                      <StyledTableCell>
-                        <span
-                          className={`inline-block px-3 py-2 text-xs font-semibold rounded-full ${
-                            person.gender === "Male"
-                              ? "bg-green-100 text-green-800 shadow-md"
-                              : person.gender === "Female"
-                              ? "bg-pink-100 text-pink-800 shadow-md"
-                              : "bg-gray-100 text-gray-800 shadow-md"
-                          }`}
-                        >
-                          {person.gender}
-                        </span>
-                      </StyledTableCell>
-                      {/* <StyledTableCell>
-                        <div
-                          className="inline-flex items-center justify-center w-14 h-7 cursor-pointer rounded-lg bg-blue-100 text-blue-800 shadow-md"
-                          onClick={() => handleEditClick(index)}
-                        >
-                          <FaEdit className="w-4 h-4" />
-                        </div>
-                      </StyledTableCell>
-                      <StyledTableCell>
-                        <div
-                          className="inline-flex items-center justify-center w-14 h-7 cursor-pointer rounded-lg bg-pink-100 text-red-500 shadow-md"
-                          onClick={() => handleDeleteClick(index)}
-                        >
-                          <FaTrash className="w-4 h-4" />
-                        </div>
-
-                       
-                      </StyledTableCell> */}
-                      {/* <StyledTableCell>
-                     
-                        <button
-                          type="button"
-                          onClick={() => handleEditClick(index)}
-                          className="inline-flex items-center gap-x-1 rounded-md bg-blue-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-blue-500"
-                        >
-                          <AiOutlineEdit aria-hidden="true" className="h-4 w-4" />
-                          Edit
-                        </button>
-                    
-                     
-</StyledTableCell>
-<StyledTableCell>
-<button
-                          type="button"
-                          onClick={() => handleDeleteClick(index)}
-                          className="inline-flex items-center gap-x-1 ml-2 rounded-md bg-red-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-red-500"
-                        >
-                          <AiOutlineDelete aria-hidden="true" className="h-4 w-4" />
-                          Delete
-                        </button>
-</StyledTableCell> */}
-
-<StyledTableCell>
-                        <button
-                          type="button"
-                          onClick={() => handleEditClick(index)}
-                          className="inline-flex items-center gap-x-1 rounded-md bg-blue-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-blue-500"
-                        >
-                          <AiOutlineEdit aria-hidden="true" className="h-4 w-4" />
-                          Edit
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleDeleteClick(index)}
-                          className="inline-flex items-center gap-x-1 ml-2 rounded-md bg-red-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-red-500"
-                        >
-                          <AiOutlineDelete aria-hidden="true" className="h-4 w-4" />
-                          Delete
-                        </button>
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  ))}
-                  {emptyRows > 0 && (
-                    <StyledTableRow style={{ height: 53 * emptyRows }}>
-                      <StyledTableCell colSpan={6} />
-                    </StyledTableRow>
-                  )}
-                </TableBody>
-                <TableFooter>
-                  <TableRow>
-                    <TablePagination
-                    class="py-4 px-6 text-sm text-gray-500"
-                      rowsPerPageOptions={[5, 10, 25]}
-                      colSpan={6}
-                      count={people.length}
-                      rowsPerPage={rowsPerPage}
-                      page={page}
-                      SelectProps={{
-                        inputProps: {
-                          "aria-label": "rows per page",
-                        },
-                        native: true,
-                      }}
-                      onPageChange={handleChangePage}
-                      onRowsPerPageChange={handleChangeRowsPerPage}
-                      ActionsComponent={TablePaginationActions}
-                    />
-                  </TableRow>
-                </TableFooter>
-              </Table>
-            </TableContainer>
-          </div>
-       
-      ) : (
-        <div className="mt-6 bg-white p-6 rounded-lg shadow-md">
-
-<form onSubmit={handleFormSubmit}>
-  {/* <h2 className="text-xl font-semibold">Users</h2> */}
-  
-  <div className="flex justify-between items-center mb-6">
-  <h2 className="text-xl font-semibold mb-4 px-24">Users</h2>
- 
-      {/* <button
-        onClick={() => setShowUserRoleForm(true)}
-        // className="bg-blue-500 text-white px-4 py-2 rounded"
-         className="inline-flex items-center gap-x-1.5 rounded-md bg-custom-darkblue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-custom-lightblue hover:text-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
-      >
-          <FaPlus aria-hidden="true" className="-ml-0.5 h-4 w-4" />
-        User Role
-      </button> */}
-</div>
-    {/* <div>
-
-      {showUserRoleForm && (
-        <div className="px-16">
-          <UserRoleForm onSave={handleRoleSave} onCancel={handleRoleCancel} />
-        </div>
-      )}
-    </div> */}
-
-  <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8 px-16 md:px-24">
-    {/* First Name */}
-    <div className="flex items-center">
-      <div className="w-full">
-        <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
-          First Name
-        </label>
-        <input
-          type="text"
-          name="firstName"
-          value={formData?.firstName || ""}
-          onChange={handleFormChange}
-          required
-          className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-        />
-      </div>
-    </div>
-
-    {/* Address Line 1 */}
-    <div className="flex items-center">
-      <div className="w-full">
-        <label htmlFor="addressLine1" className="block text-sm font-medium text-gray-700">
-          Address Line 1
-        </label>
-        <input
-          type="text"
-          name="addressLine1"
-          value={formData?.addressLine1 || ""}
-          onChange={handleFormChange}
-          required
-          className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-        />
-      </div>
-    </div>
-
-    {/* Last Name */}
-    <div>
-      <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
-        Last Name
-      </label>
-      <input
-        type="text"
-        name="lastName"
-        value={formData?.lastName || ""}
-        onChange={handleFormChange}
-        required
-        className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-      />
-    </div>
-
-    {/* Address Line 2 */}
-    <div>
-      <label htmlFor="addressLine2" className="block text-sm font-medium text-gray-700">
-        Address Line 2
-      </label>
-      <input
-        type="text"
-        name="addressLine2"
-        value={formData?.addressLine2 || ""}
-        onChange={handleFormChange}
-        className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-      />
-    </div>
-
-    {/* Email */}
-    <div>
-      <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-        Email
-      </label>
-      <input
-        type="email"
-        name="email"
-        value={formData?.email || ""}
-        onChange={handleFormChange}
-        required
-        className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-      />
-    </div>
-
-    {/* City */}
-    <div>
-      <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-        City
-      </label>
-      <input
-        type="text"
-        name="city"
-        value={formData?.city || ""}
-        onChange={handleFormChange}
-        required
-        className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-      />
-    </div>
-
-    {/* Phone Number */}
-    <div>
-      <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">
-        Phone Number
-      </label>
-      <input
-        type="text"
-        name="phoneNumber"
-        value={formData?.phoneNumber || ""}
-        onChange={handleFormChange}
-        required
-        pattern="\d{10}"
-        title="Phone Number should be 10 digits."
-        className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-      />
-    </div>
-
-    {/* State */}
-    <div>
-      <label htmlFor="state" className="block text-sm font-medium text-gray-700">
-        State
-      </label>
-      <input
-        type="text"
-        name="state"
-        value={formData?.state || ""}
-        onChange={handleFormChange}
-        required
-        className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-      />
-    </div>
-
-    {/* Gender */}
-    <div>
-      <label htmlFor="gender" className="block text-sm font-medium text-gray-700">
-        Gender
-      </label>
-      <select
-        name="gender"
-        value={formData?.gender || ""}
-        onChange={handleFormChange}
-        required
-        className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 sm:text-sm"
-      >
-        <option value="">Select Gender</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-      </select>
-    </div>
-
-    {/* Zip Code */}
-    <div>
-      <label htmlFor="zipCode" className="block text-sm font-medium text-gray-700">
-        Zip Code
-      </label>
-      <input
-        type="text"
-        name="zipCode"
-        value={formData?.zipCode || ""}
-        onChange={handleFormChange}
-        required
-        pattern="\d{5,6}"
-        title="Zip Code should be 5 or 6 digits."
-        className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-      />
-    </div>
-
-    {/* Role ID */}
-    <div>
-      <label htmlFor="roleId" className="block text-sm font-medium text-gray-700">
-        Role ID
-      </label>
-      <select
-        name="roleId"
-        value={formData?.roleId || ""}
-        onChange={handleFormChange}
-        required
-        className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-      >
-        <option value="" disabled>Select a role</option>
-        <option value="admin">Admin</option>
-        <option value="store user">Store User</option>
-        <option value="finance">Finance</option>
-        <option value="production">Production</option>
-        <option value="technical">Technical</option>
-      </select>
-    </div>
-
-   {/* Profile Image */}
-<div className="flex items-center">
-  <div>
-    <label htmlFor="profileImg" className="block text-sm font-medium text-gray-700">
-      Profile Image
-    </label>
-    <input
-      type="file"
-      accept="image/*"
-      onChange={handleImageChange}
-      className="mt-1 block w-auto text-sm text-gray-500"
-    />
-  </div>
-
-  {formData?.profileImg && (
-    <img
-      src={formData.profileImg}
-      alt="Profile"
-      className="w-20 h-20 object-cover rounded-full"
-    />
-  )}
-</div>
-
-
-
-    {/* Comments */}
-    <div>
-      <label htmlFor="comments" className="block text-sm font-medium text-gray-700">
-        Comments
-      </label>
-      <textarea
-        name="comments"
-        value={formData?.comments || ""}
-        onChange={handleFormChange}
-        className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-        rows="3"
-      />
-    </div>
-  </div>
-
-  <div className="mt-6 flex justify-end gap-4">
-    <button
-      type="submit"
-      className="inline-flex justify-center rounded-md border border-transparent bg-custom-darkblue py-2 px-4 text-sm font-medium text-white hover:text-black shadow-sm hover:bg-custom-lightblue focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-    >
-      Save
-    </button>
-    <button
+          <ul className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none flex gap-2 list-none">
+            <li>
+              <button
                 type="button"
-                onClick={handleCancel}
-                className="inline-flex justify-center rounded-md border border-transparent bg-red-500 py-2 px-4 text-sm font-medium text-white hover:text-black shadow-sm hover:bg-red-200"
+                className="inline-flex items-center gap-x-1.5 rounded-md bg-custom-darkblue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-custom-lightblue hover:text-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+                onClick={handleAddUserClick}
               >
-                Cancel
+                <FaPlus aria-hidden="true" className="-ml-0.5 h-4 w-4" />
+                Add Users
               </button>
-  </div>
-</form>
-
-
+            </li>
+            <li>
+              <button
+                type="button"
+                className="inline-flex items-center gap-x-1.5 rounded-md bg-custom-darkblue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-custom-lightblue hover:text-gray-700"
+                onClick={handleExportUsersData}
+              >
+                <FaTable aria-hidden="true" className="-ml-0.5 h-4 w-4" />
+                Export Users
+              </button>
+            </li>
+          </ul>
         </div>
-      )}
+        <TableContainer component={Paper} className="mt-4">
+          <Table>
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Name</StyledTableCell>
+                <StyledTableCell>Email</StyledTableCell>
+                <StyledTableCell>Mobile No</StyledTableCell>
+                <StyledTableCell>Address</StyledTableCell>
+                <StyledTableCell>Gender</StyledTableCell>
+                <StyledTableCell>Actions</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {users.map((person) => (
+                <StyledTableRow key={person.UserID}>
+                  <StyledTableCell>
+                    <div className="flex items-center space-x-2">
+                      <img
+                        src={person.ProfileImage}
+                        alt="Profile"
+                        className="h-24 w-24 rounded-full object-cover"
+                      />
+                      <span>{person.FirstName}</span>
+                      <span>{person.LastName}</span>
+                    </div>
+                  </StyledTableCell>
+                  <StyledTableCell>{person.Email}</StyledTableCell>
+                  <StyledTableCell>{person.PhoneNumber}</StyledTableCell>
+                  <StyledTableCell>
+                    {person.Address?.AddressLine1}
+                    {person.Address?.AddressLine2 && `, ${person.Address.AddressLine2}`}
+                    <br />
+                    {person.Address?.CityID}, {person.Address?.StateID}, {person.Address?.ZipCode}
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    <span
+                      className={`inline-block px-3 py-2 text-xs font-semibold rounded-full ${
+                        person.Gender === "M"
+                          ? "bg-green-100 text-green-800 shadow-md"
+                          : person.Gender === "F"
+                          ? "bg-pink-100 text-pink-800 shadow-md"
+                          : "bg-gray-100 text-gray-800 shadow-md"
+                      }`}
+                    >
+                      {person.Gender}
+                    </span>
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    <button
+                      type="button"
+                      onClick={() => handleEditClick(person.UserID)}
+                      className="inline-flex items-center gap-x-1 rounded-md bg-blue-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-blue-500"
+                    >
+                      <AiOutlineEdit aria-hidden="true" className="h-4 w-4" />
+                      Edit
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteClick(person.UserID)}
+                      className="inline-flex items-center gap-x-1 ml-2 rounded-md bg-red-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-red-500"
+                    >
+                      <AiOutlineDelete aria-hidden="true" className="h-4 w-4" />
+                      Delete
+                    </button>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  rowsPerPageOptions={[10, 20, 25]}
+                  colSpan={6}
+                  count={totalUsers}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                  ActionsComponent={TablePaginationActions}
+                />
+              </TableRow>
+            </TableFooter>
+          </Table>
+        </TableContainer>
+      </div>
     </div>
   );
 }
+
 export default User;
