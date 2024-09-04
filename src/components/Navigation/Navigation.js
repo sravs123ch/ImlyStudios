@@ -53,7 +53,7 @@ const navigation = [
 
   // { name: 'Products', href: '/product', icon: FolderIcon },
   { name: 'Stores', href: '/Stores', icon: ShoppingBagIcon },
-  { name: 'Createorder', href: '/createorder', icon: ShoppingBagIcon },
+  // { name: 'Createorder', href: '/createorder', icon: ShoppingBagIcon },
 
   
   

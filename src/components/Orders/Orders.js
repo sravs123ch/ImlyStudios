@@ -1574,8 +1574,182 @@
 // export default Orders;
 
 
-import React, { useState, useEffect } from "react";
+// import React, { useState, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+// import Table from "@mui/material/Table";
+// import TableBody from "@mui/material/TableBody";
+// import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+// import TableContainer from "@mui/material/TableContainer";
+// import TableHead from "@mui/material/TableHead";
+// import TableRow from "@mui/material/TableRow";
+// import Paper from "@mui/material/Paper";
+// import TableFooter from "@mui/material/TableFooter";
+// import TablePagination from "@mui/material/TablePagination";
+// import { styled } from "@mui/material/styles";
+
+// // Styled components
+// const StyledTableCell = styled(TableCell)(({ theme }) => ({
+//   [`&.${tableCellClasses.head}`]: {
+//     backgroundColor: "#003375", // Dark blue color
+//     color: theme.palette.common.white,
+//     fontWeight: "bold",
+//   },
+//   [`&.${tableCellClasses.body}`]: {
+//     fontSize: 14,
+//   },
+// }));
+
+// const StyledTableRow = styled(TableRow)(({ theme }) => ({
+//   "&:nth-of-type(odd)": {
+//     backgroundColor: theme.palette.action.hover,
+//   },
+//   "&:last-child td, &:last-child th": {
+//     border: 0,
+//   },
+// }));
+
+// const Orders = () => {
+//   const [data, setData] = useState([]);
+//   const [page, setPage] = useState(0);
+//   const [rowsPerPage, setRowsPerPage] = useState(5);
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     // Fetch data from API
+//     const fetchData = async () => {
+//       try {
+//         const response = await fetch(
+//           "https://imlystudios-backend.onrender.com/api/orders/getAllOrders"
+//         );
+//         const result = await response.json();
+//         setData(result.orders || []);
+//       } catch (error) {
+//         console.error("Error fetching data:", error);
+//       }
+//     };
+
+//     fetchData();
+//   }, []);
+
+//   const handleChangePage = (event, newPage) => {
+//     setPage(newPage);
+//   };
+
+//   const handleChangeRowsPerPage = (event) => {
+//     setRowsPerPage(parseInt(event.target.value, 10));
+//     setPage(0);
+//   };
+
+//   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
+
+//   return (
+//     <div className="order p-4 bg-gray-100 px-4 sm:px-6 lg:px-8 pt-4 ml-10 lg:ml-72 w-auto">
+//       <div className="max-w-7xl mx-auto mt-6 bg-white p-6 rounded-lg shadow-md">
+//         <div className="flex justify-between items-center">
+//           <h2 className="text-xl font-semibold">Orders</h2>
+//           <div className="flex gap-6">
+//             <button
+// class="inline-flex items-center gap-x-1 rounded-md bg-custom-darkblue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-custom-lightblue hover:text-gray-700"              onClick={() => navigate("/AddOrders")}
+//             >
+//               Create Order
+//             </button>
+//             <button
+// class="inline-flex items-center gap-x-1 rounded-md bg-custom-darkblue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-custom-lightblue hover:text-gray-700"              onClick={() => navigate("/AddOrders")}
+//             >
+//               Export Order
+//             </button>
+//           </div>
+//         </div>
+//         <TableContainer component={Paper} className="mt-6">
+//           <Table>
+//             <TableHead>
+//               <TableRow>
+//                 <StyledTableCell>Order Id</StyledTableCell>
+//                 <StyledTableCell>Product Name</StyledTableCell>
+//                 <StyledTableCell>Price</StyledTableCell>
+//                 <StyledTableCell>Payment Balance</StyledTableCell>
+//                 <StyledTableCell>Status</StyledTableCell>
+//                 <StyledTableCell>Operation</StyledTableCell>
+//                 <StyledTableCell></StyledTableCell>
+//               </TableRow>
+//             </TableHead>
+//             <TableBody>
+//               {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((order) => (
+//                 <StyledTableRow key={order.OrderID}>
+//                   <StyledTableCell class="py-4 px-6 text-sm text-gray-500">{order.OrderID}</StyledTableCell>
+//                   <StyledTableCell class="py-4 px-6 text-sm text-gray-500">{order.Customer?.FirstName || "N/A"}</StyledTableCell>
+//                   <StyledTableCell class="py-4 px-6 text-sm text-gray-500">&#8377;{order.TotalAmount}</StyledTableCell>
+//                   <StyledTableCell class="py-4 px-6 text-sm text-gray-500">
+//                     &#8377;{order.TotalAmount - order.TotalQuantity}
+//                   </StyledTableCell >
+//                   <StyledTableCell class="py-4 px-6 text-sm text-gray-500">
+//                     <span
+//                       className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+//                         order.OrderStatus === "Shipping"
+//                           ? "bg-green-100 text-green-800"
+//                           : "bg-red-100 text-red-800"
+//                       }`}
+//                     >
+//                       {order.OrderStatus}
+//                     </span>
+//                   </StyledTableCell>
+//                   <StyledTableCell class="py-4 px-6 text-sm text-gray-500">
+//                     <button
+//                       className={`px-2 py-1 rounded ${
+//                         order.OrderStatus === "Shipping"
+//                           ? "bg-red-600 text-white"
+//                           : "bg-gray-400 text-gray-800"
+//                       } text-xs`}
+//                     >
+//                       {order.OrderStatus === "Shipping"
+//                         ? "Cancel Order"
+//                         : "Already Dispatched"}
+//                     </button>
+//                   </StyledTableCell>
+//                   <StyledTableCell class="py-4 px-6 text-sm text-gray-500">
+//                     <button
+//                       onClick={() => navigate(`/update-order`, { state: { order } })}
+//                       className="px-2 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-500"
+//                     >
+//                       Edit
+//                     </button>
+//                   </StyledTableCell>
+//                 </StyledTableRow>
+//               ))}
+//               {emptyRows > 0 && (
+//                 <StyledTableRow style={{ height: 53 * emptyRows }}>
+//                   <StyledTableCell colSpan={7} />
+//                 </StyledTableRow>
+//               )}
+//             </TableBody>
+//             <TableFooter>
+//               <TableRow>
+//                 <TablePagination
+//                 class="py-4 px-6 text-sm text-gray-500"
+//                   rowsPerPageOptions={[5, 10, 25]}
+//                   count={data.length}
+//                   rowsPerPage={rowsPerPage}
+//                   page={page}
+//                   onPageChange={handleChangePage}
+//                   onRowsPerPageChange={handleChangeRowsPerPage}
+//                   colSpan={7}
+//                 />
+//               </TableRow>
+//             </TableFooter>
+//           </Table>
+//         </TableContainer>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Orders;
+
+
+import * as React from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
@@ -1583,14 +1757,20 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import TableFooter from "@mui/material/TableFooter";
-import TablePagination from "@mui/material/TablePagination";
-import { styled } from "@mui/material/styles";
-
-// Styled components
+import StatusBadge from "./Satus";
+import FilterBar from "./FilterBar";
+import StatusUpdateDialog from "../Orders/StatusUpdateDialog";
+import { TablePagination } from "@mui/material";
+import Box from "@mui/material/Box";
+import { Edit } from "@mui/icons-material";
+import Button from "@mui/material/Button";
+import HomeIcon from "@mui/icons-material/Home";
+import PrinterIcon from "@mui/icons-material/Print";
+import { useContext } from "react";
+import { GlobalContext } from "../../Context/GlobalContext";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#003375", // Dark blue color
+    backgroundColor: "#003375",
     color: theme.palette.common.white,
     fontWeight: "bold",
   },
@@ -1608,28 +1788,47 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const Orders = () => {
-  const [data, setData] = useState([]);
+export default function Orders() {
+  const { products,setProducts, loading, error } = useContext(GlobalContext);
+  const [selectedFilter, setSelectedFilter] = useState("All");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Fetch data from API
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "https://imlystudios-backend.onrender.com/api/orders/getAllOrders"
-        );
-        const result = await response.json();
-        setData(result.orders || []);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+ 
 
-    fetchData();
-  }, []);
+  const handleStatusChange = (id, newStatus) => {
+    setProducts((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id ? { ...item, status: newStatus } : item
+      )
+    );
+  };
+
+  const handleCancel = (id) => {
+    const newStatus = "Canceled";
+    handleStatusChange(id, newStatus);
+  };
+
+  const handleOrderUpdate = (event, order) => {
+    event.preventDefault();
+    navigate("/update-order", { state: { order } });
+  };
+
+  const handleFilterChange = (filter) => {
+    setSelectedFilter(filter);
+  };
+
+  const filteredOrders = products.filter(
+    (product) =>
+      selectedFilter === "All" || product.OrderStatus === selectedFilter
+  );
+
+  const paginatedData = filteredOrders.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -1640,107 +1839,179 @@ const Orders = () => {
     setPage(0);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
-
   return (
-    <div className="order p-4 bg-gray-100 px-4 sm:px-6 lg:px-8 pt-4 ml-10 lg:ml-72 w-auto">
-      <div className="max-w-7xl mx-auto mt-6 bg-white p-6 rounded-lg shadow-md">
-        <div className="flex justify-between items-center">
-          <h2 className="text-xl font-semibold">Orders</h2>
-          <div className="flex gap-6">
-            <button
-class="inline-flex items-center gap-x-1 rounded-md bg-custom-darkblue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-custom-lightblue hover:text-gray-700"              onClick={() => navigate("/AddOrders")}
+    <div className="px-4 sm:px-6 lg:px-8 pt-4 ml-10 lg:ml-72 w-auto">
+      <div className="px-4 sm:px-6 lg:px-8 pt-4 w-auto bg-white">
+        <div className="sm:flex sm:items-center">
+          <div className="sm:flex-auto">
+            <h2 className="text-xl mb-5 font-semibold">Orders</h2>
+          </div>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: { xs: "column", sm: "row" }, // Stack buttons vertically on small screens
+              alignItems: "center",
+              gap: { xs: 2, sm: 1 }, // Adds gap between buttons, different for small screens
+              mx: "auto",
+            }}
+          >
+            <Button
+              variant="contained"
+              disableRipple
+              sx={{
+                backgroundColor: "#003375",
+                color: "white",
+                mx: { xs: 0, sm: 1 }, // Remove horizontal margin on small screens
+                mb: { xs: 1, sm: 0 }, // Add margin bottom on small screens for spacing
+                boxShadow: "none",
+                textTransform: "capitalize",
+                fontSize: "0.875rem",
+                ":hover": {
+                  backgroundColor: "#cadcfc",
+                  color: "#374151",
+                  boxShadow: "none",
+                },
+                width: { xs: "100%", sm: "auto" }, // Full width on small screens
+              }}
+              startIcon={<HomeIcon />}
+              href="/AddOrders"
             >
               Create Order
-            </button>
-            <button
-class="inline-flex items-center gap-x-1 rounded-md bg-custom-darkblue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-custom-lightblue hover:text-gray-700"              onClick={() => navigate("/AddOrders")}
+            </Button>
+            <Button
+              variant="contained"
+              disableRipple
+              sx={{
+                backgroundColor: "#003375",
+                color: "white",
+                mr: { xs: 0, sm: 0 }, // Margin-right adjustment for responsiveness
+                boxShadow: "none",
+                textTransform: "capitalize",
+                fontSize: "0.875rem",
+                ":hover": {
+                  backgroundColor: "#cadcfc",
+                  color: "#374151",
+                  boxShadow: "none",
+                },
+                width: { xs: "100%", sm: "auto" }, // Full width on small screens
+              }}
+              startIcon={<PrinterIcon />}
+              href="/create-order"
             >
               Export Order
-            </button>
+            </Button>
+          </Box>
+        </div>
+        <div className="flex justify-center md:justify-end mb-4 px-4 md:px-0 mt-6">
+          <div className="flex flex-wrap justify-center space-x-2 md:space-x-2 md:justify-end">
+            <FilterBar
+              selectedFilter={selectedFilter}
+              onFilterChange={handleFilterChange}
+            />
           </div>
         </div>
-        <TableContainer component={Paper} className="mt-6">
-          <Table>
+
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
               <TableRow>
                 <StyledTableCell>Order Id</StyledTableCell>
                 <StyledTableCell>Product Name</StyledTableCell>
-                <StyledTableCell>Price</StyledTableCell>
-                <StyledTableCell>Payment Balance</StyledTableCell>
-                <StyledTableCell>Status</StyledTableCell>
-                <StyledTableCell>Operation</StyledTableCell>
-                <StyledTableCell></StyledTableCell>
+                <StyledTableCell align="center">Price</StyledTableCell>
+                <StyledTableCell align="center">
+                  Payment Balance
+                </StyledTableCell>
+                <StyledTableCell align="center">Status</StyledTableCell>
+                <StyledTableCell align="center">Update</StyledTableCell>
+                <StyledTableCell align="center"></StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((order) => (
-                <StyledTableRow key={order.OrderID}>
-                  <StyledTableCell class="py-4 px-6 text-sm text-gray-500">{order.OrderID}</StyledTableCell>
-                  <StyledTableCell class="py-4 px-6 text-sm text-gray-500">{order.Customer?.FirstName || "N/A"}</StyledTableCell>
-                  <StyledTableCell class="py-4 px-6 text-sm text-gray-500">&#8377;{order.TotalAmount}</StyledTableCell>
-                  <StyledTableCell class="py-4 px-6 text-sm text-gray-500">
-                    &#8377;{order.TotalAmount - order.TotalQuantity}
-                  </StyledTableCell >
-                  <StyledTableCell class="py-4 px-6 text-sm text-gray-500">
-                    <span
-                      className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                        order.OrderStatus === "Shipping"
-                          ? "bg-green-100 text-green-800"
-                          : "bg-red-100 text-red-800"
-                      }`}
-                    >
-                      {order.OrderStatus}
-                    </span>
+              {paginatedData.map((product) => (
+                <StyledTableRow key={product.OrderID}>
+                  <StyledTableCell>{product.OrderID}</StyledTableCell>
+                  <StyledTableCell>
+                    {product.Customer?.FirstName || "N/A"}
                   </StyledTableCell>
-                  <StyledTableCell class="py-4 px-6 text-sm text-gray-500">
+                  <StyledTableCell align="center">
+                    &#8377;{product.TotalAmount}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {" "}
+                    &#8377;{product.TotalAmount - product.TotalQuantity}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    <StatusBadge status={product.OrderStatus} />
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
                     <button
-                      className={`px-2 py-1 rounded ${
-                        order.OrderStatus === "Shipping"
-                          ? "bg-red-600 text-white"
-                          : "bg-gray-400 text-gray-800"
-                      } text-xs`}
+                      type="button"
+                      className={`rounded-md p-[3px] h-9 text-xs font-semibold text-white shadow-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2  ${
+                        product.OrderStatus === "Dispatched"
+                          ? "bg-gray-400 cursor-not-allowed"
+                          : product.OrderStatus === "Canceled"
+                          ? "bg-gray-300 cursor-not-allowed"
+                          : "bg-red-600 hover:bg-red-500 focus:ring-red-500"
+                      } whitespace-normal`}
+                      disabled={
+                        product.OrderStatus === "Dispatched" ||
+                        product.OrderStatus === "Canceled"
+                      }
+                      onClick={() => handleCancel(product.OrderID)}
                     >
-                      {order.OrderStatus === "Shipping"
-                        ? "Cancel Order"
-                        : "Already Dispatched"}
+                      {product.OrderStatus === "Dispatched" ? (
+                        <>
+                          Already <br /> Dispatched
+                        </>
+                      ) : product.OrderStatus === "Canceled" ? (
+                        "Canceled"
+                      ) : (
+                        "Cancel Order"
+                      )}
                     </button>
                   </StyledTableCell>
-                  <StyledTableCell class="py-4 px-6 text-sm text-gray-500">
-                    <button
-                      onClick={() => navigate(`/update-order`, { state: { order } })}
-                      className="px-2 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-500"
+                  <StyledTableCell align="center">
+                    <Button
+                      onClick={(e) => handleOrderUpdate(e, product.OrderID)}
+                      variant="contained"
+                      startIcon={<Edit />}
+                      sx={{
+                        backgroundColor: "#2563eb",
+                        color: "white",
+                        fontSize: "0.75rem",
+                        padding: "4px 8px",
+                        borderRadius: "4px",
+                        boxShadow: "none",
+                        textTransform: "none",
+                        ":hover": {
+                          backgroundColor: "#3b82f6 ",
+                          boxShadow: "none",
+                        },
+                      }}
                     >
                       Edit
-                    </button>
+                    </Button>
                   </StyledTableCell>
                 </StyledTableRow>
               ))}
-              {emptyRows > 0 && (
-                <StyledTableRow style={{ height: 53 * emptyRows }}>
-                  <StyledTableCell colSpan={7} />
-                </StyledTableRow>
-              )}
             </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TablePagination
-                class="py-4 px-6 text-sm text-gray-500"
-                  rowsPerPageOptions={[5, 10, 25]}
-                  count={data.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                  colSpan={7}
-                />
-              </TableRow>
-            </TableFooter>
           </Table>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={filteredOrders.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
         </TableContainer>
+        <StatusUpdateDialog
+          isOpen={isDialogOpen}
+          onClose={() => setIsDialogOpen(false)}
+          item={{}} // You may need to pass the actual item or update this as needed
+        />
       </div>
     </div>
   );
-};
-
-export default Orders;
+}

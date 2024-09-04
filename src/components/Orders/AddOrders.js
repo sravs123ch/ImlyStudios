@@ -3215,7 +3215,7 @@ import {
 } from '@headlessui/react';
 import { ChevronUpDownIcon, CheckIcon } from '@heroicons/react/20/solid';
 import axios from 'axios';
-
+import CustomerSearch from './CustomerSearch'; // Import the new component
 const categories = [
   { id: 1, name: 'Walk-in', subOptions: ["Newspaper ad"] },
   { id: 2, name: 'Social Media', subOptions: ['Google', 'Facebook', 'Instagram'] },
@@ -3225,7 +3225,16 @@ const steps = ['Order Details',  'Order Status', "payments"];
 
 function AddOrders() {
   const { customerDetails } = useContext(CustomerContext); // Access the CustomerContext
-
+  const handleCustomerSelect = (customer) => {
+    setOrderDetails({
+        ...orderDetails,
+        CustomerID: customer.customerId,
+        customerFirstName: customer.customerFirstName,
+        customerLastName: customer.customerLastName,
+        customerEmail: customer.customerEmail,
+        customerPhone: customer.customerPhone,
+    });
+};
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [page, setPage] = useState(0);
   const [orders, setOrders] = useState([]);
@@ -3258,7 +3267,7 @@ function AddOrders() {
   const [orderDetails, setOrderDetails] = useState({
     
         TenantID: 1,
-        CustomerID:customerDetails?.customerId || 2,
+        CustomerID:customerDetails?.customerId || 0,
         OrderDate: currentDate,
         TotalQuantity: "",
         AddressLine1: "",
@@ -3281,7 +3290,7 @@ function AddOrders() {
         MaskedCardNumber: "",
         ExpectedCompleteDate: "",
         Comments: "",
-        ReferedBy: "",
+        ReferedBy: "walk-in",
         PaymentComments: "",
         assginto: "",
         AdvanceAmount: "",
@@ -3372,9 +3381,10 @@ function AddOrders() {
         data.append(key, orderDetails[key]);
     }
   }
-  images.forEach((image, index) => {
-    data.append(`UploadImages[${index}]`, image.file);
-  });
+  images.forEach((image) => {
+    data.append('UploadImages', image.file); // Appending multiple images with the same key
+});
+
 
   // Append PDF file
   if (pdfFile) {
@@ -3397,38 +3407,130 @@ function AddOrders() {
 
     }
     const newErrors = {};
-
-if (!orderDetails.OrderDate) newErrors.OrderDate = 'Order Date is required';
-if (!orderDetails.TotalQuantity) newErrors.TotalQuantity = 'Total Quantity is required';
-if (!orderDetails.AddressLine1) newErrors.AddressLine1 = 'Address Line 1 is required';
-if (!orderDetails.AddressLine2) newErrors.AddressLine2 = 'Address Line 2 is required';
-if (!orderDetails.CityID) newErrors.CityID = 'City ID is required';
-if (!orderDetails.StateID) newErrors.StateID = 'State ID is required';
-if (!orderDetails.CountryID) newErrors.CountryID = 'Country ID is required';
-if (!orderDetails.ZipCode) newErrors.ZipCode = 'Zip Code is required';
-if (!orderDetails.TotalAmount) newErrors.TotalAmount = 'Total Amount is required';
-if (!orderDetails.OrderStatus) newErrors.OrderStatus = 'Order Status is required';
-if (!orderDetails.OrderBy) newErrors.OrderBy = 'Order By is required';
-if (!orderDetails.Type) newErrors.Type = 'Type is required';
-if (!orderDetails.DeliveryDate) newErrors.DeliveryDate = 'Delivery Date is required';
-if (!orderDetails.customerFirstName) newErrors.customerFirstName = 'Customer First Name is required';
-if (!orderDetails.customerLastName) newErrors.customerLastName = 'Customer Last Name is required';
-if (!orderDetails.customerEmail) newErrors.customerEmail = 'Customer Email is required';
-if (!orderDetails.customerPhone) newErrors.customerPhone = 'Customer Phone is required';
-if (!orderDetails.PaymentMethod) newErrors.PaymentMethod = 'Payment Method is required';
-if (!orderDetails.PaymentStatus) newErrors.PaymentStatus = 'Payment Status is required';
-if (!orderDetails.MaskedCardNumber) newErrors.MaskedCardNumber = 'Masked Card Number is required';
-if (!orderDetails.ExpectedCompleteDate) newErrors.ExpectedCompleteDate = 'Expected Complete Date is required';
-if (!orderDetails.Comments) newErrors.Comments = 'Comments are required';
-if (!orderDetails.ReferedBy) newErrors.ReferedBy = 'Referred By is required';
-if (!orderDetails.PaymentComments) newErrors.PaymentComments = 'Payment Comments are required';
-if (!orderDetails.assginto) newErrors.assginto = 'Assigned To is required';
-if (!orderDetails.AdvanceAmount) newErrors.AdvanceAmount = 'Advance Amount is required';
-if (!orderDetails.BalenceAmount) newErrors.BalenceAmount = 'Balance Amount is required';
-if (!orderDetails.ExpectedDurationDays) newErrors.ExpectedDurationDays = 'Expected Duration Days is required';
-if (!orderDetails.DesginerName) newErrors.DesginerName = 'Designer Name is required';
-if (!orderDetails.UploadImages) newErrors.UploadImages = 'Upload Images are required';
-if (!orderDetails.choosefiles) newErrors.choosefiles = 'Choose Files is required';
+    if (!orderDetails.OrderDate) {
+      newErrors.OrderDate = 'Order Date is required';
+      console.log('Order Date is required');
+  }
+  if (!orderDetails.TotalQuantity) {
+      newErrors.TotalQuantity = 'Total Quantity is required';
+      console.log('Total Quantity is required');
+  }
+  if (!orderDetails.AddressLine1) {
+      newErrors.AddressLine1 = 'Address Line 1 is required';
+      console.log('Address Line 1 is required');
+  }
+  if (!orderDetails.AddressLine2) {
+      newErrors.AddressLine2 = 'Address Line 2 is required';
+      console.log('Address Line 2 is required');
+  }
+  if (!orderDetails.CityID) {
+      newErrors.CityID = 'City ID is required';
+      console.log('City ID is required');
+  }
+  if (!orderDetails.StateID) {
+      newErrors.StateID = 'State ID is required';
+      console.log('State ID is required');
+  }
+  if (!orderDetails.CountryID) {
+      newErrors.CountryID = 'Country ID is required';
+      console.log('Country ID is required');
+  }
+  if (!orderDetails.ZipCode) {
+      newErrors.ZipCode = 'Zip Code is required';
+      console.log('Zip Code is required');
+  }
+  if (!orderDetails.TotalAmount) {
+      newErrors.TotalAmount = 'Total Amount is required';
+      console.log('Total Amount is required');
+  }
+  if (!orderDetails.OrderStatus) {
+      newErrors.OrderStatus = 'Order Status is required';
+      console.log('Order Status is required');
+  }
+  if (!orderDetails.OrderBy) {
+      newErrors.OrderBy = 'Order By is required';
+      console.log('Order By is required');
+  }
+  if (!orderDetails.Type) {
+      newErrors.Type = 'Type is required';
+      console.log('Type is required');
+  }
+  if (!orderDetails.DeliveryDate) {
+      newErrors.DeliveryDate = 'Delivery Date is required';
+      console.log('Delivery Date is required');
+  }
+  if (!orderDetails.customerFirstName) {
+      newErrors.customerFirstName = 'Customer First Name is required';
+      console.log('Customer First Name is required');
+  }
+  if (!orderDetails.customerLastName) {
+      newErrors.customerLastName = 'Customer Last Name is required';
+      console.log('Customer Last Name is required');
+  }
+  if (!orderDetails.customerEmail) {
+      newErrors.customerEmail = 'Customer Email is required';
+      console.log('Customer Email is required');
+  }
+  if (!orderDetails.customerPhone) {
+      newErrors.customerPhone = 'Customer Phone is required';
+      console.log('Customer Phone is required');
+  }
+  if (!orderDetails.PaymentMethod) {
+      newErrors.PaymentMethod = 'Payment Method is required';
+      console.log('Payment Method is required');
+  }
+  if (!orderDetails.PaymentStatus) {
+      newErrors.PaymentStatus = 'Payment Status is required';
+      console.log('Payment Status is required');
+  }
+  if (!orderDetails.MaskedCardNumber) {
+      newErrors.MaskedCardNumber = 'Masked Card Number is required';
+      console.log('Masked Card Number is required');
+  }
+  if (!orderDetails.ExpectedCompleteDate) {
+      newErrors.ExpectedCompleteDate = 'Expected Complete Date is required';
+      console.log('Expected Complete Date is required');
+  }
+  if (!orderDetails.Comments) {
+      newErrors.Comments = 'Comments are required';
+      console.log('Comments are required');
+  }
+  if (!orderDetails.ReferedBy) {
+      newErrors.ReferedBy = 'Referred By is required';
+      console.log('Referred By is required');
+  }
+  if (!orderDetails.PaymentComments) {
+      newErrors.PaymentComments = 'Payment Comments are required';
+      console.log('Payment Comments are required');
+  }
+  if (!orderDetails.assginto) {
+      newErrors.assginto = 'Assigned To is required';
+      console.log('Assigned To is required');
+  }
+  if (!orderDetails.AdvanceAmount) {
+      newErrors.AdvanceAmount = 'Advance Amount is required';
+      console.log('Advance Amount is required');
+  }
+  if (!orderDetails.BalenceAmount) {
+      newErrors.BalenceAmount = 'Balance Amount is required';
+      console.log('Balance Amount is required');
+  }
+  if (!orderDetails.ExpectedDurationDays) {
+      newErrors.ExpectedDurationDays = 'Expected Duration Days is required';
+      console.log('Expected Duration Days is required');
+  }
+  if (!orderDetails.DesginerName) {
+      newErrors.DesginerName = 'Designer Name is required';
+      console.log('Designer Name is required');
+  }
+  if (images.length === 0) {
+      newErrors.UploadImages = 'Upload Images are required';
+      console.log('Upload Images are required');
+  }
+  if (!pdfFile) {
+      newErrors.choosefiles = 'Choose Files is required';
+      console.log('Choose Files is required');
+  }
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       toast.error('Please fill in all required fields.', {
@@ -3471,7 +3573,7 @@ if (!orderDetails.choosefiles) newErrors.choosefiles = 'Choose Files is required
       MaskedCardNumber: "",
       ExpectedCompleteDate: "",
       Comments: "",
-      ReferedBy: "",
+      ReferedBy: "walk-in",
       PaymentComments: "",
       assginto: "",
       AdvanceAmount: "",
@@ -3515,7 +3617,7 @@ if (!orderDetails.choosefiles) newErrors.choosefiles = 'Choose Files is required
       MaskedCardNumber: "",
       ExpectedCompleteDate: "",
       Comments: "",
-      ReferedBy: "",
+      ReferedBy: "walk-in",
       PaymentComments: "",
       assginto: "",
       AdvanceAmount: "",
@@ -3528,7 +3630,7 @@ if (!orderDetails.choosefiles) newErrors.choosefiles = 'Choose Files is required
     setActiveStep(0); // Optional: Reset to the first step
   };
 
-  const amountToBePaid = orderDetails.totalAmount - orderDetails.advanceAmount;
+  const amountToBePaid = orderDetails.TotalAmount - orderDetails.AdvanceAmount;
  const remainder = amountToBePaid / orderDetails.installments;
  const [showSearchCard, setShowSearchCard] = useState(false);
 
@@ -3622,7 +3724,7 @@ const [pdfFile, setPdfFile] = useState(null);
   const [error, setError] = useState('');
   const handleReferralTypeChange = (value) => {
     setSelectedReferralType(value);
-    setOrderDetails({ ...orderDetails, ReferredBy: value });
+    setOrderDetails({ ...orderDetails, ReferedBy: value });
   };
   const handleReferenceSubOptionChange = (value) => {
     setSelectedReferenceSubOption(value);
@@ -3634,22 +3736,67 @@ const [pdfFile, setPdfFile] = useState(null);
     setSelectedSocialMediaPlatform(value);
     setOrderDetails({ ...orderDetails, socialMediaPlatform: value });
   };
+
+  useEffect(() => {
+    if (customerDetails) {
+      setOrderDetails(prevDetails => ({
+        ...prevDetails,
+        CustomerID: customerDetails.customerId,
+        customerFirstName: customerDetails.customerFirstName,
+        customerLastName: customerDetails.customerLastName,
+        customerEmail: customerDetails.customerEmail,
+        customerPhone: customerDetails.customerPhone,
+      }));
+    }
+  }, [customerDetails]);
+
+  const handleSearch = async () => {
+    try {
+      if (query.trim()) {
+        const response = await axios.get(`https://imlystudios-backend-mqg4.onrender.com/api/customers/getCustomerById/${query}`);
+        setOrderDetails({
+          ...orderDetails,
+          CustomerID: response.data.customerId,
+          customerFirstName: response.data.customerFirstName,
+          customerLastName: response.data.customerLastName,
+          customerEmail: response.data.customerEmail,
+          customerPhone: response.data.customerPhone,
+        });
+        setError(null);
+      } else {
+        setError('Please enter a valid search query.');
+      }
+    } catch (err) {
+      setError('Error fetching customer data.');
+    }
+  };
+
   
   return (
     <>
     <div className="p-6 mr-10 sm:px-6 lg:px-8 pt-4 ml-10 lg:ml-80 w-1/8   rounded-lg">
             {/* Button at the top */} <ToastContainer />
+            <div className="flex justify-end">
+        <button 
+            onClick={handleExistingUserClick} 
+            className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
+        >
+            Existing Customer
+        </button>
+        </div>
                         {showSearchCard && (
                 <div className="mt-4 p-4 border rounded shadow-lg">
                     <h2 className="text-lg font-bold mb-4">Search User</h2>
-                    <input 
+                    {/* <input 
                         type="text" 
                         placeholder="Search by email or mobile number" 
                         className="w-full p-2 border rounded mb-4"
-                    />
-                    <button className="bg-green-500 text-white px-4 py-2 rounded">
+                    /> */}
+                    {/* <button className="bg-green-500 text-white px-4 py-2 rounded">
                         Search
-                    </button>
+                    </button> */}
+                    <CustomerSearch onCustomerSelect={handleCustomerSelect} onClick={handleSearch} />
+
                 </div>
             )}
         </div>
