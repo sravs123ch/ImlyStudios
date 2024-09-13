@@ -2962,8 +2962,8 @@ function User() {
         {
           params: {
             page: pageNum + 1,
-            pageSize: pageSize,
-            search: search
+            limit: pageSize,
+            SearchText: search
           }
         }
       );

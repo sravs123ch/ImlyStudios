@@ -1,257 +1,3 @@
-// import React, { useState, useEffect } from "react";
-// import axios from "axios";
-// import { useNavigate } from 'react-router-dom';
-
-// export default function Storeform() {
-
-// // // const location = useLocation();
-// // const [formData, setFormData] = useState(location.state?.userDetails || {});
-// const navigate = useNavigate();
-// const [formData, setFormData] = useState({
-//   TenantID: 1,
-//   FirstName: "",
-//   LastName: "",
-//   Email: "",
-//   Password: "", 
-//   PhoneNumber: "", 
-//   Gender: "",
-// });
-
-// // // Handle form changes
-// const handleFormChange = (e) => {
-//   const { name, value } = e.target;
-//   setFormData({
-//     ...formData,
-//     [name]: value,
-//   });
-// };
-
-// const handleFormSubmit = async (event) => {
-//   event.preventDefault();
-//   let valid = true;
-//   let newErrors = {};
-//   if (valid) {
-//     try {
-//       console.log("Registered details:", formData);
-//       const response = await axios.post(
-//         "https://imlystudios-backend-mqg4.onrender.com/api/stores/createStore ",
-//         {
-//           TenantID: 1,
-    
-//         StoreName:formData.StoreName,
-//           Email: formData.Email,
-//           Password: formData.Password,
-//           PhoneNumber: formData.PhoneNumber,
-//           CreatedBy: "admin",
-//           UpdatedBy: "admin",
-//         }
-//       );
-//       console.log("Registration successful:", response.data);
-//       navigate("/stores"); // Navigate to the "Users" page after successful submission
-//     } catch (error) {
-//       console.error("Registration failed:", error);
-//     }
-//   } else {
-//     console.log("Form validation failed");
-//   }
-// };
-// // Handle cancel button click
-// const handleCancel = () => {
-//   // setFormData(null);
-//   navigate("/stores"); 
-// };
-
-//   return (
-    
-//     <div className="px-4 sm:px-6 lg:px-8 pt-4 ml-10 lg:ml-72 w-auto">
-//         <div className="mt-6 bg-white p-6 rounded-lg shadow-md">
-       
-//              <h2 className="text-xl font-semibold mb-4 px-24">Stores</h2>
-//           <form onSubmit={handleFormSubmit}>
-//             <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8 px-16 md:px-24">
-//               <div className="flex flex-col">
-//                 <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name:</label>
-//                 <input
-//                   id="name"
-//                   name="name"
-//                   type="text"
-//                   value={formData?.name || ""}
-//                   onChange={handleFormChange}
-//                   className="mt-1 p-2 border border-gray-400 rounded-md"
-//                   required
-//                 />
-//               </div>
-
-//                {/* Address Line 1 */}
-//                <div>
-//               <label htmlFor="addressLine1" className="block text-sm font-medium text-gray-700">
-//                 Address Line 1
-//               </label>
-//               <input
-//                 type="text"
-//                 name="addressLine1"
-//                 value={formData?.addressLine1 || ""}
-//                 onChange={handleFormChange}
-//                 required
-//                 className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4"
-//               />
-//             </div>
-//               <div className="flex flex-col">
-//                 <label htmlFor="Email" className="text-sm font-medium">Email:</label>
-//                 <input
-//                   id="Email"
-//                   name="Email"
-//                   type="Email"
-//                   value={formData?.Email || ""}
-//                   onChange={handleFormChange}
-//                   className="mt-1 p-2 border border-gray-400 rounded-md"
-//                   required
-//                 />
-//               </div>
-
-//                 {/* Address Line 2 */}
-//              <div>
-//               <label htmlFor="addressLine2" className="block text-sm font-medium text-gray-700">
-//                 Address Line 2
-//               </label>
-//               <input
-//                 type="text"
-//                 name="addressLine2"
-//                 value={formData?.addressLine2 || ""}
-//                 onChange={handleFormChange}
-//                 className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4"
-//               />
-//             </div>
-//               <div className="flex flex-col">
-//                 <label htmlFor="phone" className="text-sm font-medium">Phone:</label>
-//                 <input
-//                   id="phone"
-//                   name="role"
-//                   type="text"
-//                   value={formData?.role || ""}
-//                   onChange={handleFormChange}
-//                   className="mt-1 p-2 border border-gray-400 rounded-md"
-//                   required
-//                 />
-//               </div>
-//                {/* City */}
-//             <div>
-//               <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-//                 City
-//               </label>
-//               <input
-//                 type="text"
-//                 name="city"
-//                 value={formData?.city || ""}
-//                 onChange={handleFormChange}
-//                 required
-//                 className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4"
-//               />
-//             </div>
-
-//             <div>
-//   <label htmlFor="storeName" className="block text-sm font-medium">
-//     Stores
-//   </label>
-//   <select
-//     name="StoreName"
-//     value={formData.StoreName}
-//     onChange={handleFormChange}
-//     required
-//     className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4"
-//   >
-//     <option value="">Select Store Name</option>
-//     <option
-//       value="ABC Mart"
-//       // className="bg-blue-100 text-blue-800 shadow-sm"
-//     >
-//       ABC Mart
-//     </option>
-//     <option
-//       value="XYZ Store"
-//       // className="bg-yellow-100 text-yellow-800 shadow-sm"
-//     >
-//       XYZ Store
-//     </option>
-//     <option
-//       value="MegaShop"
-//       // className="bg-red-100 text-red-800 shadow-sm"
-//     >
-//       MegaShop
-//     </option>
-//     <option
-//       value="SuperMart"
-//       // className="bg-purple-100 text-purple-800 shadow-sm"
-//     >
-//       SuperMart
-//     </option>
-//     <option
-//       value="ElectroWorld"
-//       // className="bg-green-100 text-green-800 shadow-sm"
-//     >
-//       ElectroWorld
-//     </option>
-//   </select>
-// </div>
- 
-
-//              {/* State */}
-//              <div>
-//               <label htmlFor="state" className="block text-sm font-medium text-gray-700">
-//                 State
-//               </label>
-//               <input
-//                 type="text"
-//                 name="state"
-//                 value={formData?.state || ""}
-//                 onChange={handleFormChange}
-//                 required
-//                 className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4"
-//               />
-//             </div>
-//             <div></div>
-          
-//   <div>
-//     <label htmlFor="zipCode" className="block text-sm font-medium text-gray-700">
-//       Zip Code
-//     </label>
-//     <input
-//       type="text"
-//       name="zipCode"
-//       value={formData?.zipCode || ""}
-//       onChange={handleFormChange}
-//       required
-//       pattern="\d{5,6}"
-//       title="Zip Code should be 5 or 6 digits."
-//       className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4"
-//     />
-//   </div>
-
-
-//             </div>
-//             <div className="mt-6 flex justify-end gap-4">
-//     <button
-//       type="submit"
-//       className="inline-flex justify-center rounded-md border border-transparent bg-custom-darkblue py-2 px-4 text-sm font-medium text-white hover:text-black shadow-sm hover:bg-custom-lightblue"
-//     >
-//       Save
-//     </button>
-//     <button
-//       type="button"
-//       onClick={handleCancel}
-//       className="inline-flex justify-center rounded-md border border-transparent bg-red-500 py-2 px-4 text-sm font-medium text-white hover:text-black shadow-sm hover:bg-red-200"
-//     >
-//       Cancel
-//     </button>
-//   </div>
-//           </form>
-//         </div>
-
-//     </div>
-//   );
-// }
-
-
 // import React, { useState, useEffect, useContext } from 'react';
 // import axios from 'axios';
 // import { useNavigate, useLocation } from 'react-router-dom';
@@ -300,24 +46,133 @@
 //     });
 //   };
 
+//   // const handleFormSubmit = async (event) => {
+//   //   event.preventDefault();
+//   //   try {
+//   //     console.log("Submitted details:", formData);
+
+//   //     const response = await axios.post(
+//   //       "https://imlystudios-backend-mqg4.onrender.com/api/stores/createStore",
+//   //       formData
+//   //     );
+//   //     console.log("Submission successful:", response.data);
+//   //     navigate("/Stores");
+//   //   } catch (error) {
+//   //     console.error("Submission failed:", error);
+//   //     if (error.response) {
+//   //       console.error("Response data:", error.response.data);
+//   //       console.error("Response status:", error.response.status);
+//   //       console.error("Response headers:", error.response.headers);
+//   //       setError("Failed to create store: " + error.response.data.message);
+//   //     } else if (error.request) {
+//   //       console.error("No response received:", error.request);
+//   //       setError("No response received from server.");
+//   //     } else {
+//   //       console.error("Error in setting up request:", error.message);
+//   //       setError("Error: " + error.message);
+//   //     }
+//   //   }
+//   // };
+
+//   // const handleUpdateSubmit = async (event) => {
+//   //   event.preventDefault();
+//   //   try {
+//   //     const storeId = formData.StoreID;
+  
+//   //     // Log formData to ensure StoreID is present
+//   //     console.log("FormData before submission:", formData);
+  
+//   //     if (!storeId) {
+//   //       console.error("Store ID is missing in formData");
+//   //       setError("Store ID is missing.");
+//   //       return;
+//   //     }
+  
+//   //     console.log("Submitted details for update:", formData);
+  
+//   //     const response = await axios.put(
+//   //       `https://imlystudios-backend-mqg4.onrender.com/api/stores/updateStore/${storeId}`,
+//   //       formData
+//   //     );
+//   //     console.log("Update successful:", response.data);
+  
+//   //     navigate("/Stores");
+//   //   } catch (error) {
+//   //     console.error("Update failed:", error);
+//   //     if (error.response) {
+//   //       console.error("Update failed with response error:", error.response.data);
+//   //       setError("Update failed: " + error.response.data.message);
+//   //     } else if (error.request) {
+//   //       console.error("Update failed with no response received:", error.request);
+//   //       setError("No response received from server.");
+//   //     } else {
+//   //       console.error("Update failed with error:", error.message);
+//   //       setError("Error: " + error.message);
+//   //     }
+//   //   }
+//   // };
+
+//   // const handleFormSubmit = async (event) => {
+//   //   event.preventDefault();
+  
+//   //   const storeId = formData.StoreID; 
+//   //   const isUpdate = !!storeId; 
+  
+//   //   try {
+//   //     console.log(isUpdate ? "Updating store:" : "Creating store:", formData);
+  
+//   //     const response = await axios.post(
+//   //       "https://imlystudios-backend-mqg4.onrender.com/api/stores/createOrUpdateStore",
+//   //       formData
+//   //     );
+  
+//   //     console.log(isUpdate ? "Update successful:" : "Creation successful:", response.data);
+      
+//   //     navigate("/Stores");
+//   //   } catch (error) {
+//   //     console.error(isUpdate ? "Update failed:" : "Creation failed:", error);
+  
+//   //     if (error.response) {
+//   //       console.error("Response error:", error.response.data);
+//   //       setError((isUpdate ? "Update" : "Creation") + " failed: " + error.response.data.message);
+//   //     } else if (error.request) {
+//   //       console.error("No response received:", error.request);
+//   //       setError("No response received from server.");
+//   //     } else {
+//   //       console.error("Error in setting up request:", error.message);
+//   //       setError("Error: " + error.message);
+//   //     }
+//   //   }
+//   // };
 //   const handleFormSubmit = async (event) => {
 //     event.preventDefault();
+  
+//     const storeId = formData.StoreID; 
+//     const isUpdate = !!storeId; 
+    
 //     try {
-//       console.log("Submitted details:", formData);
-
+//       console.log(isUpdate ? "Updating store:" : "Creating store:", formData);
+  
+//       // Log formData and check if storeId is correctly set
+//       console.log("Form Data:", formData);
+  
 //       const response = await axios.post(
-//         "https://imlystudios-backend-mqg4.onrender.com/api/stores/createStore",
+//         "https://imlystudios-backend-mqg4.onrender.com/api/stores/createOrUpdateStore",
 //         formData
 //       );
-//       console.log("Submission successful:", response.data);
+  
+//       console.log(isUpdate ? "Update successful:" : "Creation successful:", response.data);
+  
 //       navigate("/Stores");
 //     } catch (error) {
-//       console.error("Submission failed:", error);
+//       console.error(isUpdate ? "Update failed:" : "Creation failed:", error);
+  
+//       // Log full error object
+//       console.error("Full error object:", error);
+  
 //       if (error.response) {
-//         console.error("Response data:", error.response.data);
-//         console.error("Response status:", error.response.status);
-//         console.error("Response headers:", error.response.headers);
-//         setError("Failed to create store: " + error.response.data.message);
+//         console.error("Response error:", error.response.data);
+//         setError((isUpdate ? "Update" : "Creation") + " failed: " + error.response.data.message);
 //       } else if (error.request) {
 //         console.error("No response received:", error.request);
 //         setError("No response received from server.");
@@ -327,40 +182,217 @@
 //       }
 //     }
 //   };
+  
+  
 
-//   const handleUpdateSubmit = async (event) => {
+//   const handleCancel = () => {
+//     navigate("/Stores");
+//   };
+
+//   return (
+//     <div className="px-4 sm:px-6 lg:px-8 pt-4 ml-10 lg:ml-72 w-auto">
+//       <div className="mt-6 bg-white p-6 rounded-lg shadow-md">
+//         {/* <form onSubmit={isEditMode ? handleUpdateSubmit : handleFormSubmit}> */}
+//         <form onSubmit={handleFormSubmit}>
+//           <div className="flex justify-between items-center mb-6">
+//             <h2 className="text-xl font-semibold mb-4 px-24">Stores</h2>
+//           </div>
+//           <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8 px-16 md:px-24">
+//             {/* Store Name */}
+//             <div className="flex items-center">
+//               <div className="w-full">
+//                 <label htmlFor="StoreName" className="block text-sm font-medium text-gray-700">
+//                   Store Name
+//                 </label>
+//                 <input
+//                   type="text"
+//                   id="StoreName"
+//                   name="StoreName"
+//                   value={formData.StoreName || ""}
+//                   onChange={handleFormChange}
+//                   required
+//                   className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+//                 />
+//               </div>
+//             </div>
+
+//             {/* Email */}
+//             <div>
+//               <label htmlFor="Email" className="block text-sm font-medium text-gray-700">
+//                 Email
+//               </label>
+//               <input
+//                 type="email"
+//                 id="Email"
+//                 name="Email"
+//                 value={formData.Email || ""}
+//                 onChange={handleFormChange}
+//                 required
+//                 className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+//               />
+//             </div>
+
+//             {/* Password */}
+//             <div>
+//               <label htmlFor="Password" className="block text-sm font-medium text-gray-700">
+//                 Password
+//               </label>
+//               <input
+//                 id="Password"
+//                 name="Password"
+//                 type="password"
+//                 value={formData.Password || ""}
+//                 onChange={handleFormChange}
+//                 className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+//               />
+//             </div>
+
+//             {/* Phone Number */}
+//             <div>
+//               <label htmlFor="Phone" className="block text-sm font-medium text-gray-700">
+//                 Phone Number
+//               </label>
+//               <input
+//                 type="text"
+//                 id="Phone"
+//                 name="Phone"
+//                 value={formData.Phone || ""}
+//                 onChange={handleFormChange}
+//                 required
+//                 className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+//               />
+//             </div>
+
+//             {/* Address */}
+//             <div>
+//               <label htmlFor="Address" className="block text-sm font-medium text-gray-700">
+//                 Address
+//               </label>
+//               <input
+//                 type="text"
+//                 id="Address"
+//                 name="Address"
+//                 value={formData.Address || ""}
+//                 onChange={handleFormChange}
+//                 className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+//               />
+//             </div>
+//           </div>
+
+//           {/* Buttons */}
+//           <div className="mt-6 flex justify-end gap-4">
+//             <button
+//               type="submit"
+//               className="inline-flex justify-center rounded-md border border-transparent bg-custom-darkblue py-2 px-4 text-sm font-medium text-white hover:text-black shadow-sm hover:bg-custom-lightblue focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+//             >
+//               Save
+//             </button>
+//             <button
+//               type="button"
+//               onClick={handleCancel}
+//               className="inline-flex justify-center rounded-md border border-transparent bg-red-500 py-2 px-4 text-sm font-medium text-white hover:text-black shadow-sm hover:bg-red-200"
+//             >
+//               Cancel
+//             </button>
+//           </div>
+
+//           {/* Error Message */}
+//           {error && <p className="mt-4 text-red-600">{error}</p>}
+//         </form>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default Storeform;
+
+// import React, { useState, useEffect, useContext } from 'react';
+// import axios from 'axios';
+// import { useNavigate, useLocation } from 'react-router-dom';
+// import { StoreContext } from '../../Context/storeContext';
+
+// function Storeform() {
+//   const navigate = useNavigate();
+//   const location = useLocation();
+//   const { storeDetails } = useContext(StoreContext);
+
+//   const isEditMode = Boolean(location.state?.storeDetails?.store || storeDetails?.store);
+
+//   const [formData, setFormData] = useState(location.state?.storeDetails || {
+//     TenantID: 1,
+//     StoreID: null, // StoreID should be null initially for creation
+//     StoreName: "",
+//     Email: "",
+//     Password: "",
+//     Phone: "",
+//     Address: "",
+//   });
+
+//   const [error, setError] = useState("");
+
+//   useEffect(() => {
+//     if (isEditMode) {
+//       const store = location.state?.storeDetails?.store || storeDetails?.store;
+//       setFormData({
+//         TenantID: store.TenantID || 1,
+//         StoreID: store.StoreID || null,
+//         StoreName: store.StoreName || "",
+//         Email: store.Email || "",
+//         Phone: store.Phone || "",
+//         Password: "",  // Password cleared for edit mode
+//         Address: store.Address || "",
+//       });
+//     }
+//   }, [isEditMode, location.state?.storeDetails?.store, storeDetails?.store]);
+
+//   const handleFormChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({
+//       ...formData,
+//       [name]: value,
+//     });
+//   };
+
+//   const handleFormSubmit = async (event) => {
 //     event.preventDefault();
+  
+//     const storeId = formData.StoreID; 
+//     const isUpdate = !!storeId; // Check if this is an update
+  
 //     try {
-//       const storeId = formData.StoreID;
-  
-//       // Log formData to ensure StoreID is present
-//       console.log("FormData before submission:", formData);
-  
-//       if (!storeId) {
-//         console.error("Store ID is missing in formData");
-//         setError("Store ID is missing.");
-//         return;
+//       console.log(isUpdate ? "Updating store:" : "Creating store:", formData);
+
+//       // Remove password if it's not being updated
+//       const submitData = { ...formData };
+//       if (isUpdate && !submitData.Password) {
+//         delete submitData.Password;
 //       }
+      
+//       // Log the final payload
+//       console.log("Final form data:", submitData);
   
-//       console.log("Submitted details for update:", formData);
-  
-//       const response = await axios.put(
-//         `https://imlystudios-backend-mqg4.onrender.com/api/stores/updateStore/${storeId}`,
-//         formData
+//       // Send the API request
+//       const response = await axios.post(
+//         "https://imlystudios-backend-mqg4.onrender.com/api/stores/createOrUpdateStore",
+//         submitData
 //       );
-//       console.log("Update successful:", response.data);
   
+//       console.log(isUpdate ? "Update successful:" : "Creation successful:", response.data);
 //       navigate("/Stores");
 //     } catch (error) {
-//       console.error("Update failed:", error);
+//       console.error(isUpdate ? "Update failed:" : "Creation failed:", error);
+  
+//       // Log full error object
+//       console.error("Full error object:", error);
+  
 //       if (error.response) {
-//         console.error("Update failed with response error:", error.response.data);
-//         setError("Update failed: " + error.response.data.message);
+//         console.error("Response error:", error.response.data);
+//         setError((isUpdate ? "Update" : "Creation") + " failed: " + error.response.data.message);
 //       } else if (error.request) {
-//         console.error("Update failed with no response received:", error.request);
+//         console.error("No response received:", error.request);
 //         setError("No response received from server.");
 //       } else {
-//         console.error("Update failed with error:", error.message);
+//         console.error("Error in setting up request:", error.message);
 //         setError("Error: " + error.message);
 //       }
 //     }
@@ -373,7 +405,7 @@
 //   return (
 //     <div className="px-4 sm:px-6 lg:px-8 pt-4 ml-10 lg:ml-72 w-auto">
 //       <div className="mt-6 bg-white p-6 rounded-lg shadow-md">
-//         <form onSubmit={isEditMode ? handleUpdateSubmit : handleFormSubmit}>
+//         <form onSubmit={handleFormSubmit}>
 //           <div className="flex justify-between items-center mb-6">
 //             <h2 className="text-xl font-semibold mb-4 px-24">Stores</h2>
 //           </div>
@@ -488,30 +520,649 @@
 
 
 
+// import React, { useState, useContext, useEffect } from 'react';
+// import { useNavigate, useLocation } from 'react-router-dom';
+// import { StoreContext } from "../../Context/storeContext";
+// import Box from '@mui/material/Box';
+// import Stepper from '@mui/material/Stepper';
+// import Step from '@mui/material/Step';
+// import StepLabel from '@mui/material/StepLabel';
+// import Button from '@mui/material/Button';
+// import Typography from '@mui/material/Typography';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+// import axios from 'axios';
+// import Table from '@mui/material/Table';
+// import TableBody from '@mui/material/TableBody';
+// import TableContainer from '@mui/material/TableContainer';
+// import TableHead from '@mui/material/TableHead';
+// import Paper from '@mui/material/Paper';
+// import { styled } from '@mui/material/styles';
+// import TableCell from '@mui/material/TableCell';
+// import TableRow from '@mui/material/TableRow';
+
+// const StyledTableCell = styled(TableCell)(({ theme }) => ({
+//   backgroundColor: theme.palette.grey[100],
+//   color: theme.palette.text.primary,
+//   fontWeight: 'bold',
+// }));
+
+// const StyledTableRow = styled(TableRow)(({ theme }) => ({
+//   '&:nth-of-type(odd)': {
+//     backgroundColor: theme.palette.action.hover,
+//   },
+// }));
+
+// const steps = ['Store Details', 'Store Users'];
+
+// function StoreForm() {
+//   const navigate = useNavigate();
+//   const location = useLocation();
+//   const { storeDetails } = useContext(StoreContext);
+//   const [storeUsers, setStoreUsers] = useState([]);
+  
+//   // Form state
+//   const [formData, setFormData] = useState(location.state?.storeDetails || {
+//     storeName: "",
+//     email: "",
+//     phoneNumber: "",
+//     location: "",
+//     comments: "",
+//   });
+
+//   const [error, setError] = useState("");
+//   const [activeStep, setActiveStep] = useState(0);
+//   const isEditMode = Boolean(location.state?.storeDetails || storeDetails);
+//   const [stores, setStores] = useState([]); // State for storing fetched stores
+//   const [loading, setLoading] = useState(true);
+
+//   useEffect(() => {
+//     if (isEditMode) {
+//       const store = location.state?.storeDetails || storeDetails;
+//       setFormData({
+//         storeName: store.storeName || "",
+//         email: store.email || "",
+//         phoneNumber: store.phoneNumber || "",
+//         location: store.location || "",
+//         comments: store.comments || "",
+//       });
+//     }
+//   }, [isEditMode, location.state?.storeDetails, storeDetails]);
+
+//   const handleFormChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({ ...formData, [name]: value });
+//   }; 
+
+  
+
+//   const handleFormSubmit = async (event) => {
+//     event.preventDefault();
+  
+//     // Log the form data being sent to the API
+//     console.log("FormData:", formData);
+  
+//     // Check if it's an update (based on StoreID presence)
+//     const isUpdate = formData.StoreID ? true : false;
+  
+//     // Set the correct API endpoint
+//     const apiUrl = "https://imlystudios-backend-mqg4.onrender.com/api/stores/createOrUpdateStore";
+  
+//     try {
+//       // Send a POST request to the API (both create and update handled by same API)
+//       const response = await axios.post(apiUrl, formData);
+  
+//       // Log the full response from the server for debugging purposes
+//       console.log("Full Response:", response);
+//       console.log("Response data:", response.data);
+  
+//       // Navigate to the stores page after successful submission
+//       navigate("/Stores");
+  
+//     } catch (error) {
+//       // Log error details for debugging
+//       console.error("Submission failed:", error);
+  
+//       if (error.response) {
+//         // Log specific details from the server response if available
+//         console.error("Response data:", error.response.data);
+//         console.error("Response status:", error.response.status);
+//         console.error("Response headers:", error.response.headers);
+  
+//         // Set error message based on API response
+//         setError(`Failed to ${isUpdate ? 'update' : 'create'} store: ` + error.response.data.message);
+  
+//       } else if (error.request) {
+//         // If no response was received from the server
+//         console.error("No response received:", error.request);
+//         setError("No response received from server.");
+  
+//       } else {
+//         // Handle errors that occurred during the request setup
+//         console.error("Error in setting up request:", error.message);
+//         setError("Error: " + error.message);
+//       }
+//     }
+//   };
+//   useEffect(() => {
+//     const fetchStores = async () => {
+//       try {
+//         const storeId = formData.StoreID; // Use StoreID instead of CustomerID
+  
+//         if (!storeId) return; // Ensure storeId exists
+  
+//         // Make an API call to fetch the stores based on the store ID
+//         const response = await axios.get(`https://imlystudios-backend-mqg4.onrender.com/api/stores/getStoreById/${storeId}`);
+        
+//         // Update the state with fetched stores
+//         setStores(response.data.stores || []); 
+//         console.log("Fetched Stores:", response.data.stores);
+  
+//       } catch (err) {
+//         // Log and set an error if the request fails
+//         console.error("Error fetching stores:", err);
+//         setError("Failed to fetch stores.");
+//       } finally {
+//         // Stop the loading state after the request completes
+//         setLoading(false);
+//       }
+//     };
+  
+//     fetchStores(); // Invoke the function
+  
+//   }, [formData.StoreID]); // Re-run when StoreID changes
+  
+  
+  
+
+//   const handleNext = () => {
+//     setActiveStep((prevStep) => prevStep + 1);
+//   };
+
+//   const handleBack = () => {
+//     setActiveStep((prevStep) => prevStep - 1);
+//   };
+
+//   const handleReset = () => {
+//     setActiveStep(0);
+//     setFormData({
+//       storeName: "",
+//       email: "",
+//       phoneNumber: "",
+//       location: "",
+//       comments: "",
+//     });
+//   };
+
+//   const isStepSkipped = (step) => false;
+
+//   return (
+//     <div className="p-6 mr-10 sm:px-6 lg:px-8 pt-4 ml-10 lg:ml-80 w-1/8 rounded-lg">
+//       <ToastContainer />
+//       <div className="p-6 mb-7 sm:px-6 lg:px-8 pt-4 bg-white shadow-lg rounded-lg">
+//         <Box sx={{ width: '100%' }}>
+//           <Stepper activeStep={activeStep} alternativeLabel>
+//             {steps.map((label, index) => (
+//               <Step key={label} completed={isStepSkipped(index) ? false : undefined}>
+//                 <StepLabel>{label}</StepLabel>
+//               </Step>
+//             ))}
+//           </Stepper>
+
+//           {activeStep === steps.length ? (
+//             <React.Fragment>
+//               <Typography className="text-center text-xl mb-4">
+//                 All steps completed - you're finished
+//               </Typography>
+//               <Box className="justify-center">
+//                 <Button onClick={handleReset} className="bg-blue-500 text-white px-4 py-2 rounded">
+//                   Reset
+//                 </Button>
+//               </Box>
+//             </React.Fragment>
+//           ) : (
+//             <React.Fragment>
+//               {activeStep === 0 && (
+//                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+//                   <div className="flex items-center gap-4">
+//                     <label className="w-1/3 text-xs font-medium text-gray-700">Store Name</label>
+//                     <input
+//                       type="text"
+//                       name="storeName"
+//                       value={formData.storeName}
+//                       onChange={handleFormChange}
+//                       className="p-1 w-full border rounded-md"
+//                     />
+//                   </div>
+//                   <div className="flex items-center gap-4">
+//                     <label className="w-1/3 text-xs font-medium text-gray-700">StoreID</label>
+//                     <input
+//                       type="storeID"
+//                       name="storeID"
+//                       value={formData.storeId}
+//                       onChange={handleFormChange}
+//                       className="p-1 w-full border rounded-md"
+//                     />
+//                   </div>
+
+//                   <div className="flex items-center gap-4">
+//                     <label className="w-1/3 text-xs font-medium text-gray-700">Email</label>
+//                     <input
+//                       type="email"
+//                       name="email"
+//                       value={formData.email}
+//                       onChange={handleFormChange}
+//                       className="p-1 w-full border rounded-md"
+//                     />
+//                   </div>
+//                   <div className="flex items-center gap-4">
+//                     <label className="w-1/3 text-xs font-medium text-gray-700">PhoneNumber</label>
+//                     <input
+//                       type="phoneNumber"
+//                       name="phoneNumber"
+//                       value={formData.phoneNumber}
+//                       onChange={handleFormChange}
+//                       className="p-1 w-full border rounded-md"
+//                     />
+//                   </div>
+//                   <div className="flex items-center gap-4">
+//                     <label className="w-1/3 text-xs font-medium text-gray-700">Location</label>
+//                     <input
+//                       type="location"
+//                       name="location"
+//                       value={formData.location}
+//                       onChange={handleFormChange}
+//                       className="p-1 w-full border rounded-md"
+//                     />
+//                   </div>
+
+//                   {/* <div className="flex items-center gap-4">
+//                     <label className="w-1/3 text-xs font-medium text-gray-700">Comments</label>
+//                     <input
+//                       type="comments"
+//                       name="comments"
+//                       value={formData.comments}
+//                       onChange={handleFormChange}
+//                       className="p-1 w-full border rounded-md"
+//                     />
+//                   </div> */}
+
+
+//                 </div>
+//               )}
+
+
+// {activeStep === 1 && (
+//                 <TableContainer component={Paper} className="mt-4 rounded-lg shadow">
+//                   <Table>
+//                     <TableHead>
+//                       <TableRow>
+//                         <StyledTableCell>Username</StyledTableCell>
+//                         <StyledTableCell>Store ID</StyledTableCell>
+//                         <StyledTableCell>Store Name</StyledTableCell>
+//                         <StyledTableCell>Location</StyledTableCell>
+//                       </TableRow>
+//                     </TableHead>
+//                     <TableBody>
+//                       {(storeUsers || []).map((user) => (
+//                         <StyledTableRow key={user.id}>
+//                           <StyledTableCell>{user.username}</StyledTableCell>
+//                           <StyledTableCell>{user.storeId}</StyledTableCell>
+//                           <StyledTableCell>{user.storeName}</StyledTableCell>
+//                           <StyledTableCell>{user.location}</StyledTableCell>
+//                         </StyledTableRow>
+//                       ))}
+//                     </TableBody>
+//                   </Table>
+//                 </TableContainer>
+//               )}
+              
+//               <Box className="flex justify-between">
+//                 <Button
+//                   disabled={activeStep === 0}
+//                   onClick={handleBack}
+//                   className="bg-gray-300 text-gray-700 px-4 py-2 rounded"
+//                 >
+//                   Back
+//                 </Button>
+//                 <Button
+//                   onClick={activeStep === steps.length - 1 ? handleFormSubmit : handleNext}
+//                   className="bg-blue-500 text-white px-4 py-2 rounded"
+//                 >
+//                   {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
+//                 </Button>
+//               </Box>
+//             </React.Fragment>
+//           )}
+//         </Box>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default StoreForm;
+
+// import React, { useState, useContext, useEffect } from 'react';
+// import { useNavigate, useLocation } from 'react-router-dom';
+// import { StoreContext } from "../../Context/storeContext";
+// import Box from '@mui/material/Box';
+// import Stepper from '@mui/material/Stepper';
+// import Step from '@mui/material/Step';
+// import StepLabel from '@mui/material/StepLabel';
+// import Button from '@mui/material/Button';
+// import Typography from '@mui/material/Typography';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+// import axios from 'axios';
+// import Table from '@mui/material/Table';
+// import TableBody from '@mui/material/TableBody';
+// import TableContainer from '@mui/material/TableContainer';
+// import TableHead from '@mui/material/TableHead';
+// import Paper from '@mui/material/Paper';
+// import { styled } from '@mui/material/styles';
+// import TableCell from '@mui/material/TableCell';
+// import TableRow from '@mui/material/TableRow';
+
+// // Styled table components
+// const StyledTableCell = styled(TableCell)(({ theme }) => ({
+//   backgroundColor: theme.palette.grey[100],
+//   color: theme.palette.text.primary,
+//   fontWeight: 'bold',
+// }));
+
+// const StyledTableRow = styled(TableRow)(({ theme }) => ({
+//   '&:nth-of-type(odd)': {
+//     backgroundColor: theme.palette.action.hover,
+//   },
+// }));
+
+// // Steps for stepper
+// const steps = ['Store Details', 'Store Users'];
+
+// function StoreForm() {
+//   const navigate = useNavigate();
+//   const location = useLocation();
+//   const { storeDetails } = useContext(StoreContext);
+//   const [storeUsers, setStoreUsers] = useState([]);
+
+//   const [activeStep, setActiveStep] = useState(0);
+//   const [stores, setStores] = useState([]); // State for storing fetched stores
+//   const [loading, setLoading] = useState(true);
+
+
+//   const isEditMode = Boolean(location.state?.storeDetails?.store || storeDetails?.store);
+
+//   const [formData, setFormData] = useState(location.state?.storeDetails || {
+//     TenantID: 1,
+//     StoreID: null, // StoreID should be null initially for creation
+//     StoreName: "",
+//     Email: "",
+//     Password: "",
+//     Phone: "",
+//     Address: "",
+//   });
+
+//   const [error, setError] = useState("");
+
+//   useEffect(() => {
+//     if (isEditMode) {
+//       const store = location.state?.storeDetails?.store || storeDetails?.store;
+//       setFormData({
+//         TenantID: store.TenantID || 1,
+//         StoreID: store.StoreID || null,
+//         StoreName: store.StoreName || "",
+//         Email: store.Email || "",
+//         Phone: store.Phone || "",
+//         Password: "",  // Password cleared for edit mode
+//         Address: store.Address || "",
+//       });
+//     }
+//   }, [isEditMode, location.state?.storeDetails?.store, storeDetails?.store]);
+
+//   // Fetch store users based on StoreID
+//   const fetchStoreUsers = async (storeId) => {
+//     if (!storeId) return; // Exit if no storeId
+
+//     try {
+//       const response = await axios.get(`https://imlystudios-backend-mqg4.onrender.com/api/users/getUsersByStoreId/${storeId}`);
+//       setStoreUsers(response.data.users || []); // Set the users in state
+//       console.log("Fetched Users:", response.data.users);
+//     } catch (err) {
+//       console.error("Error fetching store users:", err);
+//       setError("Failed to fetch store users.");
+//     }
+//   };
+
+//   const handleFormChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({ ...formData, [name]: value });
+//   };
+
+//   const handleFormSubmit = async (event) => {
+//     event.preventDefault();
+  
+//     const isUpdate = formData.StoreID ? true : false;
+//     const apiUrl = "https://imlystudios-backend-mqg4.onrender.com/api/stores/createOrUpdateStore";
+  
+//     try {
+//       const response = await axios.post(apiUrl, formData);
+//       console.log("Full Response:", response);
+  
+//       navigate("/Stores");
+//     } catch (error) {
+//       console.error("Submission failed:", error);
+//       if (error.response) {
+//         setError(`Failed to ${isUpdate ? 'update' : 'create'} store: ` + error.response.data.message);
+//       } else if (error.request) {
+//         setError("No response received from server.");
+//       } else {
+//         setError("Error: " + error.message);
+//       }
+//     }
+//   };
+
+//   const handleNext = () => {
+//     setActiveStep((prevStep) => prevStep + 1);
+//   };
+
+//   const handleBack = () => {
+//     setActiveStep((prevStep) => prevStep - 1);
+//   };
+
+//   const handleReset = () => {
+//     setActiveStep(0);
+//     setFormData({
+//       StoreName: "",
+//       Email: "",
+//       PhoneNumber: "",
+//       Location: "",
+//       Comments: "",
+//     });
+//   };
+
+//   const isStepSkipped = (step) => false;
+
+//   return (
+//     <div className="p-6 mr-10 sm:px-6 lg:px-8 pt-4 ml-10 lg:ml-80 w-1/8 rounded-lg">
+//       <ToastContainer />
+//       <div className="p-6 mb-7 sm:px-6 lg:px-8 pt-4 bg-white shadow-lg rounded-lg">
+//         <Box sx={{ width: '100%' }}>
+//           <Stepper activeStep={activeStep} alternativeLabel>
+//             {steps.map((label, index) => (
+//               <Step key={label} completed={isStepSkipped(index) ? false : undefined}>
+//                 <StepLabel>{label}</StepLabel>
+//               </Step>
+//             ))}
+//           </Stepper>
+
+//           {activeStep === steps.length ? (
+//             <React.Fragment>
+//               <Typography className="text-center text-xl mb-4">
+//                 All steps completed - you're finished
+//               </Typography>
+//               <Box className="justify-center">
+//                 <Button onClick={handleReset} className="bg-blue-500 text-white px-4 py-2 rounded">
+//                   Reset
+//                 </Button>
+//               </Box>
+//             </React.Fragment>
+//           ) : (
+//             <React.Fragment>
+//               {activeStep === 0 && (
+//                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+//                   <div className="flex items-center gap-4">
+//                     <label className="w-1/3 text-xs font-medium text-gray-700">Store Name</label>
+//                     <input
+//                       type="text"
+//                       name="StoreName"
+//                       value={formData.StoreName}
+//                       onChange={handleFormChange}
+//                       className="p-1 w-full border rounded-md"
+//                     />
+//                   </div>
+//                   <div className="flex items-center gap-4">
+//                     <label className="w-1/3 text-xs font-medium text-gray-700">StoreID</label>
+//                     <input
+//                       type="text"
+//                       name="StoreID"
+//                       value={formData.StoreID}
+//                       onChange={handleFormChange}
+//                       className="p-1 w-full border rounded-md"
+//                     />
+//                   </div>
+
+//                   <div className="flex items-center gap-4">
+//                     <label className="w-1/3 text-xs font-medium text-gray-700">Email</label>
+//                     <input
+//                       type="email"
+//                       name="Email"
+//                       value={formData.Email}
+//                       onChange={handleFormChange}
+//                       className="p-1 w-full border rounded-md"
+//                     />
+//                   </div>
+//                   <div className="flex items-center gap-4">
+//                     <label className="w-1/3 text-xs font-medium text-gray-700">PhoneNumber</label>
+//                     <input
+//                       type="text"
+//                       name="Phone"
+//                       value={formData.Phone}
+//                       onChange={handleFormChange}
+//                       className="p-1 w-full border rounded-md"
+//                     />
+//                   </div>
+//                   <div className="flex items-center gap-4">
+//                     <label className="w-1/3 text-xs font-medium text-gray-700">Location</label>
+//                     <input
+//                       type="text"
+//                       name="Location"
+//                       value={formData.Address}
+//                       onChange={handleFormChange}
+//                       className="p-1 w-full border rounded-md"
+//                     />
+//                   </div>
+//                 </div>
+//               )}
+
+//               {activeStep === 1 && (
+//                 <TableContainer component={Paper} className="mt-4 rounded-lg shadow">
+//                   <Table>
+//                     <TableHead>
+//                       <TableRow>
+//                         <StyledTableCell>Username</StyledTableCell>
+//                         <StyledTableCell>Store ID</StyledTableCell>
+//                         <StyledTableCell>Store Name</StyledTableCell>
+//                         <StyledTableCell>Location</StyledTableCell>
+//                       </TableRow>
+//                     </TableHead>
+//                     <TableBody>
+//                       {storeUsers.map((user) => (
+//                         <StyledTableRow key={user.id}>
+//                           <StyledTableCell>{user.name}</StyledTableCell>
+//                           <StyledTableCell>{user.storeId}</StyledTableCell>
+//                           <StyledTableCell>{user.storeName}</StyledTableCell>
+//                           <StyledTableCell>{user.location}</StyledTableCell>
+//                         </StyledTableRow>
+//                       ))}
+//                     </TableBody>
+//                   </Table>
+//                 </TableContainer>
+//               )}
+
+//               <Box className="flex justify-between mt-4">
+//                 <Button disabled={activeStep === 0} onClick={handleBack} className="bg-blue-500 text-white px-4 py-2 rounded">
+//                   Back
+//                 </Button>
+//                 <Button onClick={activeStep === steps.length - 1 ? handleFormSubmit : handleNext} className="bg-blue-500 text-white px-4 py-2 rounded">
+//                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
+//                 </Button>
+//               </Box>
+//             </React.Fragment>
+//           )}
+//         </Box>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default StoreForm;
+
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { StoreContext } from '../../Context/storeContext';
+import { StoreContext } from "../../Context/storeContext";
+import Box from '@mui/material/Box';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
 
-function Storeform() {
+// Styled table components
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  backgroundColor: theme.palette.grey[100],
+  color: theme.palette.text.primary,
+  fontWeight: 'bold',
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+}));
+
+// Steps for stepper
+const steps = ['Store Details', 'Store Users'];
+
+function StoreForm() {
   const navigate = useNavigate();
   const location = useLocation();
   const { storeDetails } = useContext(StoreContext);
-
-  // Determine if in edit mode (only if store data exists)
-  const isEditMode = Boolean(location.state?.storeDetails?.store || storeDetails?.store);
-
+  const [storeUsers, setStoreUsers] = useState([]);
   const [formData, setFormData] = useState(location.state?.storeDetails || {
-    TenantID: 1,   // Set default value for TenantID
-    StoreID: null, // Set StoreID as null initially
+    TenantID: 1,
+    StoreID: null,
     StoreName: "",
     Email: "",
-    Password: "",  // Added Password field to formData
+    Password: "",
     Phone: "",
-    Address: "",   // Include Address field
+    Address: "",
   });
-
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [activeStep, setActiveStep] = useState(0);
+
+  const isEditMode = Boolean(location.state?.storeDetails?.store || storeDetails?.store);
 
   useEffect(() => {
     if (isEditMode) {
@@ -522,202 +1173,213 @@ function Storeform() {
         StoreName: store.StoreName || "",
         Email: store.Email || "",
         Phone: store.Phone || "",
-        Password: "",  // Clear password if in edit mode
+        Password: "",  // Password cleared for edit mode
         Address: store.Address || "",
       });
     }
   }, [isEditMode, location.state?.storeDetails?.store, storeDetails?.store]);
 
+  // Fetch store users based on StoreID
+  useEffect(() => {
+    const fetchStoreUsers = async (storeId) => {
+      if (!storeId) return; // Exit if no storeId
+
+      try {
+        const response = await axios.get(`https://imlystudios-backend-mqg4.onrender.com/api/users/getUsersByStoreId/${storeId}`);
+        setStoreUsers(response.data.users || []); // Set the users in state
+        console.log("Fetched Users:", response.data.users);
+      } catch (err) {
+        console.error("Error fetching store users:", err);
+        setError("Failed to fetch store users.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Only call fetchStoreUsers if StoreID exists
+    if (formData.StoreID) {
+      fetchStoreUsers(formData.StoreID);
+    }
+  }, [formData.StoreID]);
+
   const handleFormChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    try {
-      console.log("Submitted details:", formData);
 
-      const response = await axios.post(
-        "https://imlystudios-backend-mqg4.onrender.com/api/stores/createStore",
-        formData
-      );
-      console.log("Submission successful:", response.data);
+    const isUpdate = formData.StoreID ? true : false;
+    const apiUrl = "https://imlystudios-backend-mqg4.onrender.com/api/stores/createOrUpdateStore";
+
+    try {
+      const response = await axios.post(apiUrl, formData);
+      console.log("Full Response:", response);
       navigate("/Stores");
     } catch (error) {
       console.error("Submission failed:", error);
       if (error.response) {
-        console.error("Response data:", error.response.data);
-        console.error("Response status:", error.response.status);
-        console.error("Response headers:", error.response.headers);
-        setError("Failed to create store: " + error.response.data.message);
+        setError(`Failed to ${isUpdate ? 'update' : 'create'} store: ` + error.response.data.message);
       } else if (error.request) {
-        console.error("No response received:", error.request);
         setError("No response received from server.");
       } else {
-        console.error("Error in setting up request:", error.message);
         setError("Error: " + error.message);
       }
     }
   };
 
-  const handleUpdateSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const storeId = formData.StoreID;
-  
-      // Log formData to ensure StoreID is present
-      console.log("FormData before submission:", formData);
-  
-      if (!storeId) {
-        console.error("Store ID is missing in formData");
-        setError("Store ID is missing.");
-        return;
-      }
-  
-      console.log("Submitted details for update:", formData);
-  
-      const response = await axios.put(
-        `https://imlystudios-backend-mqg4.onrender.com/api/stores/updateStore/${storeId}`,
-        formData
-      );
-      console.log("Update successful:", response.data);
-  
-      navigate("/Stores");
-    } catch (error) {
-      console.error("Update failed:", error);
-      if (error.response) {
-        console.error("Update failed with response error:", error.response.data);
-        setError("Update failed: " + error.response.data.message);
-      } else if (error.request) {
-        console.error("Update failed with no response received:", error.request);
-        setError("No response received from server.");
-      } else {
-        console.error("Update failed with error:", error.message);
-        setError("Error: " + error.message);
-      }
-    }
+  const handleNext = () => {
+    setActiveStep((prevStep) => prevStep + 1);
   };
 
-  const handleCancel = () => {
-    navigate("/Stores");
+  const handleBack = () => {
+    setActiveStep((prevStep) => prevStep - 1);
   };
+
+  const handleReset = () => {
+    setActiveStep(0);
+    setFormData({
+      TenantID: 1,
+      StoreID: null,
+      StoreName: "",
+      Email: "",
+      Password: "",
+      Phone: "",
+      Address: "",
+    });
+  };
+
+  const isStepSkipped = (step) => false;
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 pt-4 ml-10 lg:ml-72 w-auto">
-      <div className="mt-6 bg-white p-6 rounded-lg shadow-md">
-        <form onSubmit={isEditMode ? handleUpdateSubmit : handleFormSubmit}>
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-semibold mb-4 px-24">Stores</h2>
-          </div>
-          <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8 px-16 md:px-24">
-            {/* Store Name */}
-            <div className="flex items-center">
-              <div className="w-full">
-                <label htmlFor="StoreName" className="block text-sm font-medium text-gray-700">
-                  Store Name
-                </label>
-                <input
-                  type="text"
-                  id="StoreName"
-                  name="StoreName"
-                  value={formData.StoreName || ""}
-                  onChange={handleFormChange}
-                  required
-                  className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                />
-              </div>
-            </div>
+    <div className="p-6 mr-10 sm:px-6 lg:px-8 pt-4 ml-10 lg:ml-80 w-1/8 rounded-lg">
+      <ToastContainer />
+      <div className="p-6 mb-7 sm:px-6 lg:px-8 pt-4 bg-white shadow-lg rounded-lg">
+        <Box sx={{ width: '100%' }}>
+          <Stepper activeStep={activeStep} alternativeLabel>
+            {steps.map((label, index) => (
+              <Step key={label} completed={isStepSkipped(index) ? false : undefined}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
 
-            {/* Email */}
-            <div>
-              <label htmlFor="Email" className="block text-sm font-medium text-gray-700">
-                Email
-              </label>
-              <input
-                type="email"
-                id="Email"
-                name="Email"
-                value={formData.Email || ""}
-                onChange={handleFormChange}
-                required
-                className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              />
-            </div>
+          {activeStep === steps.length ? (
+            <React.Fragment>
+              <Typography className="text-center text-xl mb-4">
+                All steps completed - you're finished
+              </Typography>
+              <Box className="justify-center">
+                <Button onClick={handleReset} className="bg-blue-500 text-white px-4 py-2 rounded">
+                  Reset
+                </Button>
+              </Box>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              {activeStep === 0 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+                  <div className="flex items-center gap-4">
+                    <label className="w-1/3 text-xs font-medium text-gray-700">Store Name</label>
+                    <input
+                      type="text"
+                      name="StoreName"
+                      value={formData.StoreName}
+                      onChange={handleFormChange}
+                      className="p-1 w-full border rounded-md"
+                    />
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <label className="w-1/3 text-xs font-medium text-gray-700">StoreID</label>
+                    <input
+                      type="text"
+                      name="StoreID"
+                      value={formData.StoreID} // Ensure consistency here
+                      onChange={handleFormChange}
+                      className="p-1 w-full border rounded-md"
+                    />
+                  </div>
 
-            {/* Password */}
-            <div>
-              <label htmlFor="Password" className="block text-sm font-medium text-gray-700">
-                Password
-              </label>
-              <input
-                id="Password"
-                name="Password"
-                type="password"
-                value={formData.Password || ""}
-                onChange={handleFormChange}
-                className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              />
-            </div>
+                  <div className="flex items-center gap-4">
+                    <label className="w-1/3 text-xs font-medium text-gray-700">Email</label>
+                    <input
+                      type="email"
+                      name="Email"
+                      value={formData.Email}
+                      onChange={handleFormChange}
+                      className="p-1 w-full border rounded-md"
+                    />
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <label className="w-1/3 text-xs font-medium text-gray-700">Phone</label>
+                    <input
+                      type="text"
+                      name="Phone"
+                      value={formData.Phone}
+                      onChange={handleFormChange}
+                      className="p-1 w-full border rounded-md"
+                    />
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <label className="w-1/3 text-xs font-medium text-gray-700">Address</label>
+                    <input
+                      type="text"
+                      name="Address"
+                      value={formData.Address}
+                      onChange={handleFormChange}
+                      className="p-1 w-full border rounded-md"
+                    />
+                  </div>
+                </div>
+              )}
 
-            {/* Phone Number */}
-            <div>
-              <label htmlFor="Phone" className="block text-sm font-medium text-gray-700">
-                Phone Number
-              </label>
-              <input
-                type="text"
-                id="Phone"
-                name="Phone"
-                value={formData.Phone || ""}
-                onChange={handleFormChange}
-                required
-                className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              />
-            </div>
+              {activeStep === 1 && (
+                <TableContainer component={Paper} className="mt-4 rounded-lg shadow">
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <StyledTableCell>Username</StyledTableCell>
+                        <StyledTableCell>Store ID</StyledTableCell>
+                        <StyledTableCell>Email</StyledTableCell>
+                        <StyledTableCell>Phone</StyledTableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {storeUsers.map((user) => (
+                        <StyledTableRow key={user.id}>
+                          <StyledTableCell>{user.username}</StyledTableCell>
+                          <StyledTableCell>{user.storeId}</StyledTableCell>
+                          <StyledTableCell>{user.email}</StyledTableCell>
+                          <StyledTableCell>{user.phone}</StyledTableCell>
+                        </StyledTableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              )}
 
-            {/* Address */}
-            <div>
-              <label htmlFor="Address" className="block text-sm font-medium text-gray-700">
-                Address
-              </label>
-              <input
-                type="text"
-                id="Address"
-                name="Address"
-                value={formData.Address || ""}
-                onChange={handleFormChange}
-                className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm py-2 px-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              />
-            </div>
-          </div>
-
-          {/* Buttons */}
-          <div className="mt-6 flex justify-end gap-4">
-            <button
-              type="submit"
-              className="inline-flex justify-center rounded-md border border-transparent bg-custom-darkblue py-2 px-4 text-sm font-medium text-white hover:text-black shadow-sm hover:bg-custom-lightblue focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-            >
-              Save
-            </button>
-            <button
-              type="button"
-              onClick={handleCancel}
-              className="inline-flex justify-center rounded-md border border-transparent bg-red-500 py-2 px-4 text-sm font-medium text-white hover:text-black shadow-sm hover:bg-red-200"
-            >
-              Cancel
-            </button>
-          </div>
-
-          {/* Error Message */}
-          {error && <p className="mt-4 text-red-600">{error}</p>}
-        </form>
+              <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3 }}>
+                <Button
+                  disabled={activeStep === 0}
+                  onClick={handleBack}
+                  className="bg-blue-500 text-white px-4 py-2 rounded mr-4"
+                >
+                  Back
+                </Button>
+                <Button
+                  onClick={activeStep === steps.length - 1 ? handleFormSubmit : handleNext}
+                  className="bg-blue-500 text-white px-4 py-2 rounded"
+                >
+                  {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                </Button>
+              </Box>
+            </React.Fragment>
+          )}
+        </Box>
       </div>
     </div>
   );
 }
 
-export default Storeform;
+export default StoreForm;
