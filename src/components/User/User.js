@@ -2954,9 +2954,47 @@ function User() {
   const [searchName, setSearchName] = useState("");
   const navigate = useNavigate();
   const { setUserDetails } = useContext(UserContext);
+  const [selectedStore, setSelectedStore] = useState('');
 
+  // Mock data for store names
+  const storeNames = [
+    { id: '1', name: 'Admin' },
+  { id: '2', name: 'Store User' },
+  { id: '3', name: ' Finance' },
+  { id: '4', name: 'Production' },
+  { id: '5', name: 'Techinical' },
+  ];
+
+  // const getAllUsers = async (pageNum, pageSize, search = "") => {
+  //   try {
+  //     const response = await axios.get(
+  //       "https://imlystudios-backend-mqg4.onrender.com/api/users/getAllUsers",
+  //       {
+  //         params: {
+  //           page: pageNum + 1,
+  //           limit: pageSize,
+  //           SearchText: search
+  //         }
+  //       }
+  //     );
+  //     return {
+  //       users: response.data.users,
+  //       totalCount: response.data.totalItems
+  //     };
+  //   } catch (error) {
+  //     console.error("Error fetching users:", error);
+  //     throw error;
+  //   }
+  // };
   const getAllUsers = async (pageNum, pageSize, search = "") => {
     try {
+      // Retrieve the token from localStorage
+      const token = localStorage.getItem('authToken');
+      console.log(token);
+      if (!token) {
+        throw new Error('No authentication token found');
+      }
+  
       const response = await axios.get(
         "https://imlystudios-backend-mqg4.onrender.com/api/users/getAllUsers",
         {
@@ -2964,9 +3002,14 @@ function User() {
             page: pageNum + 1,
             limit: pageSize,
             SearchText: search
+          },
+          headers: {
+            'Authorization': `Bearer ${token}`, // Add the token to the request
+            'Content-Type': 'application/json'
           }
         }
       );
+  
       return {
         users: response.data.users,
         totalCount: response.data.totalItems
@@ -2976,7 +3019,7 @@ function User() {
       throw error;
     }
   };
-
+  
   useEffect(() => {
     fetchUsers();
   }, [page, rowsPerPage, searchName]);
@@ -3084,6 +3127,23 @@ function User() {
                 <IoIosSearch />
               </div>
             </div>
+            <div className="ml-4">
+  <label htmlFor="storeName" className="text-sm font-medium"></label>
+  <select
+    id="storeName"
+    value={selectedStore}
+    onChange={(e) => setSelectedStore(e.target.value)}
+    className="mt-1 p-2 border border-gray-300 rounded-md w-64" // Updated width
+  >
+    <option value="">Select Store Name</option>
+    {storeNames.map((store) => (
+      <option key={store.id} value={store.name}>
+        {store.name}
+      </option>
+    ))}
+  </select>
+</div>
+
           </div>
           <ul className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none flex gap-2 list-none">
             <li>

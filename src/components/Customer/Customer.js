@@ -4174,7 +4174,14 @@ function Customers() {
   const [totalCustomers, setTotalCustomers] = useState(0);
   const navigate = useNavigate();
 
+  const [selectedStore, setSelectedStore] = useState('');
 
+  // Mock data for store names
+  const storeNames = [
+    { id: 1, name: 'Store A' },
+    { id: 2, name: 'Store B' },
+    { id: 3, name: 'Store C' },
+  ];
   const getAllCustomers = async (pageNum, pageSize, search = "") => {
     try {
       const response = await axios.get(
@@ -4302,7 +4309,7 @@ const deleteCustomerById = async (customerId) => {
             <h2 className="text-xl font-semibold">Customers</h2>
 
             <div className="flex items-center space-x-4">
-          <div className="relative flex flex-col w-[20rem] -ml-4">
+          {/* <div className="relative flex flex-col w-[20rem] -ml-4">
               <label htmlFor="searchName" className="text-sm font-medium"></label>
               <input
                 id="searchName"
@@ -4314,8 +4321,45 @@ const deleteCustomerById = async (customerId) => {
               />
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
               <IoIosSearch />
-              </div>
-            </div>
+              </div> */}
+              <div className="relative flex flex-row items-center w-full">
+  {/* Search Bar */}
+  <div className="relative flex flex-col w-[20rem] -ml-4">
+    <label htmlFor="searchName" className="text-sm font-medium"></label>
+    <input
+      id="searchName"
+      type="text"
+      placeholder="Search by Name or Email or Mobile"
+      value={searchName}
+      onChange={(e) => setSearchName(e.target.value)}
+      className="mt-1 p-2 pr-10 border border-gray-300 rounded-md w-full"
+    />
+    <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+      <IoIosSearch />
+    </div>
+  </div>
+
+  {/* StoreName Dropdown */}
+  <div className="ml-4">
+  <label htmlFor="storeName" className="text-sm font-medium"></label>
+  <select
+    id="storeName"
+    value={selectedStore}
+    onChange={(e) => setSelectedStore(e.target.value)}
+    className="mt-1 p-2 border border-gray-300 rounded-md w-64" // Updated width
+  >
+    <option value="">Select Store Name</option>
+    {storeNames.map((store) => (
+      <option key={store.id} value={store.name}>
+        {store.name}
+      </option>
+    ))}
+  </select>
+</div>
+
+</div>
+
+            {/* </div> */}
             </div>
             <ul className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none flex gap-2 list-none">
               <li>
@@ -4387,7 +4431,7 @@ const deleteCustomerById = async (customerId) => {
         {/* {index + 1}. {address} */}
 
 
-              <StyledTableCell>
+              {/* <StyledTableCell>
                 <span
                   className={`inline-block px-3 py-2 text-xs font-semibold rounded-full ${
                     person.Gender === "Male"
@@ -4399,7 +4443,25 @@ const deleteCustomerById = async (customerId) => {
                 >
                   {person.Gender}
                 </span>
-              </StyledTableCell>
+              </StyledTableCell> */}
+
+<StyledTableCell>
+                    <span
+                      className={`w-[68px] text-center inline-block px-3 py-2 text-xs font-semibold rounded-full ${
+                        person.Gender === "M"
+                          ? "bg-green-100 text-green-800 shadow-md"
+                          : person.Gender === "F"
+                          ? "bg-pink-100 text-pink-800 shadow-md"
+                          : "bg-gray-100 text-gray-800 shadow-md"
+                      }`}
+                    >
+                      {person.Gender === null
+                        ? "N/A"
+                        : person.Gender === "M"
+                        ? person.Gender + "ale"
+                        : person.Gender + "emale"}
+                    </span>
+                  </StyledTableCell>
               <StyledTableCell>
                 <button
                   type="button"

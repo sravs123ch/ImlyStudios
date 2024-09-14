@@ -33,10 +33,6 @@ const GlobalProvider = ({ children }) => {
     fetchCustomers();
   }, []);
 
-  
-
-
-
   useEffect(() => {
     // Fetch data from API
     const fetchData = async () => {

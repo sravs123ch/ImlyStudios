@@ -172,7 +172,7 @@ const [addresses, setAddresses] = useState([]);
       setCustomerId(customer?.CustomerID || 0);
      
     }
-  }, [isEditMode, location.state?.customerDetails?.customer, customerDetails?.customer, countries, states, cities]);
+  }, [isEditMode, location.state?.customerDetails?.customer, customerDetails?.customer]);
   
   
   const handleGenderChange = (gender) => {
@@ -447,7 +447,7 @@ const handleCityChange = (city) => {
       ConfirmPassword: "",
       PhoneNumber: "",
       Gender: "",
-      Comments: "" // Make sure to include this as well
+      Comments: ""
     });
   
     // Reset address form data
@@ -479,30 +479,49 @@ const handleCityChange = (city) => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-const handleEdit = (index) => {
-  // Extract the selected address using the index or AddressID
-  const selectedAddress = addressFormData.Addresses[index];
-
-  if (selectedAddress) {
-    // Populate the form fields with the selected address details
-    setAddressFormData((prevState) => ({
-      ...prevState,
-      AddressID: selectedAddress.AddressID || 0,
-      CustomerID: prevState.CustomerID, // Keep the same customer ID
-      AddressLine1: selectedAddress.AddressLine1 || '',
-      AddressLine2: selectedAddress.AddressLine2 || '',
-      CityID: selectedAddress.CityID || '',
-      StateID: selectedAddress.StateID || '',
-      CountryID: selectedAddress.CountryID || '',
-      ZipCode: selectedAddress.ZipCode || '',
-      Addresses: prevState.Addresses // Keep the existing array of addresses
-    }));
-
-    console.log("Editing Address Data:", selectedAddress);
-  } else {
-    console.error("Selected address not found.");
-  }
-};
+  const handleEdit = (index) => {
+    // Extract the selected address using the index or AddressID
+    const selectedAddress = addressFormData.Addresses[index];
+  
+    if (selectedAddress) {
+      // Find the corresponding country, state, and city based on their IDs
+      const selectedCountry = countries.find(country => country.CountryID === selectedAddress.CountryID) || {};
+      const selectedState = states.find(state => state.StateID === selectedAddress.StateID) || {};
+      const selectedCity = cities.find(city => city.CityID === selectedAddress.CityID) || {};
+  
+      // Populate the form fields with the selected address details
+      setAddressFormData((prevState) => ({
+        ...prevState,
+        AddressID: selectedAddress.AddressID || 0,
+        CustomerID: prevState.CustomerID, // Keep the same customer ID
+        AddressLine1: selectedAddress.AddressLine1 || '',
+        AddressLine2: selectedAddress.AddressLine2 || '',
+        CityID: selectedAddress.CityID || '',
+        StateID: selectedAddress.StateID || '',
+        CountryID: selectedAddress.CountryID || '',
+        ZipCode: selectedAddress.ZipCode || '',
+        Addresses: prevState.Addresses // Keep the existing array of addresses
+      }));
+  
+      // Set the selected dropdown values for country, state, and city
+      setSelectedCountry(selectedCountry); // Set the country dropdown
+      setSelectedState(selectedState);     // Set the state dropdown
+      setSelectedCity(selectedCity);       // Set the city dropdown
+  
+      // Fetch dependent data (states for country, cities for state)
+      if (selectedAddress.CountryID) {
+        fetchStatesByCountry(selectedAddress.CountryID);
+      }
+      if (selectedAddress.StateID) {
+        fetchCitiesByState(selectedAddress.StateID);
+      }
+  
+      console.log("Editing Address Data:", selectedAddress);
+    } else {
+      console.error("Selected address not found.");
+    }
+  };
+  
 
 
 const handleDelete = async (index) => {
