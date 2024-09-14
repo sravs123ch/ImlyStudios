@@ -6263,7 +6263,7 @@ const [addresses, setAddresses] = useState([]);
                           </div>
                         )}
                         {error && (
-                          <p className="mt-2 text-red-600 text-xs">{error}</p>
+                          <p className="mt-0 text-red-600 text-xs">{error}</p>
                         )}
                       </div>
                     </div>
@@ -6366,56 +6366,60 @@ const [addresses, setAddresses] = useState([]);
                           </p>
                         )}
                       </div> */}
-                       <div className="flex items-center gap-4">
-      <label className="w-1/3 text-xs font-medium text-gray-700">Country</label>
-      <div className="w-full">
-        <Combobox as="div" value={selectedCountry} onChange={handleCountryChange}>
-          <div className="relative">
-            <Combobox.Input
-              className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-              onChange={(event) => setQuery(event.target.value)} // Set the query for filtering
-              displayValue={(country) => country?.CountryName || ''} // Display selected country name
-            />
-            <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
-              <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-            </Combobox.Button>
+                      
+<div className="mt-0">
+  <label className="block text-xs font-medium text-gray-700">Country</label>
+  <div className="relative mt-2">
+    <Combobox as="div" value={selectedCountry} onChange={handleCountryChange}>
+      <div className="relative">
+        <Combobox.Input
+          className={`w-full p-1 border rounded-md ${errors.CountryID ? "border-red-500" : "border-gray-300"} bg-white pl-3 pr-10 text-gray-900 shadow-sm sm:text-sm`}
+          onChange={(event) => setQuery(event.target.value)} 
+          displayValue={(country) => country?.CountryName || ''} // Display selected country name
+        />
+        <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
+          <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+        </Combobox.Button>
 
-            <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              {countries
-                .filter((country) =>
-                  country.CountryName.toLowerCase().includes(query.toLowerCase())
-                )
-                .map((country) => (
-                  <Combobox.Option
-                    key={country.CountryID}
-                    value={country} // Pass the full country object to onChange
-                    className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 hover:bg-indigo-600 hover:text-white"
-                  >
-                    <span className="block truncate font-normal group-data-[selected]:font-semibold">
-                      {country.CountryName}
-                    </span>
-                    <span className="absolute inset-y-0 right-0 hidden items-center pr-4 text-indigo-600 group-data-[selected]:flex group-data-[focus]:text-white">
-                      <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                  </Combobox.Option>
-                ))}
-            </Combobox.Options>
-          </div>
-        </Combobox>
+        <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+          {countries
+            .filter((country) =>
+              country.CountryName.toLowerCase().includes(query.toLowerCase())
+            )
+            .map((country) => (
+              <Combobox.Option
+                key={country.CountryID}
+                value={country}
+                className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900"
+              >
+                <span className="block truncate font-normal group-data-[selected]:font-semibold">
+                  {country.CountryName}
+                </span>
+                <span className="absolute inset-y-0 right-0 hidden items-center pr-4 text-indigo-600 group-data-[selected]:flex group-data-[focus]:text-white">
+                  <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                </span>
+              </Combobox.Option>
+            ))}
+        </Combobox.Options>
       </div>
-    </div>
+    </Combobox>
+    {errors.CountryID && (
+      <p className="text-red-500 text-sm mt-1">
+        {errors.CountryID}
+      </p>
+    )}
+  </div>
+</div>
 
-
-
-<div className="flex items-center gap-4">
-  <label className="w-1/3 text-xs font-medium text-gray-700">State</label>
-  <div className="w-full">
+<div>
+  <label className="block text-xs font-medium text-gray-700">State</label>
+  <div className="relative mt-2">
     <Combobox as="div" value={selectedState} onChange={handleStateChange}>
       <div className="relative">
         <Combobox.Input
-          className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-          onChange={(event) => setQuery(event.target.value)} // Handle the search query
-          displayValue={(state) => state?.StateName || ''} // Show the selected state name
+          className={`p-1 w-full border rounded-md ${errors.StateID ? "border-red-500" : "border-gray-300"}`}
+          onChange={(event) => setQuery(event.target.value)}
+          displayValue={(state) => state?.StateName || ''}
         />
         <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
           <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -6423,12 +6427,12 @@ const [addresses, setAddresses] = useState([]);
 
         <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
           {states
-            .filter((state) => state.StateName.toLowerCase().includes(query.toLowerCase())) // Filter based on query
+            .filter((state) => state.StateName.toLowerCase().includes(query.toLowerCase()))
             .map((state) => (
               <Combobox.Option
                 key={state.StateID}
                 value={state}
-                className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 hover:bg-indigo-600 hover:text-white"
+                className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900"
               >
                 <span className="block truncate font-normal group-data-[selected]:font-semibold">
                   {state.StateName}
@@ -6441,17 +6445,21 @@ const [addresses, setAddresses] = useState([]);
         </Combobox.Options>
       </div>
     </Combobox>
+    {errors.StateID && (
+      <p className="text-red-500 text-sm mt-1">{errors.StateID}</p>
+    )}
   </div>
 </div>
-<div className="flex items-center gap-4">
-  <label className="w-1/3 text-xs font-medium text-gray-700">City</label>
-  <div className="w-full">
+
+<div>
+  <label className="block text-xs font-medium text-gray-700">City</label>
+  <div className="relative mt-2">
     <Combobox as="div" value={selectedCity} onChange={handleCityChange}>
       <div className="relative">
         <Combobox.Input
-          className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-          onChange={(event) => setQuery(event.target.value)} // Handle the search query
-          displayValue={(city) => city?.CityName || ''} // Show the selected city name
+          className={`p-1 w-full border rounded-md ${errors.CityID ? "border-red-500" : "border-gray-300"}`}
+          onChange={(event) => setQuery(event.target.value)}
+          displayValue={(city) => city?.CityName || ''}
         />
         <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
           <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -6459,12 +6467,12 @@ const [addresses, setAddresses] = useState([]);
 
         <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
           {cities
-            .filter((city) => city.CityName.toLowerCase().includes(query.toLowerCase())) // Filter based on query
+            .filter((city) => city.CityName.toLowerCase().includes(query.toLowerCase()))
             .map((city) => (
               <Combobox.Option
                 key={city.CityID}
                 value={city}
-                className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 hover:bg-indigo-600 hover:text-white"
+                className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900"
               >
                 <span className="block truncate font-normal group-data-[selected]:font-semibold">
                   {city.CityName}
@@ -6477,10 +6485,11 @@ const [addresses, setAddresses] = useState([]);
         </Combobox.Options>
       </div>
     </Combobox>
+    {errors.CityID && (
+      <p className="text-red-500 text-sm mt-1">{errors.CityID}</p>
+    )}
   </div>
 </div>
-
-
                       <div>
                         <label className="block text-xs font-medium text-gray-700">
                           Zipcode

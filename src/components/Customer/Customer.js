@@ -4184,6 +4184,7 @@ function Customers() {
             page: pageNum + 1,
             limit: pageSize,
             search: search
+            
           }
         }
       );
