@@ -2989,7 +2989,7 @@ function User() {
   const getAllUsers = async (pageNum, pageSize, search = "") => {
     try {
       // Retrieve the token from localStorage
-      const token = localStorage.getItem('authToken');
+      const token = localStorage.getItem('token');
       console.log(token);
       if (!token) {
         throw new Error('No authentication token found');
@@ -3043,10 +3043,35 @@ function User() {
     setPage(0);
   };
 
+  // const getUserById = async (userId) => {
+  //   try {
+  //     const response = await axios.get(
+  //       `https://imlystudios-backend-mqg4.onrender.com/api/users/getUserById/${userId}`
+  //     );
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error("Error fetching user:", error);
+  //     throw error;
+  //   }
+  // };
+
   const getUserById = async (userId) => {
     try {
+      // Retrieve the token from localStorage
+      const token = localStorage.getItem('token');
+      console.log(token);
+      if (!token) {
+        throw new Error('No authentication token found');
+      }
+  
       const response = await axios.get(
-        `https://imlystudios-backend-mqg4.onrender.com/api/users/getUserById/${userId}`
+        `https://imlystudios-backend-mqg4.onrender.com/api/users/getUserById/${userId}`,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`, // Pass token in the headers
+            'Content-Type': 'application/json'
+          }
+        }
       );
       return response.data;
     } catch (error) {
@@ -3054,11 +3079,38 @@ function User() {
       throw error;
     }
   };
+  
+
+  // const deleteUserById = async (userId) => {
+  //   try {
+   
+  //     const response = await axios.delete(
+  //       `https://imlystudios-backend-mqg4.onrender.com/api/users/deleteUser/${userId}`
+  //     );
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error("Error deleting user:", error);
+  //     throw error;
+  //   }
+  // };
 
   const deleteUserById = async (userId) => {
     try {
+      // Retrieve the token from localStorage
+      const token = localStorage.getItem('token');
+      console.log(token);
+      if (!token) {
+        throw new Error('No authentication token found');
+      }
+  
       const response = await axios.delete(
-        `https://imlystudios-backend-mqg4.onrender.com/api/users/deleteUser/${userId}`
+        `https://imlystudios-backend-mqg4.onrender.com/api/users/deleteUser/${userId}`,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`, // Pass token in the headers
+            'Content-Type': 'application/json'
+          }
+        }
       );
       return response.data;
     } catch (error) {
@@ -3066,6 +3118,7 @@ function User() {
       throw error;
     }
   };
+  
 
   const handleEditClick = async (userId) => {
     try {

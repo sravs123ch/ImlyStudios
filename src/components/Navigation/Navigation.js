@@ -54,12 +54,6 @@ const navigation = [
   { name: 'Stores', href: '/Stores', icon: ShoppingBagIcon },
   // { name: 'Createorder', href: '/createorder', icon: ShoppingBagIcon },
 
-  
-  
-
-
-
-
 
 ];
 
@@ -77,10 +71,20 @@ export default function Navigation() {
   const navigate = useNavigate(); // Initialize useNavigate
   const location = useLocation(); // Initialize useLocation
 
+  // const handleSignOut = () => {
+  //   // Handle sign out logic here
+  //   navigate('/'); // Navigate to login page
+  // };
   const handleSignOut = () => {
-    // Handle sign out logic here
-    navigate('/'); // Navigate to login page
+    // Remove token from local storage
+    localStorage.removeItem('token'); 
+    
+    // Handle any additional sign-out logic here
+  
+    // Navigate to login page
+    navigate('/');
   };
+  
 
   const handleSettingsClick = (event) => {
     event.preventDefault();

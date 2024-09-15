@@ -1384,7 +1384,6 @@
 
 // export default StoreForm;
 
-
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -1408,6 +1407,10 @@ import TableRow from "@mui/material/TableRow";
 import { Combobox } from '@headlessui/react';
 import { ChevronUpDownIcon } from '@heroicons/react/24/solid';
 import { CheckIcon } from '@heroicons/react/24/solid';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
 
 
 
@@ -1452,7 +1455,7 @@ function StoreForm() {
       StoreID: null,
       StoreName: "",
       Email: "",
-      Password: "",
+      // Password: "",
       Phone: "",
       AddressLine1: "",
       AddressLine2: "",
@@ -1480,7 +1483,7 @@ function StoreForm() {
         StoreName: store.StoreName || "",
         Email: store.Email || "",
         Phone: store.Phone || "",
-        Password: "", // Password cleared for edit mode
+        // Password: "", // Password cleared for edit mode
         CityID: store?.Addresses?.[0]?.CityID || "",
         StateID: store?.Addresses?.[0]?.StateID || "",
         CountryID: store?.Addresses?.[0]?.CountryID || "",
@@ -1565,7 +1568,7 @@ function StoreForm() {
       StoreID: null,
       StoreName: "",
       Email: "",
-      Password: "",
+      // Password: "",
       Phone: "",
       AddressLine1: "",
       AddressLine2: "",
@@ -1592,40 +1595,101 @@ function StoreForm() {
   //     user.username.toLowerCase().includes(searchQuery.toLowerCase())
   //   );
 
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     try {
+  //       const response = await fetch('https://imlystudios-backend-mqg4.onrender.com/api/mapstoreusers/getallmapstoreuser');  // Replace with actual API URL
+  //       const data = await response.json();
+  //       // **Changed Line**: Map both User and StoreID
+  //       const usersData = data.data.map((item) => ({
+  //         ...item.User,  // Extract User details
+  //         StoreID: item.StoreID  // Include StoreID
+  //       }));
+  //       setUsers(usersData);  // Store all users data
+  //     } catch (error) {
+  //       console.error('Error fetching users:', error);
+  //     }
+  //   };
+  //   fetchUsers();
+  // }, []);
+
+  // const handleSearchChange = (e) => {
+  //   const query = e.target.value.toLowerCase();
+  //   setSearchQuery(query);
+
+  //   // **Changed line**
+  //   if (query.trim()) {  // Only filter users if there's a search query
+  //     const filtered = users.filter((user) =>
+  //       user.FirstName.toLowerCase().includes(query) ||
+  //       user.LastName.toLowerCase().includes(query) ||
+  //       user.Email.toLowerCase().includes(query)
+  //     );
+  //     setFilteredUsers(filtered);  // Update the filtered users based on the search query
+  //   } else {
+  //     setFilteredUsers([]);  // Clear the filtered users if the search query is empty
+  //   }
+  // }; // Update the filtered users
+
+  
+  const [tableUsers, setTableUsers] = useState([]); // Users added to the table
+  const [selectedUsers, setSelectedUsers] = useState([]); // Users selected in the popup
+  const [isModalOpen, setIsModalOpen] = useState(false); // Control the modal state
+
+  // Fetch users from API
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('https://imlystudios-backend-mqg4.onrender.com/api/mapstoreusers/getallmapstoreuser');  // Replace with actual API URL
+        const response = await fetch(
+          "https://imlystudios-backend-mqg4.onrender.com/api/mapstoreusers/getallmapstoreuser"
+        );
         const data = await response.json();
-        // **Changed Line**: Map both User and StoreID
         const usersData = data.data.map((item) => ({
-          ...item.User,  // Extract User details
-          StoreID: item.StoreID  // Include StoreID
+          ...item.User,
+          StoreID: item.StoreID,
         }));
-        setUsers(usersData);  // Store all users data
+        setUsers(usersData); // Store all users data
       } catch (error) {
-        console.error('Error fetching users:', error);
+        console.error("Error fetching users:", error);
       }
     };
     fetchUsers();
   }, []);
 
+  // Handle search input change
   const handleSearchChange = (e) => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
 
-    // **Changed line**
-    if (query.trim()) {  // Only filter users if there's a search query
-      const filtered = users.filter((user) =>
-        user.FirstName.toLowerCase().includes(query) ||
-        user.LastName.toLowerCase().includes(query) ||
-        user.Email.toLowerCase().includes(query)
+    if (query.trim()) {
+      const filtered = users.filter(
+        (user) =>
+          user.FirstName.toLowerCase().includes(query) ||
+          user.LastName.toLowerCase().includes(query) ||
+          user.Email.toLowerCase().includes(query)
       );
-      setFilteredUsers(filtered);  // Update the filtered users based on the search query
+      setFilteredUsers(filtered);
+      setIsModalOpen(true); // Open the modal to show filtered results
     } else {
-      setFilteredUsers([]);  // Clear the filtered users if the search query is empty
+      setFilteredUsers([]); // Clear filtered users if the search query is empty
     }
-  }; // Update the filtered users
+  };
+
+  // Close the modal
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  // Handle the addition of filtered users to the table
+  const handleAddUsers = () => {
+    setTableUsers((prevUsers) => [...prevUsers, ...selectedUsers]); // Add selected users to the table
+    setSelectedUsers([]); // Clear selected users
+    setIsModalOpen(false); // Close the modal after adding users
+  };
+
+  // Handle user selection in the popup (you can make this more complex to allow selecting multiple users)
+  const handleSelectUser = (user) => {
+    setSelectedUsers([user]); // Select the user to be added
+  };
 
 
   useEffect(() => {
@@ -1732,7 +1796,6 @@ function StoreForm() {
     // If you want to navigate away from the form, for example:
     navigate('/Stores');  // This assumes you're using `react-router-dom` for navigation
   };
-  
 
   const handleCityChange = (city) => {
     if (!city) return;
@@ -1996,54 +2059,90 @@ function StoreForm() {
 
               {activeStep === 1 && (
                 <div>
-                  {/* Search bar and Add User button */}
-                  <div className="flex items-center justify-center mb-4">
-                    <input
-                      type="text"
-                      placeholder="Search by username"
-                      value={searchQuery}
-                      onChange={handleSearchChange}
-                      className="border rounded p-2 w-64"
-                    />
-                  </div>
+                    <div>
+      {/* Search bar */}
+      <div className="flex items-center justify-center mb-4">
+        <input
+          type="text"
+          placeholder="Search by username"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          className="border rounded p-2 w-64"
+        />
+      </div>
 
-                  {/* Store Users Table */}
-                  <TableContainer component={Paper}>
-                    <Table aria-label="store users table">
-                      <TableHead>
-                        <TableRow>
-                          <StyledTableCell>Username</StyledTableCell>
-                          <StyledTableCell>Email</StyledTableCell>
-                          <StyledTableCell>Phone</StyledTableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {filteredUsers.map((user) => (
-                          <StyledTableRow key={user.UserID}>
-                            <StyledTableCell>{user.FirstName} {user.LastName}</StyledTableCell>
-                            <StyledTableCell>{user.Email}</StyledTableCell>
-                            <StyledTableCell>{user.PhoneNumber}</StyledTableCell>
-                          </StyledTableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                  <div className="mt-6 flex justify-end gap-4">
-                    <button
-                      type="submit"
-                      onClick={handleFormSubmit}
-                      className="inline-flex justify-center rounded-md border border-transparent bg-custom-darkblue py-2 px-4 text-sm font-medium text-white hover:text-black shadow-sm hover:bg-custom-lightblue focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    >
-                      Save
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleCancel}
-                      className="inline-flex justify-center rounded-md border border-transparent bg-red-500 py-2 px-4 text-sm font-medium text-white hover:text-black shadow-sm hover:bg-red-200"
-                    >
-                      Cancel
-                    </button>
-                  </div>
+      {/* Table displaying stored users */}
+      <TableContainer component={Paper}>
+        <Table aria-label="store users table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Username</StyledTableCell>
+              <StyledTableCell>Email</StyledTableCell>
+              <StyledTableCell>Phone</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {tableUsers.map((user, index) => (
+              <StyledTableRow key={index}>
+                <StyledTableCell>
+                  {user.FirstName} {user.LastName}
+                </StyledTableCell>
+                <StyledTableCell>{user.Email}</StyledTableCell>
+                <StyledTableCell>{user.PhoneNumber}</StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      {/* Modal to show filtered users */}
+      <Dialog open={isModalOpen} onClose={handleCloseModal}>
+        <DialogTitle>Filtered Users</DialogTitle>
+        <DialogContent>
+          <TableContainer component={Paper}>
+            <Table aria-label="filtered users table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell>Username</StyledTableCell>
+                  <StyledTableCell>Email</StyledTableCell>
+                  <StyledTableCell>Phone</StyledTableCell>
+                  <StyledTableCell>Action</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {filteredUsers.map((user) => (
+                  <StyledTableRow key={user.UserID}>
+                    <StyledTableCell>
+                      {user.FirstName} {user.LastName}
+                    </StyledTableCell>
+                    <StyledTableCell>{user.Email}</StyledTableCell>
+                    <StyledTableCell>{user.PhoneNumber}</StyledTableCell>
+                    <StyledTableCell>
+                      <Button
+                        onClick={() => handleSelectUser(user)}
+                        variant="contained"
+                      >
+                        Select
+                      </Button>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseModal}>Cancel</Button>
+          <Button
+            onClick={handleAddUsers}
+            variant="contained"
+            disabled={selectedUsers.length === 0} // Disable Add if no user is selected
+          >
+            Add Users
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
                 </div>
               )}
 

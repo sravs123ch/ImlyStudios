@@ -92,7 +92,10 @@ const [addressFormData, setAddressFormData] = useState({
   ZipCode: '',
   Addresses: [], 
 });
-
+const handleStepClick = (index) => {
+  setActiveStep(index); // Set the active step to the clicked step
+  // Add your logic to change the page or navigate here
+};
 
   const [error, setError] = useState("");
   const [selectedGender, setSelectedGender] = useState(customerFormData.Gender || "");
@@ -582,7 +585,7 @@ const handleAddressFormDataCancel = () => {
       
       <div className="p-6 mr-10 mb-7 sm:px-6 lg:px-8 pt-4 ml-10 lg:ml-80 w-1/8 mt-8 bg-white shadow-lg rounded-lg">
         <Box sx={{ width: '100%' }}>
-          <Stepper activeStep={activeStep} className="mb-6" alternativeLabel>
+           {/* <Stepper activeStep={activeStep} className="mb-6" alternativeLabel>
             {steps.map((label, index) => (
               <Step key={label} completed={isStepSkipped(index) ? false : undefined}>
                 <StepLabel>{label}</StepLabel>
@@ -610,8 +613,118 @@ const handleAddressFormDataCancel = () => {
                   justifyContent: 'center',
                   alignItems: 'center',
                   pt: 2,
-                }}
+                }} */}
+              {/* >  */}
+             
+  <Stepper activeStep={activeStep} className="mb-6" alternativeLabel>
+    {steps.map((label, index) => {
+      const stepProps = {};
+      const labelProps = {
+        onClick: () => handleStepClick(index), // Add onClick handler
+        style: { cursor: 'pointer' }, // Add cursor style for pointer
+      };
+
+      if (isStepOptional(index)) {
+        // Optional step logic
+      }
+
+      if (isStepSkipped(index)) {
+        stepProps.completed = false;
+      }
+
+      return (
+        <Step key={label} {...stepProps}>
+          <StepLabel {...labelProps}>
+            {label} 
+          </StepLabel>
+        </Step>
+      );
+    })}
+  </Stepper>
+
+  {activeStep === steps.length ? (
+    <React.Fragment>
+      <Typography className="text-center text-xl mb-4">
+        All steps completed - you're finished
+      </Typography>
+      <Box
+        sx={{ display: "flex", flexDirection: "row", pt: 2 }}
+        className="justify-center"
+      >
+        <Button
+          onClick={handleReset}
+          className="bg-blue-500 text-white hover:bg-blue-700 px-4 py-2 rounded"
+        >
+          Reset
+        </Button>
+      </Box>
+    </React.Fragment>
+  ) : (
+    <React.Fragment>
+    <Box
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: { xs: '1fr', sm: '1fr' },
+        gap: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+        pt: 2,
+      }} 
+     >  
+
+          {/* <Stepper activeStep={activeStep} className="mb-6" alternativeLabel>
+            {steps.map((label, index) => {
+          const stepProps = {};
+              // const labelProps = {};
+              const labelProps = {
+                onClick: () => handleStepClick(index), // Add onClick handler
+                style: { cursor: 'pointer' }, // Add cursor style for pointer
+              };
+
+              if (isStepOptional(index)) {
+                // Optional step logic
+              }
+
+              if (isStepSkipped(index)) {
+                stepProps.completed = false;
+              }
+
+              return (
+                <Step key={label} {...stepProps}>
+                  <StepLabel {...labelProps}>
+                    {label} 
+                  </StepLabel>
+                </Step>
+              );
+            })}
+          </Stepper>
+          {activeStep === steps.length ? (
+            <React.Fragment>
+              <Typography className="text-center text-xl mb-4">
+                All steps completed - you're finished
+              </Typography>
+              <Box
+                sx={{ display: "flex", flexDirection: "row", pt: 2 }}
+                className="justify-center"
               >
+                <Button
+                  onClick={handleReset}
+                  className="bg-blue-500 text-white hover:bg-blue-700 px-4 py-2 rounded"
+                >
+                  Reset
+                </Button>
+              </Box>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <Box
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" }, // Ensure proper grid layout
+                  gap: 2, // Adjust spacing between items
+                  pt: 2,
+                }}
+              > */}
                 {activeStep === 0 && (
 
 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
@@ -1050,7 +1163,7 @@ const handleAddressFormDataCancel = () => {
   </div>
 
 
-    <div className="flex justify-end col-span-2">
+    {/* <div className="flex justify-end col-span-2">
   <button
     onClick={() => {
       handleAddressFormSubmit(customerId); // Handle the form submission for a specific customer
@@ -1067,11 +1180,29 @@ const handleAddressFormDataCancel = () => {
             >
               Cancel
             </button>
+</div> */}
+<div className="flex justify-end col-span-2">
+  <button
+    onClick={() => {
+      handleAddressFormSubmit(customerId); // Handle the form submission for a specific customer
+    }}
+    className="inline-flex items-center gap-x-1.5 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
+  >
+    Add <span className="text-lg"><IoMdAddCircleOutline /></span>
+  </button>
+  <button
+    type="button"
+    onClick={handleAddressFormDataCancel}
+    className="inline-flex justify-center rounded-md border border-transparent bg-red-500 py-2 px-4 text-sm font-medium text-white hover:text-black shadow-sm hover:bg-red-200 ml-2" // Added ml-2 here
+  >
+    Cancel
+  </button>
 </div>
 
-</div>
 
-    <TableContainer component={Paper} className="mt-4">
+</div>
+{/* <TableContainer component={Paper} className="mt-4" sx={{ width: '80%' }}> */}
+<TableContainer component={Paper} sx={{ width: '90%', margin: '0 auto', mt: 4 }}>
   <Table>
     <TableHead>
       <TableRow>
@@ -1159,8 +1290,8 @@ const handleAddressFormDataCancel = () => {
       })}
     </TableBody>
   </Table>
-</TableContainer>
 
+</TableContainer>
 
 <div className="mt-6 flex justify-end gap-4">
             {/* <button
@@ -1185,8 +1316,7 @@ const handleAddressFormDataCancel = () => {
 </div>     
                 )}
                   {activeStep === 2 && (
-
-<TableContainer component={Paper} className="mt-4">
+                    <TableContainer component={Paper} sx={{ width: '90%', margin: '0 auto', mt: 4 }}>
 <Table>
   <TableHead>
     <TableRow>
